@@ -14,35 +14,45 @@
     --prune: #2B1033; --creme: #FFF8E1;
     --titre: "Bricolage Grotesque", "Arial Black", sans-serif;
     --texte: "Newsreader", Georgia, serif;
+    --fs: 1.15rem; --r: 20px; --o: 8px;
   }
   * { box-sizing: border-box; margin: 0; }
   html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
-  body { background: var(--creme); color: var(--prune); font-family: var(--texte); font-size: 1.15rem; line-height: 1.65; }
+  body { background: var(--creme); color: var(--prune); font-family: var(--texte); font-size: var(--fs); line-height: 1.65; }
+  body.attente > :not(script) { visibility: hidden; }
+  body.maint { overflow: hidden; }
+  body.maint .menu nav > a, body.maint .haut { display: none !important; }
   a { color: inherit; }
   :focus-visible { outline: 4px solid var(--prune); outline-offset: 3px; }
   section { padding: clamp(3rem, 7vw, 5.5rem) 5vw; border-bottom: 4px solid var(--prune); }
   .contenu { max-width: 1200px; margin: 0 auto; }
   h2.section-titre { font-family: var(--titre); font-weight: 800; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1; letter-spacing: -.02em; margin-bottom: .6rem; }
   .sous-titre { font-style: italic; margin-bottom: 2.2rem; max-width: 36rem; }
-  .btn { font-family: var(--titre); font-weight: 800; font-size: 1.05rem; color: var(--prune); background: var(--rose); border: 3px solid var(--prune); border-radius: 999px; padding: .55rem 1.4rem; cursor: pointer; text-decoration: none; display: inline-block; box-shadow: 4px 4px 0 var(--prune); transition: transform .12s, box-shadow .12s; }
-  .btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--prune); }
+  .btn { font-family: var(--titre); font-weight: 800; font-size: 1.05rem; color: var(--prune); background: var(--rose); border: 3px solid var(--prune); border-radius: 999px; padding: .55rem 1.4rem; cursor: pointer; text-decoration: none; display: inline-block; box-shadow: calc(var(--o) / 2) calc(var(--o) / 2) 0 var(--prune); transition: transform .12s, box-shadow .12s; }
+  .btn:hover { transform: translate(calc(var(--o) / 4), calc(var(--o) / 4)); box-shadow: calc(var(--o) / 4) calc(var(--o) / 4) 0 var(--prune); }
   .btn.jaune { background: var(--jaune); }
+  .btn.mini { font-size: .85rem; padding: .2rem .8rem; box-shadow: 2px 2px 0 var(--prune); }
 
-  /* Menu */
+  /* Menu + barre du code créateur */
   .menu { position: sticky; top: 0; z-index: 20; background: var(--jaune); border-bottom: 4px solid var(--prune); padding: .8rem 5vw; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
   .logo { font-family: var(--titre); font-weight: 800; font-size: 1.5rem; text-decoration: none; }
   .menu nav { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; font-family: var(--titre); font-weight: 800; }
   .menu nav a:not(.btn) { text-decoration: none; }
   .menu nav a:not(.btn):hover { text-decoration: underline; text-decoration-thickness: 3px; text-decoration-color: var(--rose); }
   .adminbtn { background: var(--creme); width: 2.8rem; height: 2.8rem; padding: 0; font-size: 1.15rem; line-height: 1; text-align: center; }
+  .barre-code { flex-basis: 100%; display: flex; gap: .8rem; align-items: center; flex-wrap: wrap; background: var(--prune); color: var(--creme); border-radius: 16px; padding: .7rem 1rem; font-family: var(--titre); font-weight: 800; }
+  .barre-code input { flex: 1; min-width: 160px; font: inherit; font-weight: 500; padding: .45rem 1rem; border: 3px solid var(--jaune); border-radius: 999px; background: var(--creme); color: var(--prune); }
+  .barre-code .btn { font-size: .95rem; padding: .35rem 1.1rem; }
+  .barre-code .msg { color: var(--rose-pale); }
+  .barre-code[hidden], .panneau[hidden], .maintenance[hidden], .pill-maint[hidden] { display: none; }
 
   /* Hero */
   .hero { background: var(--jaune); padding-bottom: 4rem; }
   .hero h1 { font-family: var(--titre); font-weight: 800; font-size: clamp(2.8rem, 9vw, 7rem); line-height: .95; letter-spacing: -.03em; max-width: 1000px; }
-  .hero h1 .mot { background: var(--rose); padding: 0 .15em; border: 4px solid var(--prune); display: inline-block; transform: rotate(-2deg); box-shadow: 8px 8px 0 var(--prune); margin-top: .15em; }
+  .hero h1 .mot { background: var(--rose); padding: 0 .15em; border: 4px solid var(--prune); display: inline-block; transform: rotate(-2deg); box-shadow: var(--o) var(--o) 0 var(--prune); margin-top: .15em; }
   .hero p { max-width: 34rem; margin: 2rem 0; font-size: 1.3rem; font-style: italic; }
   .hero .boutons { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-  .pastille { width: 105px; height: 105px; border-radius: 50%; background: var(--rose); border: 4px solid var(--prune); box-shadow: 5px 5px 0 var(--prune); display: grid; place-items: center; text-align: center; font-family: var(--titre); font-weight: 800; font-size: .8rem; line-height: 1.1; transform: rotate(10deg); margin-left: .6rem; }
+  .pastille { width: 105px; height: 105px; border-radius: 50%; background: var(--rose); border: 4px solid var(--prune); box-shadow: calc(var(--o) * .6) calc(var(--o) * .6) 0 var(--prune); display: grid; place-items: center; text-align: center; font-family: var(--titre); font-weight: 800; font-size: .8rem; line-height: 1.1; transform: rotate(10deg); margin-left: .6rem; }
   .pastille b { font-size: 2rem; display: block; }
 
   .bandeau { background: var(--prune); color: var(--jaune); overflow: hidden; white-space: nowrap; font-family: var(--titre); font-weight: 800; font-size: 1.4rem; padding: .8rem 0; border-bottom: 4px solid var(--prune); }
@@ -54,8 +64,8 @@
   /* Univers */
   .univers { background: var(--creme); }
   .tuiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.8rem; }
-  .tuile { text-align: left; font: inherit; color: inherit; cursor: pointer; border: 4px solid var(--prune); border-radius: 22px; padding: 1.6rem; box-shadow: 8px 8px 0 var(--prune); transition: transform .15s, box-shadow .15s; display: flex; flex-direction: column; gap: .5rem; }
-  .tuile:hover { transform: translate(4px, 4px); box-shadow: 4px 4px 0 var(--prune); }
+  .tuile { text-align: left; font: inherit; color: inherit; cursor: pointer; border: 4px solid var(--prune); border-radius: var(--r); padding: 1.6rem; box-shadow: var(--o) var(--o) 0 var(--prune); transition: transform .15s, box-shadow .15s; display: flex; flex-direction: column; gap: .5rem; }
+  .tuile:hover, .carte:hover { transform: translate(calc(var(--o) / 2), calc(var(--o) / 2)); box-shadow: calc(var(--o) / 2) calc(var(--o) / 2) 0 var(--prune); }
   .tuile .emoji { font-size: 2.6rem; line-height: 1; }
   .tuile h3 { font-family: var(--titre); font-weight: 800; font-size: 1.8rem; line-height: 1; }
   .tuile small { font-family: var(--titre); font-weight: 800; font-size: .95rem; }
@@ -66,8 +76,8 @@
 
   /* À la une */
   .une { background: var(--rose); }
-  .une-carte { background: var(--creme); border: 4px solid var(--prune); border-radius: 26px; box-shadow: 10px 10px 0 var(--prune); padding: clamp(1.6rem, 4vw, 3rem); display: grid; gap: 1rem; max-width: 900px; cursor: pointer; text-align: left; font: inherit; color: inherit; width: 100%; }
-  .une-carte:hover { transform: translate(4px, 4px); box-shadow: 6px 6px 0 var(--prune); }
+  .une-carte { background: var(--creme); border: 4px solid var(--prune); border-radius: var(--r); box-shadow: var(--o) var(--o) 0 var(--prune); padding: clamp(1.6rem, 4vw, 3rem); display: grid; gap: 1rem; max-width: 900px; cursor: pointer; text-align: left; font: inherit; color: inherit; width: 100%; }
+  .une-carte:hover { transform: translate(calc(var(--o) / 2), calc(var(--o) / 2)); box-shadow: calc(var(--o) / 2) calc(var(--o) / 2) 0 var(--prune); }
   .une-carte h3 { font-family: var(--titre); font-weight: 800; font-size: clamp(1.9rem, 5vw, 3.2rem); line-height: 1; letter-spacing: -.02em; }
 
   /* Articles */
@@ -77,8 +87,7 @@
   .filtres button[aria-pressed="true"] { background: var(--rose); }
   .recherche { flex: 1; min-width: 200px; font: inherit; font-size: 1.05rem; padding: .55rem 1.1rem; border: 3px solid var(--prune); border-radius: 999px; background: #fff; color: var(--prune); }
   .grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 2rem; }
-  .carte { border: 4px solid var(--prune); border-radius: 20px; padding: 1.5rem; display: flex; flex-direction: column; gap: .7rem; box-shadow: 8px 8px 0 var(--prune); text-align: left; font: inherit; color: inherit; cursor: pointer; transition: transform .15s, box-shadow .15s; }
-  .carte:hover { transform: translate(4px, 4px); box-shadow: 4px 4px 0 var(--prune); }
+  .carte { border: 4px solid var(--prune); border-radius: var(--r); padding: 1.5rem; display: flex; flex-direction: column; gap: .7rem; box-shadow: var(--o) var(--o) 0 var(--prune); text-align: left; font: inherit; color: inherit; cursor: pointer; transition: transform .15s, box-shadow .15s; }
   .tag { align-self: flex-start; font-family: var(--titre); font-weight: 800; font-size: .9rem; background: var(--prune); color: var(--creme); border-radius: 999px; padding: .1rem .9rem; }
   .carte h3 { font-family: var(--titre); font-weight: 800; font-size: 1.65rem; line-height: 1.05; }
   .carte p { flex: 1; }
@@ -89,7 +98,7 @@
   .apropos { background: var(--jaune-pale); }
   .apropos-grille { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
   @media (max-width: 800px) { .apropos-grille { grid-template-columns: 1fr; } }
-  .portrait { aspect-ratio: 1; background: var(--rose); border: 4px solid var(--prune); border-radius: 30px 30px 120px 30px; box-shadow: 10px 10px 0 var(--prune); display: grid; place-items: center; font-size: 6rem; max-width: 380px; }
+  .portrait { aspect-ratio: 1; background: var(--rose); border: 4px solid var(--prune); border-radius: var(--r) var(--r) calc(var(--r) * 4) var(--r); box-shadow: var(--o) var(--o) 0 var(--prune); display: grid; place-items: center; font-size: 6rem; max-width: 380px; }
   .apropos p + p { margin-top: 1rem; }
   .chiffres { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: 1.6rem; }
   .chiffres div { background: var(--creme); border: 3px solid var(--prune); border-radius: 16px; padding: .6rem 1.2rem; font-family: var(--titre); font-weight: 800; text-align: center; }
@@ -101,30 +110,54 @@
   .lien-admin { background: none; border: 0; color: var(--jaune); font: inherit; text-decoration: underline; cursor: pointer; }
   .haut { position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 30; display: none; }
 
-  /* Fenêtres */
-  dialog { border: 4px solid var(--prune); border-radius: 24px; padding: 0; width: min(780px, 94vw); max-height: 92vh; background: var(--creme); color: var(--prune); box-shadow: 10px 10px 0 var(--prune); margin: auto; }
+  /* Maintenance */
+  .maintenance { position: fixed; inset: 0; z-index: 15; background: var(--jaune); display: grid; place-items: center; text-align: center; padding: 6rem 2rem 2rem; }
+  .maintenance h2 { font-family: var(--titre); font-weight: 800; font-size: clamp(2.2rem, 7vw, 4.5rem); line-height: 1; }
+  .maintenance p { max-width: 30rem; margin: 1rem auto 0; font-size: 1.3rem; font-style: italic; }
+  .pill-maint { position: fixed; left: 1rem; bottom: 1rem; z-index: 45; background: var(--prune); color: var(--jaune); font-family: var(--titre); font-weight: 800; font-size: .9rem; border-radius: 999px; padding: .4rem 1rem; }
+
+  /* Lecture + commentaires */
+  dialog { border: 4px solid var(--prune); border-radius: var(--r); padding: 0; width: min(780px, 94vw); max-height: 92vh; background: var(--creme); color: var(--prune); box-shadow: var(--o) var(--o) 0 var(--prune); margin: auto; }
   dialog::backdrop { background: rgba(43, 16, 51, .65); }
   .lecture-haut { padding: 1.6rem 2rem 1.2rem; border-bottom: 4px solid var(--prune); position: sticky; top: 0; z-index: 2; background: var(--creme); }
   .lecture-haut h2 { font-family: var(--titre); font-weight: 800; font-size: clamp(1.7rem, 4.5vw, 2.6rem); line-height: 1.02; margin: .6rem 3.5rem .4rem 0; }
   .fermer { position: absolute; right: 1.2rem; top: 1.2rem; width: 2.8rem; height: 2.8rem; padding: 0; font-size: 1.3rem; text-align: center; }
   .lecture-corps { padding: 1.8rem 2rem; max-width: 40rem; }
   .lecture-corps p + p { margin-top: 1.1rem; }
-  .commentaires { padding: 1.8rem 2rem 2.2rem; background: #fff; border-top: 4px solid var(--prune); }
+  .commentaires { padding: 1.8rem 2rem 2.2rem; background: #fff; border-top: 4px solid var(--prune); font-size: 1rem; }
   .commentaires h3 { font-family: var(--titre); font-weight: 800; font-size: 1.7rem; margin-bottom: 1rem; }
-  .aide-commentaires { background: var(--jaune-pale); border: 3px dashed var(--prune); border-radius: 14px; padding: 1rem 1.2rem; font-size: 1rem; }
-
-  /* Espace auteure */
-  .adm { padding: 1.6rem 2rem 2rem; display: grid; gap: 1rem; font-size: 1rem; }
-  .adm label { display: grid; gap: .3rem; font-family: var(--titre); font-weight: 800; }
-  .adm input, .adm select, .adm textarea { font: inherit; font-weight: 400; font-size: 1rem; padding: .5rem .8rem; border: 3px solid var(--prune); border-radius: 12px; background: #fff; color: var(--prune); width: 100%; }
+  .com { border: 3px solid var(--prune); border-radius: 14px; background: var(--creme); padding: .8rem 1rem; margin-bottom: .8rem; display: grid; gap: .4rem; justify-items: start; }
+  .com-haut { display: flex; justify-content: space-between; gap: 1rem; width: 100%; font-family: var(--titre); flex-wrap: wrap; }
+  .com p { white-space: pre-wrap; word-break: break-word; }
+  .vide-com { font-style: italic; margin-bottom: 1rem; }
+  .commentaires form { display: grid; gap: .8rem; margin-top: 1.2rem; }
+  .commentaires label, .adm label { display: grid; gap: .3rem; font-family: var(--titre); font-weight: 800; }
+  .commentaires input, .commentaires textarea, .adm input, .adm select, .adm textarea { font: inherit; font-weight: 400; font-size: 1rem; padding: .5rem .8rem; border: 3px solid var(--prune); border-radius: 12px; background: #fff; color: var(--prune); width: 100%; }
   .rang { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; }
-  .onglets .btn { font-size: .95rem; padding: .35rem 1rem; }
-  .onglets .btn[aria-pressed="true"] { background: var(--jaune); }
-  .ligne { display: flex; gap: .8rem; justify-content: space-between; align-items: center; border: 3px solid var(--prune); border-radius: 14px; padding: .6rem 1rem; background: #fff; flex-wrap: wrap; }
-  .ligne b { font-family: var(--titre); }
-  .ligne .btn { font-size: .85rem; padding: .25rem .8rem; box-shadow: 2px 2px 0 var(--prune); }
   .msg { font-family: var(--titre); font-weight: 800; }
   .erreur { color: #B00020; }
+
+  /* Panneau créateur (clair, sur le côté) */
+  .panneau { position: fixed; top: 0; right: 0; bottom: 0; width: min(560px, 100vw); z-index: 60; background: var(--creme); border-left: 4px solid var(--prune); display: flex; flex-direction: column; font-size: 1rem; line-height: 1.5; }
+  .pan-haut { display: flex; justify-content: space-between; align-items: center; gap: .6rem; padding: 1rem 1.4rem; background: var(--jaune); border-bottom: 4px solid var(--prune); flex-wrap: wrap; }
+  .pan-haut h2 { font-family: var(--titre); font-weight: 800; font-size: 1.5rem; }
+  .pan-corps { overflow: auto; padding: 1.2rem 1.4rem 3rem; display: grid; gap: 1rem; align-content: start; }
+  .onglets .btn { font-size: .9rem; padding: .3rem .9rem; }
+  .onglets .btn[aria-pressed="true"] { background: var(--jaune); }
+  .adm { display: grid; gap: 1rem; }
+  .adm h3 { font-family: var(--titre); font-weight: 800; font-size: 1.3rem; }
+  .adm .aide { font-style: italic; }
+  .adm label.chk { display: flex; gap: .6rem; align-items: center; }
+  .adm .chk input { width: auto; }
+  .adm input[type=color] { height: 2.6rem; padding: 2px; }
+  .adm input[type=range] { padding: 0; border: 0; }
+  .bloc { border: 3px solid var(--prune); border-radius: 14px; padding: .8rem 1rem; background: #fff; display: grid; gap: .6rem; }
+  .liste { display: grid; gap: .7rem; }
+  .ligne { display: flex; gap: .8rem; justify-content: space-between; align-items: center; border: 3px solid var(--prune); border-radius: 14px; padding: .6rem 1rem; background: #fff; flex-wrap: wrap; }
+  .ligne.col { flex-direction: column; align-items: stretch; }
+  .ligne b { font-family: var(--titre); }
+  .ctexte { white-space: pre-wrap; word-break: break-word; }
+  .etat { font-family: var(--titre); font-weight: 800; font-size: 1.2rem; }
 </style>
 </head>
 <body>
@@ -136,8 +169,19 @@
     <a href="#articles">Articles</a>
     <a href="#apropos">À propos</a>
     <a class="btn" id="contact" href="#">Me contacter</a>
-    <button class="btn adminbtn js-admin" type="button" aria-label="Espace auteure" title="Espace auteure"><span class="cad">🔒</span></button>
+    <button class="btn adminbtn js-admin" type="button" aria-label="Espace créateur" title="Espace créateur"><span class="cad">🔒</span></button>
   </nav>
+  <form class="barre-code" id="barre-code" hidden>
+    <label for="code">🔑 Code créateur</label>
+    <input id="code" type="password" autocomplete="current-password" placeholder="Tape ton code">
+    <button class="btn" type="submit">Entrer</button>
+    <button class="btn jaune" type="button" id="code-x" aria-label="Fermer">✕</button>
+    <span class="msg" id="code-msg"></span>
+  </form>
+</div>
+
+<div class="maintenance" id="maintenance" hidden>
+  <div><h2>🛠️ Maintenance</h2><p id="msg-maint"></p></div>
 </div>
 
 <section class="hero" id="haut">
@@ -147,24 +191,24 @@
     <div class="boutons">
       <a class="btn" href="#articles">Lire les articles</a>
       <button class="btn jaune" id="hasard" type="button">Surprends-moi 🎲</button>
-      <div class="pastille"><div><b id="nb-articles">0</b>articles<br>à lire</div></div>
+      <div class="pastille" id="pastille"><div><b id="nb-articles">0</b>articles<br>à lire</div></div>
     </div>
   </div>
 </section>
 
-<div class="bandeau" aria-hidden="true"><div id="defile"></div></div>
+<div class="bandeau" id="bandeau" aria-hidden="true"><div id="defile"></div></div>
 
 <section class="univers" id="univers">
   <div class="contenu">
-    <h2 class="section-titre">Choisis ton univers</h2>
-    <p class="sous-titre">Quatre thèmes, quatre ambiances. Clique sur une case pour voir seulement ces articles.</p>
+    <h2 class="section-titre" id="t-univers"></h2>
+    <p class="sous-titre" id="s-univers"></p>
     <div class="tuiles" id="tuiles"></div>
   </div>
 </section>
 
 <section class="une" id="une">
   <div class="contenu">
-    <h2 class="section-titre">À la une</h2>
+    <h2 class="section-titre" id="t-une"></h2>
     <p class="sous-titre">Le dernier article publié, à ne pas manquer.</p>
     <button class="une-carte" id="une-carte" type="button"></button>
   </div>
@@ -172,8 +216,8 @@
 
 <section id="articles">
   <div class="contenu">
-    <h2 class="section-titre">Tous les articles</h2>
-    <p class="sous-titre">Filtre par thème ou cherche un mot. Clique sur un article pour le lire et laisser un commentaire.</p>
+    <h2 class="section-titre" id="t-articles"></h2>
+    <p class="sous-titre" id="s-articles"></p>
     <div class="outils">
       <div class="filtres" id="filtres" role="group" aria-label="Filtrer par thème"></div>
       <input class="recherche" id="recherche" type="search" placeholder="Rechercher un article…" aria-label="Rechercher un article">
@@ -202,11 +246,26 @@
   <div class="contenu">
     <span>© <span id="annee"></span> <span id="pied-nom"></span> · Tous droits réservés</span>
     <span>Une idée d’article ? <a id="pied-contact" href="#">Écris-moi</a></span>
-    <button class="lien-admin js-admin" type="button"><span class="cad">🔒</span> Espace auteure</button>
+    <button class="lien-admin js-admin" type="button"><span class="cad">🔒</span> Espace créateur</button>
   </div>
 </footer>
 
 <a class="btn jaune haut" id="haut-btn" href="#haut" aria-label="Retour en haut">↑</a>
+<div class="pill-maint" id="pill-maint" hidden>🛠️ Maintenance active : seule toi vois le site</div>
+
+<aside class="panneau" id="panneau" hidden aria-label="Espace créateur">
+  <div class="pan-haut">
+    <h2>✏️ Espace créateur</h2>
+    <div class="rang">
+      <button class="btn jaune mini" id="pan-out" type="button">Déconnexion</button>
+      <button class="btn mini" id="pan-x" type="button">✕ Fermer</button>
+    </div>
+  </div>
+  <div class="pan-corps">
+    <div class="rang onglets" id="onglets"></div>
+    <div class="adm" id="pan"></div>
+  </div>
+</aside>
 
 <dialog id="lecture" aria-labelledby="lecture-titre">
   <div class="lecture-haut">
@@ -217,75 +276,149 @@
   </div>
   <div class="lecture-corps" id="lecture-corps"></div>
   <div class="commentaires">
-    <h3>💬 Commentaires</h3>
-    <div id="zone-commentaires"></div>
+    <h3>💬 Commentaires <span id="nb-com"></span></h3>
+    <div id="liste-com"></div>
+    <form id="form-com">
+      <label>Ton pseudo<input id="c-pseudo" maxlength="40" autocomplete="nickname"></label>
+      <label>Ton commentaire<textarea id="c-texte" rows="3" maxlength="1000"></textarea></label>
+      <div class="rang"><button class="btn" type="submit">Publier le commentaire</button><span class="msg" id="c-msg"></span></div>
+    </form>
   </div>
-</dialog>
-
-<dialog id="admin" aria-labelledby="admin-titre">
-  <div class="lecture-haut">
-    <h2 id="admin-titre">Espace auteure</h2>
-    <button class="btn fermer" id="admin-fermer" type="button" aria-label="Fermer">✕</button>
-  </div>
-  <div class="adm" id="adm"></div>
 </dialog>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
-  /* ============ 1. FIREBASE (espace auteure + stockage des articles) ============
-     Colle ici les 4 valeurs de ta console Firebase. */
+  /* ============ À REMPLIR ============
+     1) Les 4 valeurs de ta console Firebase.
+     2) ADMIN_EMAIL : l'e-mail du compte créé dans Firebase Authentication.
+        Le mot de passe de ce compte est ton « code créateur » (il n'est écrit nulle part dans ce fichier). */
   const FIREBASE = { apiKey: "", authDomain: "", projectId: "", appId: "" };
+  const ADMIN_EMAIL = "ton.adresse@mail.com";
 
-  /* ============ 2. COMMENTAIRES (Giscus) ============ */
-  const GISCUS = { repo: "", repoId: "", category: "", categoryId: "" };
-
-  /* ============ 3. TEXTES PAR DÉFAUT ============ */
-  const REG0 = {
+  /* ============ RÉGLAGES PAR DÉFAUT (modifiables ensuite depuis l'espace créateur) ============ */
+  const DEF = {
     nomSite: "Mon site",
     titreDebut: "Légendes, plumes, pinceaux et",
     titreMot: "crimes.",
     intro: "Bienvenue ! Ici je raconte ceux qu’on n’oublie pas : les héros de légende, les écrivains, les artistes… et les meurtriers. Installe-toi, lis, et dis-moi ce que tu en penses en commentaire.",
     email: "ton.adresse@mail.com",
-    apropos: "Salut, moi c’est [ton prénom ou pseudo]. J’écris sur les histoires qui fascinent : celles qu’on se raconte depuis des siècles, celles des gens qui créent, et les plus sombres aussi.\n\nModifie ce texte depuis ton espace auteure (le cadenas dans le menu)."
+    apropos: "Salut, moi c’est [ton prénom ou pseudo]. J’écris sur les histoires qui fascinent : celles qu’on se raconte depuis des siècles, celles des gens qui créent, et les plus sombres aussi.\n\nModifie ce texte depuis ton espace créateur (le cadenas dans le menu).",
+    titreUnivers: "Choisis ton univers",
+    sousUnivers: "Quatre thèmes, quatre ambiances. Clique sur une case pour voir seulement ces articles.",
+    titreUne: "À la une",
+    titreArticles: "Tous les articles",
+    sousArticles: "Filtre par thème ou cherche un mot. Clique sur un article pour le lire et laisser un commentaire.",
+    cJaune: "#FFD93D", cRose: "#FF5FA8", cPrune: "#2B1033", cCreme: "#FFF8E1", cJaunePale: "#FFF0A0", cRosePale: "#FFD6E8",
+    policeTitre: "Bricolage Grotesque", policeTexte: "Newsreader",
+    taille: 1.15, rayon: 20, ombre: 8,
+    bandeau: true, pastille: true, afficherUne: true,
+    motsBloques: "", maintenance: false,
+    msgMaintenance: "Le site est en maintenance. Reviens très bientôt !",
+    univers: {
+      legendes:   { nom: "Légendes",   emoji: "🐉", desc: "Héros, monstres et récits qui traversent les siècles." },
+      ecrivains:  { nom: "Écrivains",  emoji: "🪶", desc: "Les vies et les plumes derrière les grands livres." },
+      artistes:   { nom: "Artistes",   emoji: "🎨", desc: "Peintres, musiciens, créateurs et leurs œuvres." },
+      meurtriers: { nom: "Meurtriers", emoji: "🔪", desc: "Des affaires criminelles célèbres, racontées avec soin." }
+    }
   };
   const DEMO = [
-    { id: "a1", theme: "legendes", date: "2026-11-01", minutes: 5, titre: "Article de démonstration", resume: "Configure Firebase puis publie tes vrais articles depuis l’espace auteure.", texte: ["Ceci est un exemple. Il disparaîtra dès que Firebase sera configuré."] }
+    { id: "a1", theme: "legendes", date: "2026-11-01", minutes: 5, titre: "Article de démonstration", resume: "Configure Firebase puis publie tes vrais articles depuis l’espace créateur.", texte: ["Ceci est un exemple. Il disparaîtra dès que Firebase sera configuré."] }
   ];
-  const univers = {
-    legendes:   { nom: "Légendes",   emoji: "🐉", desc: "Héros, monstres et récits qui traversent les siècles." },
-    ecrivains:  { nom: "Écrivains",  emoji: "🪶", desc: "Les vies et les plumes derrière les grands livres." },
-    artistes:   { nom: "Artistes",   emoji: "🎨", desc: "Peintres, musiciens, créateurs et leurs œuvres." },
-    meurtriers: { nom: "Meurtriers", emoji: "🔪", desc: "Des affaires criminelles célèbres, racontées avec soin." }
+  const POL_T = ["Bricolage Grotesque", "Poppins", "Space Grotesk", "Fredoka", "Playfair Display"];
+  const POL_X = ["Newsreader", "Lora", "Merriweather", "Nunito", "Inter"];
+  const PALETTES = {
+    "Pop (d’origine)": { cJaune: "#FFD93D", cRose: "#FF5FA8", cPrune: "#2B1033", cCreme: "#FFF8E1", cJaunePale: "#FFF0A0", cRosePale: "#FFD6E8" },
+    "Nuit violette":   { cJaune: "#B8A9FF", cRose: "#FF7EB6", cPrune: "#12102A", cCreme: "#EEEAFF", cJaunePale: "#D9D2FF", cRosePale: "#FFD0E6" },
+    "Océan":           { cJaune: "#5CE1E6", cRose: "#FF914D", cPrune: "#0B2545", cCreme: "#EAF7FF", cJaunePale: "#BDEFF2", cRosePale: "#FFD8BF" },
+    "Forêt":           { cJaune: "#A8E063", cRose: "#FF8F5A", cPrune: "#1B2E1F", cCreme: "#F4F8E8", cJaunePale: "#D9F0B5", cRosePale: "#FFD9C2" }
   };
+  const CH_LOOK = [
+    ["cJaune", "Couleur principale (haut de page, boutons)", "color"], ["cRose", "Couleur d’accent", "color"],
+    ["cPrune", "Couleur du texte et des contours", "color"], ["cCreme", "Fond de la page", "color"],
+    ["cJaunePale", "Teinte claire n°1", "color"], ["cRosePale", "Teinte claire n°2", "color"],
+    ["policeTitre", "Police des titres", "select", POL_T], ["policeTexte", "Police du texte", "select", POL_X],
+    ["taille", "Taille du texte (rem)", "range", 1, 1.5, 0.05], ["rayon", "Arrondi des cartes (px)", "range", 0, 40, 1],
+    ["ombre", "Épaisseur des ombres (px)", "range", 0, 16, 1],
+    ["bandeau", "Afficher le bandeau défilant", "check"], ["pastille", "Afficher la pastille « articles à lire »", "check"],
+    ["afficherUne", "Afficher la section « À la une »", "check"]
+  ];
+  const CH_TXT = [
+    ["nomSite", "Nom du site"], ["titreDebut", "Grand titre (début)"], ["titreMot", "Grand titre (mot en rose)"],
+    ["intro", "Phrase d’accueil", "area", 3], ["email", "E-mail de contact (bouton « Me contacter »)"],
+    ["titreUnivers", "Titre de la section des univers"], ["sousUnivers", "Sous-titre de la section des univers", "area", 2],
+    ["titreUne", "Titre « À la une »"], ["titreArticles", "Titre de la liste d’articles"],
+    ["sousArticles", "Sous-titre de la liste d’articles", "area", 2],
+    ["apropos", "Texte « À propos » (ligne vide = nouveau paragraphe)", "area", 8]
+  ];
 
+  /* ============ OUTILS ============ */
   const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const fmt = d => new Date(d).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+  const today = () => new Date().toISOString().slice(0, 10);
+  const dateCom = c => c.date && c.date.toDate ? c.date.toDate() : new Date();
+  const fmtCom = (c, o) => dateCom(c).toLocaleString("fr-FR", o || { dateStyle: "medium", timeStyle: "short" });
   const enligne = !!FIREBASE.apiKey;
-  let articles = enligne ? [] : DEMO, reg = { ...REG0 }, tri = [], theme = "tous", requete = "", user = null, db, auth;
+  function fusion(d) {
+    const r = { ...DEF, ...d }; r.univers = {};
+    Object.keys(DEF.univers).forEach(k => r.univers[k] = { ...DEF.univers[k], ...((d.univers || {})[k] || {}) });
+    return r;
+  }
+  let articles = enligne ? [] : DEMO, reg = fusion({}), tri = [], theme = "tous", requete = "";
+  let user = null, db, auth, artCourant = null, comsArt = [], tousCom = [], unsubCom = null, unsubTous = null, ong = "articles";
+  const pret = () => document.body.classList.remove("attente");
+  if (enligne) { document.body.classList.add("attente"); setTimeout(pret, 4000); }
 
-  /* ---------- Réglages du site ---------- */
+  /* ---------- Polices, couleurs, présentation ---------- */
+  const chargees = new Set(["Bricolage Grotesque", "Newsreader"]);
+  function police(n) {
+    if (chargees.has(n)) return; chargees.add(n);
+    const l = document.createElement("link"); l.rel = "stylesheet";
+    l.href = "https://fonts.googleapis.com/css2?family=" + n.replace(/ /g, "+") + ":wght@400;700&display=swap";
+    document.head.appendChild(l);
+  }
+  function appliquerLook() {
+    police(reg.policeTitre); police(reg.policeTexte);
+    const s = document.documentElement.style;
+    s.setProperty("--jaune", reg.cJaune); s.setProperty("--rose", reg.cRose); s.setProperty("--prune", reg.cPrune);
+    s.setProperty("--creme", reg.cCreme); s.setProperty("--jaune-pale", reg.cJaunePale); s.setProperty("--rose-pale", reg.cRosePale);
+    s.setProperty("--titre", '"' + reg.policeTitre + '", "Arial Black", sans-serif');
+    s.setProperty("--texte", '"' + reg.policeTexte + '", Georgia, serif');
+    s.setProperty("--fs", reg.taille + "rem"); s.setProperty("--r", reg.rayon + "px"); s.setProperty("--o", reg.ombre + "px");
+    $("bandeau").style.display = reg.bandeau ? "" : "none";
+    $("pastille").style.display = reg.pastille ? "" : "none";
+    $("une").style.display = (tri[0] && reg.afficherUne) ? "" : "none";
+  }
+  function appliquerMaint() {
+    const on = !!reg.maintenance, bloque = on && !user;
+    document.body.classList.toggle("maint", bloque);
+    $("maintenance").hidden = !bloque;
+    $("msg-maint").textContent = reg.msgMaintenance;
+    $("pill-maint").hidden = !(on && user);
+  }
   function appliquerReg() {
     $("logo").textContent = reg.nomSite + " ✦";
-    $("h1-debut").textContent = reg.titreDebut;
-    $("h1-mot").textContent = reg.titreMot;
-    $("intro").textContent = reg.intro;
-    $("pied-nom").textContent = reg.nomSite;
-    document.title = reg.nomSite;
+    $("h1-debut").textContent = reg.titreDebut; $("h1-mot").textContent = reg.titreMot;
+    $("intro").textContent = reg.intro; $("pied-nom").textContent = reg.nomSite; document.title = reg.nomSite;
     ["contact", "pied-contact"].forEach(i => $(i).href = "mailto:" + reg.email);
+    $("t-univers").textContent = reg.titreUnivers; $("s-univers").textContent = reg.sousUnivers;
+    $("t-une").textContent = reg.titreUne; $("t-articles").textContent = reg.titreArticles; $("s-articles").textContent = reg.sousArticles;
     const z = $("apropos-txt"); z.innerHTML = "";
     reg.apropos.split(/\n\s*\n/).forEach(t => { const p = document.createElement("p"); p.textContent = t; z.appendChild(p); });
+    appliquerLook(); appliquerMaint();
   }
 
   /* ---------- Affichage public ---------- */
   function rendre() {
-    tri = [...articles].sort((a, b) => b.date.localeCompare(a.date));
+    tri = [...articles].sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+    const U = reg.univers, ks = Object.keys(U);
     $("nb-articles").textContent = $("c-articles").textContent = articles.length;
 
     $("tuiles").innerHTML = "";
-    Object.entries(univers).forEach(([cle, u]) => {
-      const n = articles.filter(a => a.theme === cle).length;
+    ks.forEach(cle => {
+      const u = U[cle], n = articles.filter(a => a.theme === cle).length;
       const t = document.createElement("button");
       t.type = "button"; t.className = "tuile t-" + cle;
       t.innerHTML = '<span class="emoji"></span><h3></h3><p></p><small></small>';
@@ -298,25 +431,40 @@
     });
 
     const une = tri[0], c = $("une-carte");
-    $("une").style.display = une ? "" : "none";
-    if (une) {
+    if (une && U[une.theme]) {
       c.innerHTML = '<span class="tag"></span><h3></h3><p></p><span class="meta"></span>';
-      c.querySelector(".tag").textContent = univers[une.theme].nom;
+      c.querySelector(".tag").textContent = U[une.theme].nom;
       c.querySelector("h3").textContent = une.titre;
       c.querySelector("p").textContent = une.resume;
       c.querySelector(".meta").textContent = fmt(une.date) + " · " + une.minutes + " min de lecture";
       c.onclick = () => ouvrir(une);
     }
-    afficher();
+
+    const f = $("filtres"); f.innerHTML = "";
+    [["tous", "Tout"], ...ks.map(k => [k, U[k].nom])].forEach(([cle, nom]) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = nom; b.dataset.theme = cle;
+      b.setAttribute("aria-pressed", cle === theme);
+      b.onclick = () => choisir(cle);
+      f.appendChild(b);
+    });
+
+    const d = $("defile"); d.innerHTML = "";
+    for (let i = 0; i < 32; i++) {
+      const s = document.createElement("span"); if (i % 2) s.className = "r";
+      s.textContent = U[ks[i % ks.length]].nom; d.appendChild(s);
+    }
+    afficher(); appliquerLook();
   }
   function afficher() {
     const g = $("grille"); g.innerHTML = "";
-    const liste = tri.filter(a => (theme === "tous" || a.theme === theme) && (a.titre + " " + a.resume).toLowerCase().includes(requete));
+    const U = reg.univers;
+    const liste = tri.filter(a => U[a.theme] && (theme === "tous" || a.theme === theme) && (a.titre + " " + a.resume).toLowerCase().includes(requete));
     liste.forEach(a => {
       const el = document.createElement("button");
       el.type = "button"; el.className = "carte " + a.theme;
       el.innerHTML = '<span class="tag"></span><h3></h3><p></p><span class="meta"></span>';
-      el.querySelector(".tag").textContent = univers[a.theme].emoji + " " + univers[a.theme].nom;
+      el.querySelector(".tag").textContent = U[a.theme].emoji + " " + U[a.theme].nom;
       el.querySelector("h3").textContent = a.titre;
       el.querySelector("p").textContent = a.resume;
       el.querySelector(".meta").textContent = fmt(a.date) + " · " + a.minutes + " min";
@@ -330,123 +478,139 @@
     document.querySelectorAll("#filtres button").forEach(b => b.setAttribute("aria-pressed", b.dataset.theme === cle));
     afficher();
   }
-  [["tous", "Tout"], ...Object.entries(univers).map(([k, u]) => [k, u.nom])].forEach(([cle, nom]) => {
-    const b = document.createElement("button");
-    b.type = "button"; b.textContent = nom; b.dataset.theme = cle;
-    b.setAttribute("aria-pressed", cle === "tous");
-    b.onclick = () => choisir(cle);
-    $("filtres").appendChild(b);
-  });
   $("recherche").addEventListener("input", e => { requete = e.target.value.toLowerCase(); afficher(); });
-
-  // Bandeau
-  const mots = Object.values(univers).map(u => u.nom);
-  let bande = "";
-  for (let i = 0; i < 16; i++) bande += '<span class="' + (i % 2 ? "r" : "") + '">' + mots[i % 4] + "</span>";
-  $("defile").innerHTML = bande + bande;
   $("annee").textContent = new Date().getFullYear();
+  addEventListener("scroll", () => { $("haut-btn").style.display = scrollY > 700 ? "inline-block" : "none"; });
+  $("hasard").onclick = () => { if (articles.length) ouvrir(articles[Math.floor(Math.random() * articles.length)]); };
 
   /* ---------- Lecture + commentaires ---------- */
   const dlg = $("lecture");
+  const cmsg = (t, err) => { const m = $("c-msg"); m.textContent = t; m.className = "msg" + (err ? " erreur" : ""); };
   function ouvrir(a) {
-    $("lecture-tag").textContent = univers[a.theme].emoji + " " + univers[a.theme].nom;
+    artCourant = a;
+    const u = reg.univers[a.theme];
+    $("lecture-tag").textContent = u.emoji + " " + u.nom;
     $("lecture-titre").textContent = a.titre;
     $("lecture-meta").textContent = fmt(a.date) + " · " + a.minutes + " min de lecture";
     const corps = $("lecture-corps"); corps.innerHTML = "";
     a.texte.forEach(t => { const p = document.createElement("p"); p.textContent = t; corps.appendChild(p); });
-    chargerCommentaires(a);
+    $("liste-com").innerHTML = ""; $("nb-com").textContent = ""; cmsg("");
+    if (unsubCom) { unsubCom(); unsubCom = null; }
+    comsArt = [];
+    if (enligne) {
+      unsubCom = db.collection("commentaires").where("articleId", "==", a.id).onSnapshot(s => {
+        comsArt = s.docs.map(d => ({ id: d.id, ...d.data() })); rendreComs();
+      }, () => {});
+    } else $("liste-com").innerHTML = '<p class="vide-com">Les commentaires s’activent avec Firebase.</p>';
     dlg.showModal(); dlg.scrollTop = 0;
   }
-  function chargerCommentaires(a) {
-    const z = $("zone-commentaires"); z.innerHTML = "";
-    if (!GISCUS.repo) {
-      z.innerHTML = '<div class="aide-commentaires">Les commentaires ne sont pas encore activés (ligne <b>GISCUS</b> en haut du script).</div>';
-      return;
-    }
-    const s = document.createElement("script");
-    s.src = "https://giscus.app/client.js";
-    const attrs = { repo: GISCUS.repo, "repo-id": GISCUS.repoId, category: GISCUS.category, "category-id": GISCUS.categoryId,
-      mapping: "specific", term: a.id, "reactions-enabled": "1", "emit-metadata": "0",
-      "input-position": "top", theme: "light", lang: "fr", loading: "lazy" };
-    Object.entries(attrs).forEach(([k, v]) => s.setAttribute("data-" + k, v));
-    s.crossOrigin = "anonymous"; s.async = true;
-    z.appendChild(s);
-  }
-  $("fermer").onclick = () => dlg.close();
-  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
-  dlg.addEventListener("close", () => { $("zone-commentaires").innerHTML = ""; });
-  $("hasard").onclick = () => { if (articles.length) ouvrir(articles[Math.floor(Math.random() * articles.length)]); };
-  addEventListener("scroll", () => { $("haut-btn").style.display = scrollY > 700 ? "inline-block" : "none"; });
-
-  /* ---------- Espace auteure ---------- */
-  const adm = $("adm"), ad = $("admin");
-  const today = () => new Date().toISOString().slice(0, 10);
-  const optTheme = Object.entries(univers).map(([k, u]) => `<option value="${k}">${u.emoji} ${u.nom}</option>`).join("");
-  const msg = (t, err) => { const m = $("msg"); if (m) { m.textContent = t; m.className = "msg" + (err ? " erreur" : ""); } };
-
-  document.querySelectorAll(".js-admin").forEach(b => b.onclick = () => { vue(); ad.showModal(); });
-  $("admin-fermer").onclick = () => ad.close();
-  ad.addEventListener("click", e => { if (e.target === ad) ad.close(); });
-
-  function vue(nom, a) {
-    if (!enligne) {
-      adm.innerHTML = '<p>L’espace auteure n’est pas encore activé : remplis la ligne <b>FIREBASE</b> en haut du script en suivant les étapes.</p>';
-      return;
-    }
-    if (!user) return vueLogin();
-    if (nom === "edition") return vueEdition(a);
-    if (nom === "reglages") return vueReglages();
-    vueListe();
-  }
-  function barre(actif) {
-    return `<div class="rang onglets">
-      <button class="btn" data-v="liste" aria-pressed="${actif === "liste"}" type="button">📝 Articles</button>
-      <button class="btn" data-v="reglages" aria-pressed="${actif === "reglages"}" type="button">⚙️ Réglages du site</button>
-      <button class="btn jaune" data-v="out" type="button">Déconnexion</button></div>`;
-  }
-  function brancherBarre() {
-    adm.querySelectorAll("[data-v]").forEach(b => b.onclick = () => {
-      if (b.dataset.v === "out") { auth.signOut(); ad.close(); } else vue(b.dataset.v);
+  function rendreComs() {
+    const l = $("liste-com"); l.innerHTML = "";
+    const cs = [...comsArt].sort((a, b) => dateCom(a) - dateCom(b));
+    $("nb-com").textContent = cs.length ? "(" + cs.length + ")" : "";
+    if (!cs.length) { l.innerHTML = '<p class="vide-com">Aucun commentaire pour l’instant. Sois le premier !</p>'; return; }
+    cs.forEach(c => {
+      const d = document.createElement("div"); d.className = "com";
+      d.innerHTML = '<div class="com-haut"><b></b><small></small></div><p></p>';
+      d.querySelector("b").textContent = c.pseudo;
+      d.querySelector("small").textContent = fmtCom(c);
+      d.querySelector("p").textContent = c.texte;
+      if (user) {
+        const b = document.createElement("button"); b.type = "button"; b.className = "btn jaune mini"; b.textContent = "🗑 Supprimer";
+        b.onclick = () => supprCom(c); d.appendChild(b);
+      }
+      l.appendChild(d);
     });
   }
+  function supprCom(c) {
+    if (confirm("Supprimer le commentaire de « " + c.pseudo + " » ?"))
+      db.collection("commentaires").doc(c.id).delete().catch(() => alert("Suppression refusée."));
+  }
+  $("form-com").onsubmit = e => {
+    e.preventDefault();
+    if (!enligne) return cmsg("Les commentaires ne sont pas encore activés.", 1);
+    const pseudo = $("c-pseudo").value.trim().slice(0, 40) || "Anonyme", texte = $("c-texte").value.trim();
+    if (!texte) return cmsg("Écris un commentaire d’abord.", 1);
+    const bas = (pseudo + " " + texte).toLowerCase();
+    if (reg.motsBloques.split(",").map(m => m.trim().toLowerCase()).filter(Boolean).some(m => bas.includes(m)))
+      return cmsg("Ton message contient un mot interdit sur ce site.", 1);
+    let der = 0; try { der = +localStorage.getItem("derCom") || 0; } catch (_) {}
+    if (Date.now() - der < 20000) return cmsg("Patiente quelques secondes avant de reposter.", 1);
+    db.collection("commentaires").add({ articleId: artCourant.id, pseudo, texte, date: firebase.firestore.FieldValue.serverTimestamp() })
+      .then(() => { $("c-texte").value = ""; cmsg("Merci, commentaire publié ✔"); try { localStorage.setItem("derCom", Date.now()); } catch (_) {} })
+      .catch(() => cmsg("Impossible de publier le commentaire.", 1));
+  };
+  $("fermer").onclick = () => dlg.close();
+  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener("close", () => { if (unsubCom) { unsubCom(); unsubCom = null; } });
 
-  function vueLogin() {
-    adm.innerHTML = `<label>E-mail<input id="l-mail" type="email" autocomplete="username"></label>
-      <label>Mot de passe<input id="l-mdp" type="password" autocomplete="current-password"></label>
-      <div class="rang"><button class="btn" id="l-ok" type="button">Entrer</button></div><p id="msg" class="msg"></p>`;
-    const go = () => auth.signInWithEmailAndPassword($("l-mail").value.trim(), $("l-mdp").value)
-      .then(() => vue()).catch(() => msg("E-mail ou mot de passe incorrect.", true));
-    $("l-ok").onclick = go;
-    $("l-mdp").onkeydown = e => { if (e.key === "Enter") go(); };
+  /* ---------- Barre « code créateur » ---------- */
+  const barre = $("barre-code"), panneau = $("panneau"), pan = $("pan");
+  const codeMsg = t => $("code-msg").textContent = t;
+  function ouvrirAdmin() {
+    if (user) return ouvrirPanneau();
+    barre.hidden = false; codeMsg(""); $("code").value = ""; $("code").focus();
+  }
+  document.querySelectorAll(".js-admin").forEach(b => b.onclick = ouvrirAdmin);
+  $("code-x").onclick = () => barre.hidden = true;
+  addEventListener("keydown", e => { if (e.key === "Escape") barre.hidden = true; });
+  barre.onsubmit = e => {
+    e.preventDefault();
+    if (!enligne) return codeMsg("Firebase n’est pas encore configuré (ligne FIREBASE).");
+    codeMsg("…");
+    auth.signInWithEmailAndPassword(ADMIN_EMAIL, $("code").value)
+      .then(() => { barre.hidden = true; $("code").value = ""; ouvrirPanneau(); })
+      .catch(() => codeMsg("Code incorrect."));
+  };
+
+  /* ---------- Panneau créateur ---------- */
+  const ONGLETS = [["articles", "📝 Articles"], ["comm", "💬 Commentaires"], ["look", "🎨 Apparence"], ["textes", "✍️ Textes"], ["maint", "🛠️ Maintenance"]];
+  function ouvrirPanneau() { panneau.hidden = false; ong = "articles"; vue(); }
+  function fermerPanneau() { panneau.hidden = true; }
+  $("pan-x").onclick = fermerPanneau;
+  $("pan-out").onclick = () => { auth.signOut(); fermerPanneau(); };
+  const msg = (t, err) => { const m = $("msg"); if (m) { m.textContent = t; m.className = "msg" + (err ? " erreur" : ""); } };
+  const sauver = obj => db.doc("site/reglages").set(obj, { merge: true })
+    .then(() => msg("Enregistré ✔")).catch(() => msg("Enregistrement refusé (vérifie les règles Firebase).", 1));
+  const apercu = () => { appliquerReg(); rendre(); };
+
+  function vue(a) {
+    const o = $("onglets"); o.innerHTML = "";
+    ONGLETS.forEach(([k, n]) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.textContent = n;
+      b.setAttribute("aria-pressed", k === ong); b.onclick = () => { ong = k; vue(); }; o.appendChild(b);
+    });
+    if (ong === "articles") return a ? vueEdition(a === "new" ? null : a) : vueListe();
+    ({ comm: vueComm, look: vueLook, textes: vueTextes, maint: vueMaint })[ong]();
   }
 
+  /* --- Articles --- */
   function vueListe() {
-    adm.innerHTML = barre("liste") + '<div class="rang"><button class="btn" id="nouveau" type="button">＋ Nouvel article</button></div><div id="liste" style="display:grid;gap:.7rem"></div><p id="msg" class="msg"></p>';
-    brancherBarre();
-    $("nouveau").onclick = () => vue("edition");
+    pan.innerHTML = '<div class="rang"><button class="btn" id="nouveau" type="button">＋ Nouvel article</button></div><div class="liste" id="liste"></div><p id="msg" class="msg"></p>';
+    $("nouveau").onclick = () => vue("new");
     const l = $("liste");
     if (!tri.length) l.textContent = "Aucun article pour l’instant.";
     tri.forEach(a => {
       const r = document.createElement("div"); r.className = "ligne";
-      r.innerHTML = '<span><b></b><br><small></small></span><span class="rang"><button class="btn" type="button">Modifier</button><button class="btn jaune" type="button">Supprimer</button></span>';
+      r.innerHTML = '<span><b></b><br><small></small></span><span class="rang"><button class="btn mini" type="button">Modifier</button><button class="btn jaune mini" type="button">Supprimer</button></span>';
       r.querySelector("b").textContent = a.titre;
-      r.querySelector("small").textContent = univers[a.theme].nom + " · " + fmt(a.date);
+      r.querySelector("small").textContent = (reg.univers[a.theme] ? reg.univers[a.theme].nom : "") + " · " + fmt(a.date);
       const [m, s] = r.querySelectorAll("button");
-      m.onclick = () => vue("edition", a);
-      s.onclick = () => { if (confirm("Supprimer « " + a.titre + " » ?")) db.collection("articles").doc(a.id).delete().then(() => msg("Article supprimé.")).catch(() => msg("Suppression refusée.", true)); };
+      m.onclick = () => vue(a);
+      s.onclick = () => { if (confirm("Supprimer « " + a.titre + " » ?")) db.collection("articles").doc(a.id).delete().then(() => msg("Article supprimé.")).catch(() => msg("Suppression refusée.", 1)); };
       l.appendChild(r);
     });
   }
-
   function vueEdition(a) {
-    a = a || { theme: "legendes", date: today(), minutes: 5, titre: "", resume: "", texte: [] };
-    adm.innerHTML = `<h3 style="font-family:var(--titre)">${a.id ? "Modifier l’article" : "Nouvel article"}</h3>
+    a = a || { theme: Object.keys(reg.univers)[0], date: today(), minutes: 5, titre: "", resume: "", texte: [] };
+    const opts = Object.entries(reg.univers).map(([k, u]) => `<option value="${k}">${esc(u.emoji)} ${esc(u.nom)}</option>`).join("");
+    pan.innerHTML = `<h3>${a.id ? "Modifier l’article" : "Nouvel article"}</h3>
       <label>Titre<input id="e-titre"></label>
-      <label>Thème<select id="e-theme">${optTheme}</select></label>
+      <label>Thème<select id="e-theme">${opts}</select></label>
       <label>Date<input id="e-date" type="date"></label>
       <label>Minutes de lecture<input id="e-min" type="number" min="1"></label>
       <label>Résumé (2-3 phrases)<textarea id="e-resume" rows="3"></textarea></label>
-      <label>Texte (une ligne vide = nouveau paragraphe)<textarea id="e-texte" rows="12"></textarea></label>
+      <label>Texte (une ligne vide = nouveau paragraphe)<textarea id="e-texte" rows="14"></textarea></label>
       <div class="rang"><button class="btn" id="e-ok" type="button">Publier</button><button class="btn jaune" id="e-non" type="button">Annuler</button></div><p id="msg" class="msg"></p>`;
     $("e-titre").value = a.titre; $("e-theme").value = a.theme; $("e-date").value = a.date;
     $("e-min").value = a.minutes; $("e-resume").value = a.resume; $("e-texte").value = a.texte.join("\n\n");
@@ -455,28 +619,105 @@
       const d = { titre: $("e-titre").value.trim(), theme: $("e-theme").value, date: $("e-date").value || today(),
         minutes: +$("e-min").value || 5, resume: $("e-resume").value.trim(),
         texte: $("e-texte").value.split(/\n\s*\n/).map(t => t.trim()).filter(Boolean) };
-      if (!d.titre || !d.texte.length) return msg("Il faut au moins un titre et un texte.", true);
+      if (!d.titre || !d.texte.length) return msg("Il faut au moins un titre et un texte.", 1);
       const ref = a.id ? db.collection("articles").doc(a.id).set(d) : db.collection("articles").add(d);
-      ref.then(() => vue()).catch(() => msg("Publication refusée (vérifie les règles Firebase).", true));
+      ref.then(() => vue()).catch(() => msg("Publication refusée (vérifie les règles Firebase).", 1));
     };
   }
 
-  function vueReglages() {
-    adm.innerHTML = barre("reglages") + `
-      <label>Nom du site<input id="r-nom"></label>
-      <label>Grand titre (début)<input id="r-deb"></label>
-      <label>Grand titre (mot en rose)<input id="r-mot"></label>
-      <label>Phrase d’accueil<textarea id="r-intro" rows="4"></textarea></label>
-      <label>E-mail de contact<input id="r-mail" type="email"></label>
-      <label>Texte « À propos » (ligne vide = nouveau paragraphe)<textarea id="r-apropos" rows="8"></textarea></label>
-      <div class="rang"><button class="btn" id="r-ok" type="button">Enregistrer</button></div><p id="msg" class="msg"></p>`;
-    brancherBarre();
-    $("r-nom").value = reg.nomSite; $("r-deb").value = reg.titreDebut; $("r-mot").value = reg.titreMot;
-    $("r-intro").value = reg.intro; $("r-mail").value = reg.email; $("r-apropos").value = reg.apropos;
-    $("r-ok").onclick = () => {
-      const d = { nomSite: $("r-nom").value, titreDebut: $("r-deb").value, titreMot: $("r-mot").value,
-        intro: $("r-intro").value, email: $("r-mail").value, apropos: $("r-apropos").value };
-      db.doc("site/reglages").set(d).then(() => msg("Enregistré ✔")).catch(() => msg("Enregistrement refusé.", true));
+  /* --- Commentaires --- */
+  function vueComm() {
+    pan.innerHTML = `<h3>Mots interdits</h3>
+      <p class="aide">Un commentaire qui contient un de ces mots est refusé. Sépare-les par des virgules.</p>
+      <textarea id="mb" rows="3"></textarea>
+      <div class="rang"><button class="btn" id="mb-ok" type="button">Enregistrer les mots</button></div><p id="msg" class="msg"></p>
+      <h3>Tous les commentaires</h3><div class="liste" id="lc"></div>`;
+    $("mb").value = reg.motsBloques;
+    $("mb-ok").onclick = () => sauver({ motsBloques: $("mb").value });
+    majListeComm();
+  }
+  function majListeComm() {
+    const l = $("lc"); if (!l) return; l.innerHTML = "";
+    if (!tousCom.length) { l.textContent = "Aucun commentaire."; return; }
+    tousCom.forEach(c => {
+      const a = articles.find(x => x.id === c.articleId);
+      const r = document.createElement("div"); r.className = "ligne col";
+      r.innerHTML = '<div><b></b> <small></small></div><div class="ctexte"></div><div class="rang"><button class="btn jaune mini" type="button">🗑 Supprimer</button></div>';
+      r.querySelector("b").textContent = c.pseudo;
+      r.querySelector("small").textContent = " · " + (a ? a.titre : "article supprimé") + " · " + fmtCom(c, { dateStyle: "short", timeStyle: "short" });
+      r.querySelector(".ctexte").textContent = c.texte;
+      r.querySelector("button").onclick = () => supprCom(c);
+      l.appendChild(r);
+    });
+  }
+
+  /* --- Champs génériques (apparence + textes) --- */
+  function champ([k, lib, type, x, y, z]) {
+    const v = reg[k];
+    if (type === "color") return `<label>${lib}<input type="color" data-k="${k}" value="${v}"></label>`;
+    if (type === "select") return `<label>${lib}<select data-k="${k}">${x.map(o => `<option${o === v ? " selected" : ""}>${o}</option>`).join("")}</select></label>`;
+    if (type === "range") return `<label>${lib} : <b data-v="${k}">${v}</b><input type="range" data-k="${k}" min="${x}" max="${y}" step="${z}" value="${v}"></label>`;
+    if (type === "check") return `<label class="chk"><input type="checkbox" data-k="${k}"${v ? " checked" : ""}> ${lib}</label>`;
+    if (type === "area") return `<label>${lib}<textarea data-k="${k}" rows="${x}"></textarea></label>`;
+    return `<label>${lib}<input data-k="${k}"></label>`;
+  }
+  function brancher() {
+    pan.querySelectorAll("textarea[data-k], input:not([type])[data-k]").forEach(e => e.value = reg[e.dataset.k]);
+    pan.querySelectorAll("[data-u]").forEach(e => { const [k, f] = e.dataset.u.split("."); e.value = reg.univers[k][f]; });
+    pan.querySelectorAll("[data-k]").forEach(e => {
+      e.oninput = e.onchange = () => {
+        const k = e.dataset.k;
+        reg[k] = e.type === "checkbox" ? e.checked : e.type === "range" ? +e.value : e.value;
+        const o = pan.querySelector('[data-v="' + k + '"]'); if (o) o.textContent = reg[k];
+        apercu();
+      };
+    });
+    pan.querySelectorAll("[data-u]").forEach(e => {
+      e.oninput = () => { const [k, f] = e.dataset.u.split("."); reg.univers[k][f] = e.value; apercu(); };
+    });
+  }
+
+  /* --- Apparence --- */
+  function vueLook() {
+    pan.innerHTML = `<h3>Palettes toutes prêtes</h3><div class="rang" id="pal"></div>` + CH_LOOK.map(champ).join("") +
+      `<div class="rang"><button class="btn" id="ok" type="button">Enregistrer</button><button class="btn jaune" id="raz" type="button">Réinitialiser</button></div><p id="msg" class="msg"></p>
+      <p class="aide">Tu vois le résultat tout de suite sur le site. Pense à cliquer sur « Enregistrer » pour le garder.</p>`;
+    Object.entries(PALETTES).forEach(([nom, p]) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "btn jaune mini"; b.textContent = nom;
+      b.onclick = () => { Object.assign(reg, p); apercu(); vueLook(); };
+      $("pal").appendChild(b);
+    });
+    brancher();
+    $("ok").onclick = () => sauver(Object.fromEntries(CH_LOOK.map(c => [c[0], reg[c[0]]])));
+    $("raz").onclick = () => { CH_LOOK.forEach(c => reg[c[0]] = DEF[c[0]]); apercu(); vueLook(); };
+  }
+
+  /* --- Textes --- */
+  function vueTextes() {
+    pan.innerHTML = CH_TXT.map(champ).join("") + "<h3>Les 4 univers</h3>" +
+      Object.keys(reg.univers).map(k => `<div class="bloc"><b>${esc(DEF.univers[k].emoji)} ${esc(k)}</b>
+        <label>Nom<input data-u="${k}.nom"></label><label>Emoji<input data-u="${k}.emoji" maxlength="4"></label>
+        <label>Description<input data-u="${k}.desc"></label></div>`).join("") +
+      `<div class="rang"><button class="btn" id="ok" type="button">Enregistrer</button></div><p id="msg" class="msg"></p>`;
+    brancher();
+    $("ok").onclick = () => sauver({ ...Object.fromEntries(CH_TXT.map(c => [c[0], reg[c[0]]])), univers: reg.univers });
+  }
+
+  /* --- Maintenance --- */
+  function vueMaint() {
+    pan.innerHTML = `<p class="etat" id="etat"></p>
+      <label>Message affiché aux visiteurs<textarea id="mm" rows="3"></textarea></label>
+      <div class="rang"><button class="btn" id="mbtn" type="button"></button></div>
+      <p class="aide">Quand la maintenance est active, les visiteurs ne voient que ce message. Toi, connectée, tu vois le site normalement avec un petit rappel en bas.</p><p id="msg" class="msg"></p>`;
+    const maj = () => {
+      $("etat").textContent = reg.maintenance ? "🔴 Maintenance ACTIVE : le site est fermé aux visiteurs." : "🟢 Le site est en ligne.";
+      $("mbtn").textContent = reg.maintenance ? "Remettre le site en ligne" : "Activer la maintenance";
+    };
+    $("mm").value = reg.msgMaintenance; maj();
+    $("mbtn").onclick = () => {
+      reg.maintenance = !reg.maintenance; reg.msgMaintenance = $("mm").value;
+      appliquerMaint(); maj();
+      sauver({ maintenance: reg.maintenance, msgMaintenance: reg.msgMaintenance });
     };
   }
 
@@ -486,15 +727,26 @@
     firebase.initializeApp(FIREBASE);
     db = firebase.firestore(); auth = firebase.auth();
     auth.onAuthStateChanged(u => {
-      user = u;
-      document.querySelectorAll(".cad").forEach(e => e.textContent = u ? "✏️" : "🔒");
-      if (ad.open) vue();
+      user = u && u.email === ADMIN_EMAIL ? u : null;
+      document.querySelectorAll(".cad").forEach(e => e.textContent = user ? "✏️" : "🔒");
+      appliquerMaint();
+      if (unsubTous) { unsubTous(); unsubTous = null; }
+      tousCom = [];
+      if (user) {
+        unsubTous = db.collection("commentaires").orderBy("date", "desc").limit(300).onSnapshot(s => {
+          tousCom = s.docs.map(d => ({ id: d.id, ...d.data() })); majListeComm();
+        }, () => {});
+      } else fermerPanneau();
+      if (dlg.open) rendreComs();
     });
     db.collection("articles").onSnapshot(s => {
-      articles = s.docs.map(d => ({ id: d.id, ...d.data() }));
-      rendre(); if (ad.open && user && !$("e-ok")) vue();
+      articles = s.docs.map(d => ({ id: d.id, texte: [], date: today(), minutes: 5, resume: "", ...d.data() }));
+      rendre();
+      if (!panneau.hidden && ong === "articles" && !$("e-ok")) vue();
     }, () => {});
-    db.doc("site/reglages").onSnapshot(s => { if (s.exists) { reg = { ...REG0, ...s.data() }; appliquerReg(); } }, () => {});
+    db.doc("site/reglages").onSnapshot(s => {
+      reg = fusion(s.exists ? s.data() : {}); appliquerReg(); rendre(); pret();
+    }, () => pret());
   }
 </script>
 </body>
