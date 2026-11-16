@@ -611,19 +611,26 @@
       <label>Date<input id="e-date" type="date"></label>
       <label>Minutes de lecture<input id="e-min" type="number" min="1"></label>
       <label>Résumé (2-3 phrases)<textarea id="e-resume" rows="3"></textarea></label>
-      <label>Texte (une ligne vide = nouveau paragraphe)<textarea id="e-texte" rows="14"></textarea></label>
-      <div class="rang"><button class="btn" id="e-ok" type="button">Publier</button><button class="btn jaune" id="e-non" type="button">Annuler</button></div><p id="msg" class="msg"></p>`;
-    $("e-titre").value = a.titre; $("e-theme").value = a.theme; $("e-date").value = a.date;
-    $("e-min").value = a.minutes; $("e-resume").value = a.resume; $("e-texte").value = a.texte.join("\n\n");
-    $("e-non").onclick = () => vue();
-    $("e-ok").onclick = () => {
-      const d = { titre: $("e-titre").value.trim(), theme: $("e-theme").value, date: $("e-date").value || today(),
-        minutes: +$("e-min").value || 5, resume: $("e-resume").value.trim(),
-        texte: $("e-texte").value.split(/\n\s*\n/).map(t => t.trim()).filter(Boolean) };
-      if (!d.titre || !d.texte.length) return msg("Il faut au moins un titre et un texte.", 1);
+    <label>Ajouter un PDF (optionnel)<input id="e-pdf" type="file" accept="application/pdf"></label>
+    <label>Texte (une ligne vide = nouveau paragraphe)<textarea id="e-texte" rows="14"></textarea></label>
+    <div class="rang"><button class="btn" id="e-ok" type="button">Publier</button><button class="btn jaune" id="e-non" type="button">Annuler</button></div>`;
+  $("e-titre").value = a.titre; $("e-theme").value = a.theme; $("e-date").value = a.date;
+  $("e-min").value = a.minutes; $("e-resume").value = a.resume; $("e-texte").value = a.texte.filter(x => !x.startsWith("data:application/pdf")).join("\n\n");
+  $("e-non").onclick = () => vue();
+  $("e-ok").onclick = () => {
+    const f = $("e-pdf").files[0];
+    const pub = (pdfData) => {
+      let tx = $("e-texte").value.split(/\n\s*\n/).map(t => t.trim()).filter(Boolean);
+      const ancPdf = a.texte.find(x => x.startsWith("data:application/pdf"));
+      if (pdfData) tx.push(pdfData); else if (ancPdf) tx.push(ancPdf);
+      const d = { titre: $("e-titre").value.trim(), theme: $("e-theme").value, date: $("e-date").value || today(), minutes: +$("e-min").value || 5, resume: $("e-resume").value.trim(), texte: tx };
+      if (!d.titre || !d.texte.length) return msg("Il faut au moins un titre et un texte ou un PDF.", 1);
       const ref = a.id ? db.collection("articles").doc(a.id).set(d) : db.collection("articles").add(d);
-      ref.then(() => vue()).catch(() => msg("Publication refusée (vérifie les règles Firebase).", 1));
+      ref.then(() => vue()).catch(() => msg("Publication refusée (fichier PDF trop lourd, max 700 Ko).", 1));
     };
+    if (f) { const r = new FileReader(); r.onload = () => pub(r.result); r.readAsDataURL(f); } else { pub(null); }
+  };
+
   }
 
   /* --- Commentaires --- */
