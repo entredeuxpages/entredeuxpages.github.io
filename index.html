@@ -120,7 +120,6 @@
   /* Lecture + commentaires */
   dialog { border: 4px solid var(--prune); border-radius: var(--r); padding: 0; width: min(780px, 94vw); max-height: 92vh; overflow: auto; background: var(--creme); color: var(--prune); box-shadow: var(--o) var(--o) 0 var(--prune); margin: auto; }
   dialog::backdrop { background: rgba(43, 16, 51, .65); }
-  /* Grand écran quand l'article contient un PDF */
   dialog.large { width: min(1500px, 98vw); height: 96vh; max-height: 96vh; }
   dialog.plein { width: 100vw; height: 100vh; max-height: 100vh; max-width: 100vw; border-radius: 0; border: 0; box-shadow: none; }
   .lecture-haut { padding: 1.6rem 2rem 1.2rem; border-bottom: 4px solid var(--prune); position: sticky; top: 0; z-index: 2; background: var(--creme); }
@@ -146,8 +145,10 @@
   .msg { font-family: var(--titre); font-weight: 800; }
   .erreur { color: #B00020; }
 
-  /* Panneau créateur */
+  /* Panneau créateur + resizer */
   .panneau { position: fixed; top: 0; right: 0; bottom: 0; width: min(560px, 100vw); z-index: 60; background: var(--creme); border-left: 4px solid var(--prune); display: flex; flex-direction: column; font-size: 1rem; line-height: 1.5; }
+  .resizer { position: absolute; left: 0; top: 0; bottom: 0; width: 10px; cursor: ew-resize; z-index: 2; background: transparent; }
+  .resizer:hover, .resizer.actif { background: var(--rose); opacity: .7; }
   .pan-haut { display: flex; justify-content: space-between; align-items: center; gap: .6rem; padding: 1rem 1.4rem; background: var(--jaune); border-bottom: 4px solid var(--prune); flex-wrap: wrap; }
   .pan-haut h2 { font-family: var(--titre); font-weight: 800; font-size: 1.5rem; }
   .pan-corps { overflow: auto; padding: 1.2rem 1.4rem 3rem; display: grid; gap: 1rem; align-content: start; }
@@ -168,6 +169,10 @@
   .ligne b { font-family: var(--titre); }
   .ctexte { white-space: pre-wrap; word-break: break-word; }
   .etat { font-family: var(--titre); font-weight: 800; font-size: 1.2rem; }
+  .stats-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
+  .stat-carte { background: #fff; border: 3px solid var(--prune); border-radius: 16px; padding: 1rem; text-align: center; }
+  .stat-carte b { display: block; font-family: var(--titre); font-size: 2rem; line-height: 1.1; }
+  .stat-carte span { font-family: var(--titre); font-weight: 800; font-size: .95rem; }
 </style>
 </head>
 <body>
@@ -264,6 +269,7 @@
 <div class="pill-maint" id="pill-maint" hidden>🛠️ Maintenance active : seule toi vois le site</div>
 
 <aside class="panneau" id="panneau" hidden aria-label="Espace créateur">
+  <div class="resizer" id="resizer" title="Redimensionner le panneau"></div>
   <div class="pan-haut">
     <h2>✏️ Espace créateur</h2>
     <div class="rang">
@@ -299,7 +305,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<!-- Lecteur PDF (affiche aussi les images) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
   /* ============ À REMPLIR ============ */
@@ -312,7 +317,7 @@
     titreDebut: "Légendes, plumes, pinceaux et",
     titreMot: "crimes.",
     intro: "Bienvenue ! Ici je raconte ceux qu’on n’oublie pas : les héros de légende, les écrivains, les artistes… et les meurtriers. Installe-toi, lis, et dis-moi ce que tu en penses en commentaire.",
-    email: "ton.adresse@mail.com",
+    email: "marilou.isnarr@icloud.com",
     apropos: "Salut, moi c’est [ton prénom ou pseudo]. J’écris sur les histoires qui fascinent : celles qu’on se raconte depuis des siècles, celles des gens qui créent, et les plus sombres aussi.\n\nModifie ce texte depuis ton espace créateur (le cadenas dans le menu).",
     titreUnivers: "Choisis ton univers",
     sousUnivers: "Quatre thèmes, quatre ambiances. Clique sur une case pour voir seulement ces articles.",
@@ -370,7 +375,7 @@
   const dateCom = c => c.date && c.date.toDate ? c.date.toDate() : new Date();
   const fmtCom = (c, o) => dateCom(c).toLocaleString("fr-FR", o || { dateStyle: "medium", timeStyle: "short" });
   const enligne = !!FIREBASE.apiKey;
-  const SAFE = /[?&]safe\b/.test(location.search); /* ajoute ?safe à l'adresse pour désactiver le code perso en cas de bug */
+  const SAFE = /[?&]safe\b/.test(location.search);
   function fusion(d) {
     const r = { ...DEF, ...d }; r.univers = {};
     Object.keys(DEF.univers).forEach(k => r.univers[k] = { ...DEF.univers[k], ...((d.univers || {})[k] || {}) });
@@ -379,6 +384,7 @@
   let articles = enligne ? [] : DEMO, reg = fusion({}), tri = [], theme = "tous", requete = "";
   let user = null, db, auth, artCourant = null, comsArt = [], tousCom = [], unsubCom = null, unsubTous = null, ong = "articles";
   let codePerso = { css: "", js: "" }, premierCode = true, jetonLecture = 0, blobsPdf = [];
+  let stats = {}, largeurPan = 560;
   const pret = () => document.body.classList.remove("attente");
   if (enligne) { document.body.classList.add("attente"); setTimeout(pret, 4000); }
 
@@ -413,7 +419,10 @@
     $("logo").textContent = reg.nomSite + " ✦";
     $("h1-debut").textContent = reg.titreDebut; $("h1-mot").textContent = reg.titreMot;
     $("intro").textContent = reg.intro; $("pied-nom").textContent = reg.nomSite; document.title = reg.nomSite;
-    ["contact", "pied-contact"].forEach(i => $(i).href = "mailto:" + reg.email);
+    ["contact", "pied-contact"].forEach(i => {
+      $(i).href = "mailto:" + reg.email;
+      if (i === "pied-contact") $(i).textContent = reg.email || "Écris-moi";
+    });
     $("t-univers").textContent = reg.titreUnivers; $("s-univers").textContent = reg.sousUnivers;
     $("t-une").textContent = reg.titreUne; $("t-articles").textContent = reg.titreArticles; $("s-articles").textContent = reg.sousArticles;
     const z = $("apropos-txt"); z.innerHTML = "";
@@ -421,7 +430,7 @@
     appliquerLook(); appliquerMaint();
   }
 
-  /* ---------- Code personnalisé (CSS / JS modifiables depuis l'espace créateur) ---------- */
+  /* ---------- Code personnalisé ---------- */
   function majCss(css) {
     let st = $("css-perso");
     if (!st) { st = document.createElement("style"); st.id = "css-perso"; document.head.appendChild(st); }
@@ -434,6 +443,34 @@
       premierCode = false;
       if (!SAFE && codePerso.js) { try { new Function(codePerso.js)(); } catch (e) { console.error("Erreur dans le JavaScript perso :", e); } }
     }
+  }
+
+  /* ---------- Compteur de visites ---------- */
+  function getWeekKey(d) {
+    const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    const dayNum = date.getUTCDay() || 7;
+    date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+    const weekNo = Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+    return date.getUTCFullYear() + "-W" + String(weekNo).padStart(2, "0");
+  }
+  function compterVisite() {
+    if (!enligne) return;
+    const cle = "visite-" + today();
+    try { if (localStorage.getItem(cle)) return; localStorage.setItem(cle, "1"); } catch (_) {}
+    const now = new Date();
+    const an = String(now.getFullYear());
+    const mois = an + "-" + String(now.getMonth() + 1).padStart(2, "0");
+    const semaine = getWeekKey(now);
+    const jour = today();
+    const updates = {
+      total: firebase.firestore.FieldValue.increment(1),
+      ["annees." + an]: firebase.firestore.FieldValue.increment(1),
+      ["mois." + mois]: firebase.firestore.FieldValue.increment(1),
+      ["semaines." + semaine]: firebase.firestore.FieldValue.increment(1),
+      ["jours." + jour]: firebase.firestore.FieldValue.increment(1)
+    };
+    db.doc("site/visites").set(updates, { merge: true }).catch(() => {});
   }
 
   /* ---------- Affichage public ---------- */
@@ -654,9 +691,46 @@
       .catch(() => codeMsg("Code incorrect."));
   };
 
+  /* ---------- Resizer du panneau ---------- */
+  (function initResizer() {
+    const r = $("resizer");
+    let startX, startW;
+    r.addEventListener("mousedown", e => {
+      e.preventDefault();
+      r.classList.add("actif");
+      startX = e.clientX;
+      startW = panneau.offsetWidth;
+      const move = e2 => {
+        const delta = startX - e2.clientX;
+        largeurPan = Math.max(320, Math.min(window.innerWidth - 40, startW + delta));
+        panneau.style.width = largeurPan + "px";
+      };
+      const up = () => {
+        r.classList.remove("actif");
+        removeEventListener("mousemove", move);
+        removeEventListener("mouseup", up);
+      };
+      addEventListener("mousemove", move);
+      addEventListener("mouseup", up);
+    });
+  })();
+
   /* ---------- Panneau créateur ---------- */
-  const ONGLETS = [["articles", "📝 Articles"], ["comm", "💬 Commentaires"], ["look", "🎨 Apparence"], ["textes", "✍️ Textes"], ["code", "</> Code"], ["maint", "🛠️ Maintenance"]];
-  function ouvrirPanneau() { panneau.hidden = false; ong = "articles"; vue(); }
+  const ONGLETS = [
+    ["articles", "📝 Articles"],
+    ["comm", "💬 Commentaires"],
+    ["stats", "📊 Stats"],
+    ["look", "🎨 Apparence"],
+    ["textes", "✍️ Textes"],
+    ["code", "</> Code"],
+    ["maint", "🛠️ Maintenance"]
+  ];
+  function ouvrirPanneau() {
+    panneau.hidden = false;
+    panneau.style.width = largeurPan + "px";
+    ong = "articles";
+    vue();
+  }
   function fermerPanneau() { panneau.hidden = true; }
   $("pan-x").onclick = fermerPanneau;
   $("pan-out").onclick = () => { auth.signOut(); fermerPanneau(); };
@@ -666,14 +740,15 @@
   const apercu = () => { appliquerReg(); rendre(); };
 
   function vue(a) {
-    panneau.style.width = ong === "code" ? "min(800px, 100vw)" : "";
+    if (ong === "code") panneau.style.width = Math.max(largeurPan, 720) + "px";
+    else panneau.style.width = largeurPan + "px";
     const o = $("onglets"); o.innerHTML = "";
     ONGLETS.forEach(([k, n]) => {
       const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.textContent = n;
       b.setAttribute("aria-pressed", k === ong); b.onclick = () => { ong = k; vue(); }; o.appendChild(b);
     });
     if (ong === "articles") return a ? vueEdition(a === "new" ? null : a) : vueListe();
-    ({ comm: vueComm, look: vueLook, textes: vueTextes, code: vueCode, maint: vueMaint })[ong]();
+    ({ comm: vueComm, stats: vueStats, look: vueLook, textes: vueTextes, code: vueCode, maint: vueMaint })[ong]();
   }
 
   /* --- Articles --- */
@@ -754,7 +829,31 @@
     });
   }
 
-  /* --- Champs génériques (apparence + textes) --- */
+  /* --- Stats (visites) --- */
+  function vueStats() {
+    const now = new Date();
+    const an = String(now.getFullYear());
+    const mois = an + "-" + String(now.getMonth() + 1).padStart(2, "0");
+    const semaine = getWeekKey(now);
+    const jour = today();
+    const total = stats.total || 0;
+    const a = (stats.annees && stats.annees[an]) || 0;
+    const m = (stats.mois && stats.mois[mois]) || 0;
+    const s = (stats.semaines && stats.semaines[semaine]) || 0;
+    const j = (stats.jours && stats.jours[jour]) || 0;
+    pan.innerHTML = `<h3>Visites du site</h3>
+      <p class="aide">Comptage unique par navigateur et par jour (évite les rafraîchissements). Les chiffres se mettent à jour en direct.</p>
+      <div class="stats-grille">
+        <div class="stat-carte"><b>${total}</b><span>Total</span></div>
+        <div class="stat-carte"><b>${a}</b><span>Cette année</span></div>
+        <div class="stat-carte"><b>${m}</b><span>Ce mois</span></div>
+        <div class="stat-carte"><b>${s}</b><span>Cette semaine</span></div>
+        <div class="stat-carte"><b>${j}</b><span>Aujourd’hui</span></div>
+      </div>
+      <p class="aide" style="margin-top:1.2rem">Document Firestore : <code>site/visites</code>. Pense à autoriser l’écriture pour les visiteurs anonymes dans les règles de sécurité (uniquement sur ce document).</p>`;
+  }
+
+  /* --- Champs génériques --- */
   function champ([k, lib, type, x, y, z]) {
     const v = reg[k];
     if (type === "color") return `<label>${lib}<input type="color" data-k="${k}" value="${v}"></label>`;
@@ -815,10 +914,11 @@
       <div class="rang">
         <button class="btn" id="k-ok" type="button">Enregistrer</button>
         <button class="btn jaune" id="k-test" type="button">Tester le JS</button>
-        <button class="btn jaune" id="k-src" type="button">Voir le code source complet</button>
+        <button class="btn jaune" id="k-src" type="button">Voir / copier le code source complet</button>
       </div>
       <p id="msg" class="msg"></p>
-      <div id="k-zone"></div>`;
+      <div id="k-zone"></div>
+      <p class="aide" style="margin-top:1rem">Le code source complet est en lecture seule (la structure HTML est fixée dans le fichier). Pour modifier la structure, édite le fichier HTML et ré-uploade-le. Le CSS et le JS perso ci-dessus restent modifiables en direct.</p>`;
     const css = $("k-css"), js = $("k-js");
     css.value = codePerso.css; js.value = codePerso.js;
     [css, js].forEach(t => t.addEventListener("keydown", e => {
@@ -847,7 +947,7 @@
       let src;
       try { src = await (await fetch(location.href.split("#")[0], { cache: "no-store" })).text(); }
       catch (_) { src = "<!DOCTYPE html>\n" + document.documentElement.outerHTML; }
-      $("k-zone").innerHTML = `<label>Code source complet de la page (lecture seule, à copier)<textarea class="code" id="k-full" rows="18" readonly spellcheck="false"></textarea></label>
+      $("k-zone").innerHTML = `<label>Code source complet de la page (lecture seule)<textarea class="code" id="k-full" rows="20" readonly spellcheck="false"></textarea></label>
         <div class="rang"><button class="btn" id="k-copy" type="button">Copier le code</button></div>`;
       $("k-full").value = src;
       $("k-copy").onclick = () => { $("k-full").select(); (navigator.clipboard ? navigator.clipboard.writeText(src) : Promise.reject()).then(() => msg("Code copié ✔"), () => { document.execCommand("copy"); msg("Code copié ✔"); }); };
@@ -901,6 +1001,12 @@
     db.doc("site/code").onSnapshot(s => {
       appliquerCode(s.exists ? s.data() : {});
     }, () => {});
+    db.doc("site/visites").onSnapshot(s => {
+      stats = s.exists ? s.data() : {};
+      if (!panneau.hidden && ong === "stats") vueStats();
+    }, () => {});
+    // Compte une visite (unique par jour / navigateur)
+    setTimeout(compterVisite, 1500);
   }
 </script>
 </body>
