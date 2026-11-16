@@ -6,207 +6,365 @@
 <title>Mon site d’articles</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=Newsreader:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --jaune: #FFE14D;
-    --jaune-pale: #FFF3A8;
-    --rose: #FF4FA3;
-    --rose-pale: #FFC2DE;
-    --encre: #2A1230;
-    --papier: #FFFBEA;
+    --jaune: #FFD93D; --jaune-pale: #FFF0A0;
+    --rose: #FF5FA8; --rose-pale: #FFD6E8;
+    --prune: #2B1033; --creme: #FFF8E1;
     --titre: "Bricolage Grotesque", "Arial Black", sans-serif;
     --texte: "Newsreader", Georgia, serif;
   }
   * { box-sizing: border-box; margin: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--papier);
-    color: var(--encre);
-    font-family: var(--texte);
-    font-size: 1.15rem;
-    line-height: 1.6;
-  }
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  body { background: var(--creme); color: var(--prune); font-family: var(--texte); font-size: 1.15rem; line-height: 1.65; }
   a { color: inherit; }
-  :focus-visible { outline: 4px solid var(--encre); outline-offset: 3px; }
+  :focus-visible { outline: 4px solid var(--prune); outline-offset: 3px; }
+  section { padding: clamp(3rem, 7vw, 5.5rem) 5vw; border-bottom: 4px solid var(--prune); }
+  .contenu { max-width: 1200px; margin: 0 auto; }
+  h2.section-titre { font-family: var(--titre); font-weight: 800; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1; letter-spacing: -.02em; margin-bottom: .6rem; }
+  .sous-titre { font-style: italic; margin-bottom: 2.2rem; max-width: 36rem; }
+  .btn {
+    font-family: var(--titre); font-weight: 800; font-size: 1.05rem; color: var(--prune);
+    background: var(--rose); border: 3px solid var(--prune); border-radius: 999px;
+    padding: .55rem 1.4rem; cursor: pointer; text-decoration: none; display: inline-block;
+    box-shadow: 4px 4px 0 var(--prune); transition: transform .12s, box-shadow .12s;
+  }
+  .btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--prune); }
+  .btn.jaune { background: var(--jaune); }
 
-  /* En-tête */
-  header {
-    background: var(--jaune);
-    border-bottom: 4px solid var(--encre);
-    padding: 1.2rem 5vw 0;
-    position: relative;
-    overflow: hidden;
-  }
-  nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-  .logo { font-family: var(--titre); font-weight: 800; font-size: 1.4rem; text-decoration: none; }
-  nav a.contact {
-    font-family: var(--titre); font-weight: 800; font-size: 1rem;
-    background: var(--rose); color: var(--encre);
-    border: 3px solid var(--encre); border-radius: 999px;
-    padding: .4rem 1.1rem; text-decoration: none;
-    box-shadow: 4px 4px 0 var(--encre);
-  }
-  nav a.contact:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--encre); }
+  /* Menu */
+  .menu { position: sticky; top: 0; z-index: 20; background: var(--jaune); border-bottom: 4px solid var(--prune); padding: .8rem 5vw; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .logo { font-family: var(--titre); font-weight: 800; font-size: 1.5rem; text-decoration: none; }
+  .menu nav { display: flex; gap: 1.4rem; align-items: center; font-family: var(--titre); font-weight: 800; }
+  .menu nav a:not(.btn) { text-decoration: none; }
+  .menu nav a:not(.btn):hover { text-decoration: underline; text-decoration-thickness: 3px; text-decoration-color: var(--rose); }
 
-  .hero { padding: clamp(2.5rem, 8vw, 6rem) 0 clamp(2rem, 5vw, 4rem); max-width: 1100px; }
-  .hero h1 {
-    font-family: var(--titre); font-weight: 800;
-    font-size: clamp(3rem, 11vw, 8rem);
-    line-height: .92; letter-spacing: -.03em;
-  }
-  .hero h1 span {
-    background: var(--rose);
-    padding: 0 .15em;
-    border: 4px solid var(--encre);
-    display: inline-block;
-    transform: rotate(-2deg);
-    box-shadow: 8px 8px 0 var(--encre);
-    margin-top: .15em;
-  }
-  .hero p { max-width: 34rem; margin-top: 2rem; font-size: 1.3rem; font-style: italic; }
+  /* Hero */
+  .hero { background: var(--jaune); position: relative; overflow: hidden; padding-bottom: 4rem; }
+  .hero h1 { font-family: var(--titre); font-weight: 800; font-size: clamp(3rem, 10.5vw, 7.5rem); line-height: .93; letter-spacing: -.03em; max-width: 1000px; }
+  .hero h1 span { background: var(--rose); padding: 0 .15em; border: 4px solid var(--prune); display: inline-block; transform: rotate(-2deg); box-shadow: 8px 8px 0 var(--prune); margin-top: .15em; }
+  .hero p { max-width: 34rem; margin: 2rem 0; font-size: 1.3rem; font-style: italic; }
+  .hero .boutons { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .pastille { position: absolute; right: 6vw; top: 3rem; width: 150px; height: 150px; border-radius: 50%; background: var(--rose); border: 4px solid var(--prune); box-shadow: 6px 6px 0 var(--prune); display: grid; place-items: center; text-align: center; font-family: var(--titre); font-weight: 800; line-height: 1.1; transform: rotate(12deg); }
+  .pastille b { font-size: 2.6rem; display: block; }
+  .rond { position: absolute; border-radius: 50%; border: 4px solid var(--prune); }
+  .rond.a { width: 90px; height: 90px; background: var(--rose-pale); right: 22vw; bottom: 2rem; }
+  .rond.b { width: 50px; height: 50px; background: var(--creme); right: 10vw; bottom: 5rem; }
+  @media (max-width: 800px) { .pastille, .rond { display: none; } }
 
-  /* Bandeau défilant */
-  .bandeau {
-    background: var(--encre); color: var(--jaune);
-    margin: 0 -5vw; overflow: hidden; white-space: nowrap;
-    font-family: var(--titre); font-weight: 800; font-size: 1.3rem;
-    padding: .7rem 0; border-top: 4px solid var(--encre);
-  }
-  .bandeau div { display: inline-block; animation: defile 28s linear infinite; }
-  .bandeau span { margin: 0 1.2rem; }
-  .bandeau .r { color: var(--rose); }
+  .bandeau { background: var(--prune); color: var(--jaune); overflow: hidden; white-space: nowrap; font-family: var(--titre); font-weight: 800; font-size: 1.4rem; padding: .8rem 0; border-bottom: 4px solid var(--prune); }
+  .bandeau div { display: inline-block; animation: defile 30s linear infinite; }
+  .bandeau span { margin: 0 1.3rem; } .bandeau .r { color: var(--rose); }
   @keyframes defile { to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .bandeau div { animation: none; } html { scroll-behavior: auto; } }
 
-  /* Filtres */
-  main { padding: 3rem 5vw 4rem; max-width: 1250px; margin: 0 auto; }
-  .filtres { display: flex; flex-wrap: wrap; gap: .8rem; margin-bottom: 2.5rem; }
-  .filtres button {
-    font-family: var(--titre); font-weight: 800; font-size: 1.05rem;
-    background: var(--papier); color: var(--encre);
-    border: 3px solid var(--encre); border-radius: 999px;
-    padding: .5rem 1.3rem; cursor: pointer;
-    box-shadow: 4px 4px 0 var(--encre);
-  }
-  .filtres button:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--encre); }
+  /* Univers */
+  .univers { background: var(--creme); }
+  .tuiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.8rem; }
+  .tuile { text-align: left; font: inherit; color: inherit; cursor: pointer; border: 4px solid var(--prune); border-radius: 22px; padding: 1.6rem; box-shadow: 8px 8px 0 var(--prune); transition: transform .15s, box-shadow .15s; display: flex; flex-direction: column; gap: .5rem; }
+  .tuile:hover { transform: translate(4px, 4px); box-shadow: 4px 4px 0 var(--prune); }
+  .tuile .emoji { font-size: 2.6rem; line-height: 1; }
+  .tuile h3 { font-family: var(--titre); font-weight: 800; font-size: 1.8rem; line-height: 1; }
+  .tuile small { font-family: var(--titre); font-weight: 800; font-size: .95rem; }
+  .t-legendes, .carte.legendes { background: var(--jaune); }
+  .t-ecrivains, .carte.ecrivains { background: var(--rose-pale); }
+  .t-artistes, .carte.artistes { background: var(--jaune-pale); }
+  .t-meurtriers, .carte.meurtriers { background: var(--rose); }
+
+  /* À la une */
+  .une { background: var(--rose); }
+  .une-carte { background: var(--creme); border: 4px solid var(--prune); border-radius: 26px; box-shadow: 10px 10px 0 var(--prune); padding: clamp(1.6rem, 4vw, 3rem); display: grid; gap: 1rem; max-width: 900px; cursor: pointer; text-align: left; font: inherit; color: inherit; width: 100%; }
+  .une-carte:hover { transform: translate(4px, 4px); box-shadow: 6px 6px 0 var(--prune); }
+  .une-carte h3 { font-family: var(--titre); font-weight: 800; font-size: clamp(1.9rem, 5vw, 3.2rem); line-height: 1; letter-spacing: -.02em; }
+
+  /* Articles */
+  .outils { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-bottom: 2.2rem; }
+  .filtres { display: flex; flex-wrap: wrap; gap: .7rem; }
+  .filtres button { font-family: var(--titre); font-weight: 800; font-size: 1rem; background: var(--creme); color: var(--prune); border: 3px solid var(--prune); border-radius: 999px; padding: .4rem 1.1rem; cursor: pointer; box-shadow: 3px 3px 0 var(--prune); }
   .filtres button[aria-pressed="true"] { background: var(--rose); }
-
-  /* Cartes */
+  .recherche { flex: 1; min-width: 200px; font: inherit; font-size: 1.05rem; padding: .55rem 1.1rem; border: 3px solid var(--prune); border-radius: 999px; background: #fff; color: var(--prune); }
   .grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 2rem; }
-  .carte {
-    border: 4px solid var(--encre); border-radius: 18px;
-    padding: 1.5rem; display: flex; flex-direction: column; gap: .8rem;
-    box-shadow: 8px 8px 0 var(--encre);
-    text-decoration: none;
-    transition: transform .15s, box-shadow .15s;
-  }
-  .carte:hover { transform: translate(4px, 4px); box-shadow: 4px 4px 0 var(--encre); }
-  .carte.legendes { background: var(--jaune); }
-  .carte.ecrivains { background: var(--rose-pale); }
-  .carte.artistes { background: var(--jaune-pale); }
-  .carte.meurtriers { background: var(--rose); }
-  .tag {
-    align-self: flex-start; font-family: var(--titre); font-weight: 800; font-size: .95rem;
-    background: var(--encre); color: var(--papier);
-    border-radius: 999px; padding: .15rem .9rem;
-  }
-  .carte h2 { font-family: var(--titre); font-weight: 800; font-size: 1.7rem; line-height: 1.05; letter-spacing: -.01em; }
+  .carte { border: 4px solid var(--prune); border-radius: 20px; padding: 1.5rem; display: flex; flex-direction: column; gap: .7rem; box-shadow: 8px 8px 0 var(--prune); text-align: left; font: inherit; color: inherit; cursor: pointer; transition: transform .15s, box-shadow .15s; }
+  .carte:hover { transform: translate(4px, 4px); box-shadow: 4px 4px 0 var(--prune); }
+  .tag { align-self: flex-start; font-family: var(--titre); font-weight: 800; font-size: .9rem; background: var(--prune); color: var(--creme); border-radius: 999px; padding: .1rem .9rem; }
+  .carte h3 { font-family: var(--titre); font-weight: 800; font-size: 1.65rem; line-height: 1.05; }
   .carte p { flex: 1; }
-  .carte time { font-family: var(--titre); font-weight: 500; font-size: .95rem; }
-  .vide { display: none; font-style: italic; }
+  .meta { font-family: var(--titre); font-weight: 500; font-size: .92rem; }
+  .vide { display: none; font-style: italic; margin-top: 1rem; }
 
-  footer {
-    background: var(--rose); border-top: 4px solid var(--encre);
-    padding: 2rem 5vw; font-family: var(--titre); font-weight: 500;
-  }
+  /* À propos */
+  .apropos { background: var(--jaune-pale); }
+  .apropos-grille { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  @media (max-width: 800px) { .apropos-grille { grid-template-columns: 1fr; } }
+  .portrait { aspect-ratio: 1; background: var(--rose); border: 4px solid var(--prune); border-radius: 30px 30px 120px 30px; box-shadow: 10px 10px 0 var(--prune); display: grid; place-items: center; font-size: 6rem; max-width: 380px; }
+  .apropos p + p { margin-top: 1rem; }
+  .chiffres { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: 1.6rem; }
+  .chiffres div { background: var(--creme); border: 3px solid var(--prune); border-radius: 16px; padding: .6rem 1.2rem; font-family: var(--titre); font-weight: 800; text-align: center; }
+  .chiffres b { display: block; font-size: 2rem; line-height: 1; }
+
+  footer { background: var(--prune); color: var(--creme); padding: 3rem 5vw; font-family: var(--titre); }
+  footer .contenu { display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+  footer a { color: var(--jaune); }
+  .haut { position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 30; display: none; }
+
+  /* Fenêtre de lecture + commentaires */
+  dialog { border: 4px solid var(--prune); border-radius: 24px; padding: 0; width: min(780px, 94vw); max-height: 92vh; background: var(--creme); color: var(--prune); box-shadow: 10px 10px 0 var(--prune); margin: auto; }
+  dialog::backdrop { background: rgba(43, 16, 51, .65); }
+  .lecture-haut { padding: 1.6rem 2rem 1.2rem; border-bottom: 4px solid var(--prune); position: sticky; top: 0; z-index: 2; }
+  .lecture-haut h2 { font-family: var(--titre); font-weight: 800; font-size: clamp(1.7rem, 4.5vw, 2.6rem); line-height: 1.02; margin: .6rem 3.5rem .4rem 0; }
+  .fermer { position: absolute; right: 1.2rem; top: 1.2rem; width: 2.8rem; height: 2.8rem; padding: 0; font-size: 1.3rem; text-align: center; }
+  .lecture-corps { padding: 1.8rem 2rem; max-width: 40rem; }
+  .lecture-corps p + p { margin-top: 1.1rem; }
+  .commentaires { padding: 1.8rem 2rem 2.2rem; background: #fff; border-top: 4px solid var(--prune); }
+  .commentaires h3 { font-family: var(--titre); font-weight: 800; font-size: 1.7rem; margin-bottom: 1rem; }
+  .aide-commentaires { background: var(--jaune-pale); border: 3px dashed var(--prune); border-radius: 14px; padding: 1rem 1.2rem; font-size: 1rem; }
 </style>
 </head>
 <body>
 
-<header>
+<div class="menu">
+  <a class="logo" href="#haut">Mon site ✦</a>
   <nav>
-    <a class="logo" href="#">Mon site</a>
-    <a class="contact" href="mailto:ton.adresse@mail.com">Me contacter</a>
+    <a href="#univers">Univers</a>
+    <a href="#articles">Articles</a>
+    <a href="#apropos">À propos</a>
+    <a class="btn" href="mailto:ton.adresse@mail.com">Me contacter</a>
   </nav>
-  <div class="hero">
+</div>
+
+<section class="hero" id="haut">
+  <div class="pastille"><div><b id="nb-articles">0</b>articles<br>à lire</div></div>
+  <div class="rond a"></div><div class="rond b"></div>
+  <div class="contenu">
     <h1>Légendes, plumes, pinceaux et <span>crimes.</span></h1>
-    <p>Des articles sur ceux qu’on raconte encore, ceux qui écrivent, ceux qui peignent, et ceux qui tuent.</p>
+    <p>Bienvenue ! Ici je raconte ceux qu’on n’oublie pas : les héros de légende, les écrivains, les artistes… et les meurtriers. Installe-toi, lis, et dis-moi ce que tu en penses en commentaire.</p>
+    <div class="boutons">
+      <a class="btn" href="#articles">Lire les articles</a>
+      <button class="btn jaune" id="hasard" type="button">Surprends-moi 🎲</button>
+    </div>
   </div>
-  <div class="bandeau" aria-hidden="true">
-    <div id="defile"></div>
-  </div>
-</header>
+</section>
 
-<main id="articles">
-  <div class="filtres" role="group" aria-label="Filtrer par thème">
-    <button aria-pressed="true" data-theme="tous">Tout</button>
-    <button aria-pressed="false" data-theme="legendes">Légendes</button>
-    <button aria-pressed="false" data-theme="ecrivains">Écrivains</button>
-    <button aria-pressed="false" data-theme="artistes">Artistes</button>
-    <button aria-pressed="false" data-theme="meurtriers">Meurtriers</button>
-  </div>
-  <div class="grille" id="grille"></div>
-  <p class="vide" id="vide">Aucun article dans ce thème pour le moment.</p>
-</main>
+<div class="bandeau" aria-hidden="true"><div id="defile"></div></div>
 
-<footer>© <span id="annee"></span> · Tous droits réservés</footer>
+<section class="univers" id="univers">
+  <div class="contenu">
+    <h2 class="section-titre">Choisis ton univers</h2>
+    <p class="sous-titre">Quatre thèmes, quatre ambiances. Clique sur une case pour voir seulement ces articles.</p>
+    <div class="tuiles" id="tuiles"></div>
+  </div>
+</section>
+
+<section class="une" id="une">
+  <div class="contenu">
+    <h2 class="section-titre">À la une</h2>
+    <p class="sous-titre">Le dernier article publié, à ne pas manquer.</p>
+    <button class="une-carte" id="une-carte" type="button"></button>
+  </div>
+</section>
+
+<section id="articles">
+  <div class="contenu">
+    <h2 class="section-titre">Tous les articles</h2>
+    <p class="sous-titre">Filtre par thème ou cherche un mot. Clique sur un article pour le lire et laisser un commentaire.</p>
+    <div class="outils">
+      <div class="filtres" id="filtres" role="group" aria-label="Filtrer par thème"></div>
+      <input class="recherche" id="recherche" type="search" placeholder="Rechercher un article…" aria-label="Rechercher un article">
+    </div>
+    <div class="grille" id="grille"></div>
+    <p class="vide" id="vide">Aucun article ne correspond. Essaie un autre thème ou un autre mot.</p>
+  </div>
+</section>
+
+<section class="apropos" id="apropos">
+  <div class="contenu apropos-grille">
+    <div class="portrait" aria-hidden="true">✍️</div>
+    <div>
+      <h2 class="section-titre">À propos</h2>
+      <p>Salut, moi c’est [ton prénom ou pseudo]. J’écris sur les histoires qui fascinent : celles qu’on se raconte depuis des siècles, celles des gens qui créent, et les plus sombres aussi.</p>
+      <p>Remplace ce texte par ta présentation : qui tu es, pourquoi ces thèmes, et à quelle fréquence tu publies.</p>
+      <div class="chiffres">
+        <div><b id="c-articles">0</b>articles</div>
+        <div><b>4</b>univers</div>
+        <div><b>∞</b>curiosité</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="contenu">
+    <span>© <span id="annee"></span> Mon site · Tous droits réservés</span>
+    <span>Une idée d’article ? <a href="mailto:ton.adresse@mail.com">Écris-moi</a></span>
+  </div>
+</footer>
+
+<a class="btn jaune haut" id="haut-btn" href="#haut" aria-label="Retour en haut">↑</a>
+
+<dialog id="lecture" aria-labelledby="lecture-titre">
+  <div class="lecture-haut">
+    <span class="tag" id="lecture-tag"></span>
+    <h2 id="lecture-titre"></h2>
+    <div class="meta" id="lecture-meta"></div>
+    <button class="btn fermer" id="fermer" type="button" aria-label="Fermer">✕</button>
+  </div>
+  <div class="lecture-corps" id="lecture-corps"></div>
+  <div class="commentaires">
+    <h3>💬 Commentaires</h3>
+    <div id="zone-commentaires"></div>
+  </div>
+</dialog>
 
 <script>
-  /* ====== TES ARTICLES : copie un bloc { ... } pour en ajouter un ======
+  /* ============ 1. COMMENTAIRES (Giscus) ============
+     Remplis ces 4 valeurs en suivant les étapes données avec le code.
+     Tant qu'elles sont vides, un message d'aide s'affiche à la place. */
+  const GISCUS = { repo: "", repoId: "", category: "", categoryId: "" };
+
+  /* ============ 2. TES ARTICLES ============
+     Copie un bloc { ... } pour en ajouter un.
      theme : legendes, ecrivains, artistes ou meurtriers
-     lien  : adresse de la page de l'article (ex. "articles/mon-article.html") */
+     texte : une liste de paragraphes entre guillemets, séparés par des virgules */
   const articles = [
-    { titre: "Titre de ton article sur une légende", theme: "legendes", date: "2026-11-01",
-      resume: "Deux ou trois phrases pour donner envie de lire la suite.", lien: "#" },
-    { titre: "Titre de ton article sur un écrivain", theme: "ecrivains", date: "2026-10-20",
-      resume: "Deux ou trois phrases pour donner envie de lire la suite.", lien: "#" },
-    { titre: "Titre de ton article sur un artiste", theme: "artistes", date: "2026-10-05",
-      resume: "Deux ou trois phrases pour donner envie de lire la suite.", lien: "#" },
-    { titre: "Titre de ton article sur un meurtrier", theme: "meurtriers", date: "2026-09-18",
-      resume: "Deux ou trois phrases pour donner envie de lire la suite.", lien: "#" }
+    { id: "a1", theme: "legendes", date: "2026-11-01", minutes: 5,
+      titre: "Titre de ton article sur une légende",
+      resume: "Deux ou trois phrases pour donner envie de lire la suite.",
+      texte: ["Premier paragraphe de ton article.", "Deuxième paragraphe. Écris autant de paragraphes que tu veux."] },
+    { id: "a2", theme: "ecrivains", date: "2026-10-20", minutes: 4,
+      titre: "Titre de ton article sur un écrivain",
+      resume: "Deux ou trois phrases pour donner envie de lire la suite.",
+      texte: ["Premier paragraphe de ton article.", "Deuxième paragraphe."] },
+    { id: "a3", theme: "artistes", date: "2026-10-05", minutes: 6,
+      titre: "Titre de ton article sur un artiste",
+      resume: "Deux ou trois phrases pour donner envie de lire la suite.",
+      texte: ["Premier paragraphe de ton article.", "Deuxième paragraphe."] },
+    { id: "a4", theme: "meurtriers", date: "2026-09-18", minutes: 7,
+      titre: "Titre de ton article sur un meurtrier",
+      resume: "Deux ou trois phrases pour donner envie de lire la suite.",
+      texte: ["Premier paragraphe de ton article.", "Deuxième paragraphe."] }
   ];
 
-  const noms = { legendes: "Légendes", ecrivains: "Écrivains", artistes: "Artistes", meurtriers: "Meurtriers" };
-  const grille = document.getElementById("grille");
-  const vide = document.getElementById("vide");
+  const univers = {
+    legendes:   { nom: "Légendes",   emoji: "🐉", desc: "Héros, monstres et récits qui traversent les siècles." },
+    ecrivains:  { nom: "Écrivains",  emoji: "🪶", desc: "Les vies et les plumes derrière les grands livres." },
+    artistes:   { nom: "Artistes",   emoji: "🎨", desc: "Peintres, musiciens, créateurs et leurs œuvres." },
+    meurtriers: { nom: "Meurtriers", emoji: "🔪", desc: "Des affaires criminelles célèbres, racontées avec soin." }
+  };
 
-  function afficher(theme) {
-    grille.innerHTML = "";
-    const liste = articles
-      .filter(a => theme === "tous" || a.theme === theme)
-      .sort((a, b) => b.date.localeCompare(a.date));
-    liste.forEach(a => {
-      const el = document.createElement("a");
-      el.className = "carte " + a.theme;
-      el.href = a.lien;
-      const d = new Date(a.date).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
-      el.innerHTML = '<span class="tag"></span><h2></h2><p></p><time></time>';
-      el.querySelector(".tag").textContent = noms[a.theme];
-      el.querySelector("h2").textContent = a.titre;
-      el.querySelector("p").textContent = a.resume;
-      el.querySelector("time").textContent = d;
-      grille.appendChild(el);
-    });
-    vide.style.display = liste.length ? "none" : "block";
-  }
+  const $ = id => document.getElementById(id);
+  const tri = [...articles].sort((a, b) => b.date.localeCompare(a.date));
+  const fmt = d => new Date(d).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+  let theme = "tous", requete = "";
 
-  document.querySelectorAll(".filtres button").forEach(b => {
-    b.addEventListener("click", () => {
-      document.querySelectorAll(".filtres button").forEach(x => x.setAttribute("aria-pressed", "false"));
-      b.setAttribute("aria-pressed", "true");
-      afficher(b.dataset.theme);
-    });
-  });
+  // Compteurs
+  $("nb-articles").textContent = articles.length;
+  $("c-articles").textContent = articles.length;
+  $("annee").textContent = new Date().getFullYear();
 
-  // Bandeau défilant
-  const mots = ["Légendes", "Écrivains", "Artistes", "Meurtriers"];
+  // Bandeau
+  const mots = Object.values(univers).map(u => u.nom);
   let bande = "";
   for (let i = 0; i < 16; i++) bande += '<span class="' + (i % 2 ? "r" : "") + '">' + mots[i % 4] + "</span>";
-  document.getElementById("defile").innerHTML = bande + bande;
+  $("defile").innerHTML = bande + bande;
 
-  document.getElementById("annee").textContent = new Date().getFullYear();
-  afficher("tous");
+  // Tuiles des univers
+  Object.entries(univers).forEach(([cle, u]) => {
+    const n = articles.filter(a => a.theme === cle).length;
+    const t = document.createElement("button");
+    t.type = "button"; t.className = "tuile t-" + cle;
+    t.innerHTML = '<span class="emoji"></span><h3></h3><p></p><small></small>';
+    t.querySelector(".emoji").textContent = u.emoji;
+    t.querySelector("h3").textContent = u.nom;
+    t.querySelector("p").textContent = u.desc;
+    t.querySelector("small").textContent = n + (n > 1 ? " articles" : " article");
+    t.onclick = () => { choisir(cle); $("articles").scrollIntoView(); };
+    $("tuiles").appendChild(t);
+  });
+
+  // À la une
+  const une = tri[0];
+  if (une) {
+    const c = $("une-carte");
+    c.innerHTML = '<span class="tag"></span><h3></h3><p></p><span class="meta"></span>';
+    c.querySelector(".tag").textContent = univers[une.theme].nom;
+    c.querySelector("h3").textContent = une.titre;
+    c.querySelector("p").textContent = une.resume;
+    c.querySelector(".meta").textContent = fmt(une.date) + " · " + une.minutes + " min de lecture";
+    c.onclick = () => ouvrir(une);
+  }
+
+  // Filtres
+  [["tous", "Tout"], ...Object.entries(univers).map(([k, u]) => [k, u.nom])].forEach(([cle, nom]) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = nom; b.dataset.theme = cle;
+    b.setAttribute("aria-pressed", cle === "tous");
+    b.onclick = () => choisir(cle);
+    $("filtres").appendChild(b);
+  });
+  function choisir(cle) {
+    theme = cle;
+    document.querySelectorAll("#filtres button").forEach(b => b.setAttribute("aria-pressed", b.dataset.theme === cle));
+    afficher();
+  }
+  $("recherche").addEventListener("input", e => { requete = e.target.value.toLowerCase(); afficher(); });
+
+  // Grille d'articles
+  function afficher() {
+    const g = $("grille"); g.innerHTML = "";
+    const liste = tri.filter(a => (theme === "tous" || a.theme === theme) &&
+      (a.titre + " " + a.resume).toLowerCase().includes(requete));
+    liste.forEach(a => {
+      const el = document.createElement("button");
+      el.type = "button"; el.className = "carte " + a.theme;
+      el.innerHTML = '<span class="tag"></span><h3></h3><p></p><span class="meta"></span>';
+      el.querySelector(".tag").textContent = univers[a.theme].emoji + " " + univers[a.theme].nom;
+      el.querySelector("h3").textContent = a.titre;
+      el.querySelector("p").textContent = a.resume;
+      el.querySelector(".meta").textContent = fmt(a.date) + " · " + a.minutes + " min";
+      el.onclick = () => ouvrir(a);
+      g.appendChild(el);
+    });
+    $("vide").style.display = liste.length ? "none" : "block";
+  }
+
+  // Fenêtre de lecture + commentaires
+  const dlg = $("lecture");
+  function ouvrir(a) {
+    $("lecture-tag").textContent = univers[a.theme].emoji + " " + univers[a.theme].nom;
+    $("lecture-titre").textContent = a.titre;
+    $("lecture-meta").textContent = fmt(a.date) + " · " + a.minutes + " min de lecture";
+    const corps = $("lecture-corps"); corps.innerHTML = "";
+    a.texte.forEach(t => { const p = document.createElement("p"); p.textContent = t; corps.appendChild(p); });
+    chargerCommentaires(a);
+    dlg.showModal(); dlg.scrollTop = 0;
+  }
+  function chargerCommentaires(a) {
+    const z = $("zone-commentaires"); z.innerHTML = "";
+    if (!GISCUS.repo) {
+      z.innerHTML = '<div class="aide-commentaires">Les commentaires ne sont pas encore activés. Suis les étapes Giscus puis remplis la ligne <b>GISCUS</b> en haut du script.</div>';
+      return;
+    }
+    const s = document.createElement("script");
+    s.src = "https://giscus.app/client.js";
+    const attrs = { repo: GISCUS.repo, "repo-id": GISCUS.repoId, category: GISCUS.category, "category-id": GISCUS.categoryId,
+      mapping: "specific", term: a.titre, "reactions-enabled": "1", "emit-metadata": "0",
+      "input-position": "top", theme: "light", lang: "fr", loading: "lazy" };
+    Object.entries(attrs).forEach(([k, v]) => s.setAttribute("data-" + k, v));
+    s.crossOrigin = "anonymous"; s.async = true;
+    z.appendChild(s);
+  }
+  $("fermer").onclick = () => dlg.close();
+  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener("close", () => { $("zone-commentaires").innerHTML = ""; });
+
+  // Article au hasard
+  $("hasard").onclick = () => ouvrir(articles[Math.floor(Math.random() * articles.length)]);
+
+  // Bouton retour en haut
+  addEventListener("scroll", () => { $("haut-btn").style.display = scrollY > 700 ? "inline-block" : "none"; });
+
+  afficher();
 </script>
 </body>
 </html>
