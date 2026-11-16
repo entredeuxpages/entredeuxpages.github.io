@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta name="google-site-verification" content="3pouYOEYiH-DbvidmiMr9kZWxF2wm7MWoJV7DilQLao" />
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mon site d’articles</title>
@@ -120,93 +119,88 @@
   .maintenance p { max-width: 30rem; margin: 1rem auto 0; font-size: 1.3rem; font-style: italic; }
   .pill-maint { position: fixed; left: 1rem; bottom: 1rem; z-index: 45; background: var(--prune); color: var(--jaune); font-family: var(--titre); font-weight: 800; font-size: .9rem; border-radius: 999px; padding: .4rem 1rem; }
 
-  /* Lecture */
-  dialog { border: 4px solid var(--prune); border-radius: var(--r); padding: 0; width: min(780px, 94vw); max-height: 92vh; overflow: auto; background: var(--creme); color: var(--prune); box-shadow: var(--o) var(--o) 0 var(--prune); margin: auto; }
+  dialog { border: 4px solid var(--prune); border-radius: var(--r); padding: 0; width: min(820px, 96vw); max-height: 92vh; overflow: auto; background: var(--creme); color: var(--prune); box-shadow: var(--o) var(--o) 0 var(--prune); margin: auto; position: relative; }
   dialog::backdrop { background: rgba(43, 16, 51, .65); }
   dialog.large { width: min(1500px, 98vw); height: 96vh; max-height: 96vh; }
   dialog.plein { width: 100vw; height: 100vh; max-height: 100vh; max-width: 100vw; border-radius: 0; border: 0; box-shadow: none; }
-  dialog.lecture-mode { width: min(820px, 96vw); }
-  dialog.lecture-mode .commentaires,
-  dialog.lecture-mode .lecture-haut .tag,
-  dialog.lecture-mode .lecture-haut .meta { display: none; }
-  dialog.lecture-mode .lecture-corps { font-size: 1.25rem; line-height: 1.8; max-width: 38rem; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
-  dialog.lecture-mode .lecture-haut { padding: 1rem 1.5rem; }
-  .lecture-progress { height: 6px; background: var(--prune); position: sticky; top: 0; z-index: 5; transform-origin: left; transform: scaleX(0); transition: transform .1s; }
+  dialog.lecture-mode .commentaires, dialog.lecture-mode .lecture-haut .tag, dialog.lecture-mode .lecture-haut .meta { display: none; }
+  dialog.lecture-mode .lecture-corps { font-size: 1.25rem; line-height: 1.8; max-width: 38rem; margin: 0 auto; padding: 2rem 1.5rem; }
+  .lecture-progress { height: 6px; background: var(--prune); position: sticky; top: 0; z-index: 5; transform-origin: left; transform: scaleX(0); }
   .lecture-haut { padding: 1.6rem 2rem 1.2rem; border-bottom: 4px solid var(--prune); position: sticky; top: 0; z-index: 2; background: var(--creme); }
   .lecture-haut h2 { font-family: var(--titre); font-weight: 800; font-size: clamp(1.7rem, 4.5vw, 2.6rem); line-height: 1.02; margin: .6rem 3.5rem .4rem 0; }
   .fermer { position: absolute; right: 1.2rem; top: 1.2rem; width: 2.8rem; height: 2.8rem; padding: 0; font-size: 1.3rem; text-align: center; }
-  .lecture-corps { padding: 1.8rem 2rem; max-width: 40rem; position: relative; }
-  .lecture-corps.pdf { max-width: none; padding: 1rem clamp(.5rem, 2vw, 2rem) 1.5rem; background: #d9d4dc; }
+  .lecture-corps { padding: 1.8rem 2rem 1.8rem 5rem; max-width: 42rem; position: relative; }
   .lecture-corps p + p { margin-top: 1.1rem; }
   .lecture-cover { width: 100%; max-height: 320px; object-fit: cover; border-radius: 12px; border: 3px solid var(--prune); margin-bottom: 1.5rem; }
-  .pdf-zone { display: grid; gap: 1rem; justify-items: center; margin-bottom: 1rem; }
-  .pdf-outils { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; width: 100%; max-width: 1300px; }
-  .pdf-zone canvas { width: 100%; max-width: 1300px; height: auto; background: #fff; border: 3px solid var(--prune); border-radius: 6px; box-shadow: 4px 4px 0 var(--prune); display: block; }
-  .pdf-info { font-family: var(--titre); font-weight: 800; }
-  .commentaires { padding: 1.8rem 2rem 2.2rem; background: #fff; border-top: 4px solid var(--prune); font-size: 1rem; }
+  .commentaires { padding: 1.8rem 2rem 2.2rem; background: #fff; border-top: 4px solid var(--prune); }
   .commentaires h3 { font-family: var(--titre); font-weight: 800; font-size: 1.7rem; margin-bottom: 1rem; }
-  .com { border: 3px solid var(--prune); border-radius: 14px; background: var(--creme); padding: .8rem 1rem; margin-bottom: .8rem; display: grid; gap: .4rem; justify-items: start; }
-  .com-haut { display: flex; justify-content: space-between; gap: 1rem; width: 100%; font-family: var(--titre); flex-wrap: wrap; }
-  .com p { white-space: pre-wrap; word-break: break-word; }
+  .com { border: 3px solid var(--prune); border-radius: 14px; background: var(--creme); padding: .8rem 1rem; margin-bottom: .8rem; }
+  .com-haut { display: flex; justify-content: space-between; font-family: var(--titre); margin-bottom: .3rem; }
   .vide-com { font-style: italic; margin-bottom: 1rem; }
   .commentaires form { display: grid; gap: .8rem; margin-top: 1.2rem; }
   .commentaires label, .adm label { display: grid; gap: .3rem; font-family: var(--titre); font-weight: 800; }
-  .commentaires input, .commentaires textarea, .adm input, .adm select, .adm textarea { font: inherit; font-weight: 400; font-size: 1rem; padding: .5rem .8rem; border: 3px solid var(--prune); border-radius: 12px; background: #fff; color: var(--prune); width: 100%; }
+  .commentaires input, .commentaires textarea, .adm input, .adm select, .adm textarea { font: inherit; padding: .5rem .8rem; border: 3px solid var(--prune); border-radius: 12px; background: #fff; color: var(--prune); width: 100%; }
   .rang { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; }
   .msg { font-family: var(--titre); font-weight: 800; }
   .erreur { color: #B00020; }
 
-  /* ===== BOÎTE À OUTILS D'ANNOTATION (toujours visible) ===== */
+  /* Boîte à outils verticale gauche */
   .annot-bar {
-    position: sticky;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    background: var(--prune);
-    color: var(--creme);
-    padding: .6rem 1rem;
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 40;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: .5rem;
-    flex-wrap: wrap;
-    border-top: 4px solid var(--jaune);
-    font-family: var(--titre);
-    font-weight: 800;
-    font-size: .9rem;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--creme);
+    border: 3px solid var(--prune);
+    border-radius: 40px;
+    padding: 14px 9px;
+    box-shadow: 4px 4px 0 var(--prune);
   }
-  .annot-bar span { margin-right: .6rem; opacity: .9; }
   .annot-bar button {
     width: 38px;
     height: 38px;
     border: 3px solid transparent;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1.1rem;
-    transition: transform .12s, border-color .12s;
+    font-size: 1.05rem;
+    display: grid;
+    place-items: center;
+    transition: .15s;
   }
-  .annot-bar button:hover { transform: scale(1.1); }
+  .annot-bar button:hover { transform: scale(1.13); }
   .annot-bar button.active {
-    border-color: var(--jaune);
+    border-color: var(--prune);
     box-shadow: 0 0 0 3px var(--jaune);
   }
-  .annot-bar .tool-erase { background: #fff; color: #333; font-weight: 800; }
-  .annot-bar .tool-underline { background: #fff; color: #333; font-weight: 800; text-decoration: underline; }
+  .annot-bar .tool-underline {
+    background: var(--creme);
+    color: var(--prune);
+    font-weight: 800;
+    font-family: var(--titre);
+    border: 2px solid var(--prune);
+  }
+  .annot-bar .tool-erase {
+    background: var(--prune);
+    color: var(--creme);
+    font-weight: 800;
+  }
 
-  mark.hl-yellow { background: #FFE066; color: inherit; padding: 0 .15em; border-radius: 2px; }
-  mark.hl-green  { background: #A0E8A0; color: inherit; padding: 0 .15em; border-radius: 2px; }
-  mark.hl-pink   { background: #FFB3D9; color: inherit; padding: 0 .15em; border-radius: 2px; }
-  mark.hl-blue   { background: #A0D8FF; color: inherit; padding: 0 .15em; border-radius: 2px; }
+  mark.hl-yellow { background: #FFE066; padding: 0 .12em; border-radius: 2px; }
+  mark.hl-green  { background: #A0E8A0; padding: 0 .12em; border-radius: 2px; }
+  mark.hl-pink   { background: #FFB3D9; padding: 0 .12em; border-radius: 2px; }
+  mark.hl-blue   { background: #A0D8FF; padding: 0 .12em; border-radius: 2px; }
   .underline-annot { text-decoration: underline; text-decoration-thickness: 3px; text-decoration-color: var(--rose); text-underline-offset: 3px; }
 
-  /* Panneau créateur */
-  .panneau { position: fixed; top: 0; right: 0; bottom: 0; width: min(560px, 100vw); z-index: 60; background: var(--creme); border-left: 4px solid var(--prune); display: flex; flex-direction: column; font-size: 1rem; line-height: 1.5; }
-  .resizer { position: absolute; left: 0; top: 0; bottom: 0; width: 10px; cursor: ew-resize; z-index: 2; }
+  .panneau { position: fixed; top: 0; right: 0; bottom: 0; width: min(560px, 100vw); z-index: 60; background: var(--creme); border-left: 4px solid var(--prune); display: flex; flex-direction: column; }
+  .resizer { position: absolute; left: 0; top: 0; bottom: 0; width: 10px; cursor: ew-resize; }
   .resizer:hover, .resizer.actif { background: var(--rose); opacity: .7; }
-  .pan-haut { display: flex; justify-content: space-between; align-items: center; gap: .6rem; padding: 1rem 1.4rem; background: var(--jaune); border-bottom: 4px solid var(--prune); flex-wrap: wrap; }
+  .pan-haut { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.4rem; background: var(--jaune); border-bottom: 4px solid var(--prune); }
   .pan-haut h2 { font-family: var(--titre); font-weight: 800; font-size: 1.5rem; }
-  .pan-corps { overflow: auto; padding: 1.2rem 1.4rem 3rem; display: grid; gap: 1rem; align-content: start; }
+  .pan-corps { overflow: auto; padding: 1.2rem 1.4rem 3rem; display: grid; gap: 1rem; }
   .onglets .btn { font-size: .9rem; padding: .3rem .9rem; }
   .onglets .btn[aria-pressed="true"] { background: var(--jaune); }
   .adm { display: grid; gap: 1rem; }
@@ -216,19 +210,17 @@
   .adm .chk input { width: auto; }
   .adm input[type=color] { height: 2.6rem; padding: 2px; }
   .adm input[type=range] { padding: 0; border: 0; }
-  .adm textarea.code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .85rem; background: #1b1230; color: #f5eaff; white-space: pre; overflow: auto; tab-size: 2; line-height: 1.5; border-color: var(--prune); }
+  .adm textarea.code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .85rem; background: #1b1230; color: #f5eaff; white-space: pre; overflow: auto; }
   .bloc { border: 3px solid var(--prune); border-radius: 14px; padding: .8rem 1rem; background: #fff; display: grid; gap: .6rem; }
   .liste { display: grid; gap: .7rem; }
   .ligne { display: flex; gap: .8rem; justify-content: space-between; align-items: center; border: 3px solid var(--prune); border-radius: 14px; padding: .6rem 1rem; background: #fff; flex-wrap: wrap; }
   .ligne.col { flex-direction: column; align-items: stretch; }
   .ligne b { font-family: var(--titre); }
-  .ctexte { white-space: pre-wrap; word-break: break-word; }
-  .etat { font-family: var(--titre); font-weight: 800; font-size: 1.2rem; }
+  .vues-prive { font-family: var(--titre); font-weight: 800; font-size: .9rem; color: var(--rose); }
   .stats-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
   .stat-carte { background: #fff; border: 3px solid var(--prune); border-radius: 16px; padding: 1rem; text-align: center; }
-  .stat-carte b { display: block; font-family: var(--titre); font-size: 2rem; line-height: 1.1; }
+  .stat-carte b { display: block; font-family: var(--titre); font-size: 2rem; }
   .stat-carte span { font-family: var(--titre); font-weight: 800; font-size: .95rem; }
-  .vues-prive { font-family: var(--titre); font-weight: 800; font-size: .9rem; color: var(--rose); }
 </style>
 </head>
 <body>
@@ -241,13 +233,13 @@
     <a href="#apropos">À propos</a>
     <a class="btn" id="contact" href="#">Me contacter</a>
     <button class="btn theme-btn" id="theme-btn" type="button" title="Changer de thème">🎨</button>
-    <button class="btn adminbtn js-admin" type="button" aria-label="Espace créateur" title="Espace créateur"><span class="cad">🔒</span></button>
+    <button class="btn adminbtn js-admin" type="button" aria-label="Espace créateur"><span class="cad">🔒</span></button>
   </nav>
   <form class="barre-code" id="barre-code" hidden>
     <label for="code">🔑 Code créateur</label>
     <input id="code" type="password" autocomplete="current-password" placeholder="Tape ton code">
     <button class="btn" type="submit">Entrer</button>
-    <button class="btn jaune" type="button" id="code-x" aria-label="Fermer">✕</button>
+    <button class="btn jaune" type="button" id="code-x">✕</button>
     <span class="msg" id="code-msg"></span>
   </form>
 </div>
@@ -273,7 +265,7 @@
   </div>
 </section>
 
-<div class="bandeau" id="bandeau" aria-hidden="true"><div id="defile"></div></div>
+<div class="bandeau" id="bandeau"><div id="defile"></div></div>
 
 <section class="univers" id="univers">
   <div class="contenu">
@@ -296,17 +288,17 @@
     <h2 class="section-titre" id="t-articles"></h2>
     <p class="sous-titre" id="s-articles"></p>
     <div class="outils">
-      <div class="filtres" id="filtres" role="group" aria-label="Filtrer par thème"></div>
-      <input class="recherche" id="recherche" type="search" placeholder="Rechercher un article…" aria-label="Rechercher un article">
+      <div class="filtres" id="filtres"></div>
+      <input class="recherche" id="recherche" type="search" placeholder="Rechercher un article…">
     </div>
     <div class="grille" id="grille"></div>
-    <p class="vide" id="vide">Aucun article ne correspond. Essaie un autre thème ou un autre mot.</p>
+    <p class="vide" id="vide">Aucun article ne correspond.</p>
   </div>
 </section>
 
 <section class="apropos" id="apropos">
   <div class="contenu apropos-grille">
-    <div class="portrait" aria-hidden="true">✍️</div>
+    <div class="portrait">✍️</div>
     <div>
       <h2 class="section-titre">À propos</h2>
       <div id="apropos-txt"></div>
@@ -321,22 +313,22 @@
 
 <footer>
   <div class="contenu">
-    <span>© <span id="annee"></span> <span id="pied-nom"></span> · Tous droits réservés</span>
+    <span>© <span id="annee"></span> <span id="pied-nom"></span></span>
     <span>Une idée d’article ? <a id="pied-contact" href="#">Écris-moi</a></span>
     <button class="lien-admin js-admin" type="button"><span class="cad">🔒</span> Espace créateur</button>
   </div>
 </footer>
 
-<a class="btn jaune haut" id="haut-btn" href="#haut" aria-label="Retour en haut">↑</a>
-<div class="pill-maint" id="pill-maint" hidden>🛠️ Maintenance active : seule toi vois le site</div>
+<a class="btn jaune haut" id="haut-btn" href="#haut">↑</a>
+<div class="pill-maint" id="pill-maint" hidden>🛠️ Maintenance active</div>
 
-<aside class="panneau" id="panneau" hidden aria-label="Espace créateur">
-  <div class="resizer" id="resizer" title="Redimensionner le panneau"></div>
+<aside class="panneau" id="panneau" hidden>
+  <div class="resizer" id="resizer"></div>
   <div class="pan-haut">
     <h2>✏️ Espace créateur</h2>
     <div class="rang">
-      <button class="btn jaune mini" id="pan-out" type="button">Déconnexion</button>
-      <button class="btn mini" id="pan-x" type="button">✕ Fermer</button>
+      <button class="btn jaune mini" id="pan-out">Déconnexion</button>
+      <button class="btn mini" id="pan-x">✕</button>
     </div>
   </div>
   <div class="pan-corps">
@@ -345,38 +337,37 @@
   </div>
 </aside>
 
-<dialog id="lecture" aria-labelledby="lecture-titre">
+<dialog id="lecture">
   <div class="lecture-progress" id="lecture-progress"></div>
   <div class="lecture-haut">
     <span class="tag" id="lecture-tag"></span>
     <h2 id="lecture-titre"></h2>
     <div class="meta" id="lecture-meta"></div>
-    <div class="rang" style="margin-top:.6rem">
-      <button class="btn mini jaune" id="btn-lecture" type="button">📖 Mode lecture</button>
+    <div class="rang" style="margin-top:.5rem">
+      <button class="btn mini jaune" id="btn-lecture">📖 Mode lecture</button>
       <span class="meta" id="temps-restant"></span>
     </div>
-    <button class="btn fermer" id="fermer" type="button" aria-label="Fermer">✕</button>
+    <button class="btn fermer" id="fermer">✕</button>
   </div>
-  <div class="lecture-corps" id="lecture-corps"></div>
 
-  <!-- BOÎTE À OUTILS TOUJOURS VISIBLE -->
   <div class="annot-bar" id="annot-bar">
-    <span>Outils :</span>
-    <button type="button" data-tool="yellow" title="Surligner jaune" style="background:#FFE066">🟡</button>
-    <button type="button" data-tool="green"  title="Surligner vert"  style="background:#A0E8A0">🟢</button>
-    <button type="button" data-tool="pink"   title="Surligner rose"  style="background:#FFB3D9">🩷</button>
-    <button type="button" data-tool="blue"   title="Surligner bleu"  style="background:#A0D8FF">🔵</button>
+    <button type="button" data-tool="yellow" style="background:#FFE066" title="Jaune"></button>
+    <button type="button" data-tool="green"  style="background:#A0E8A0" title="Vert"></button>
+    <button type="button" data-tool="pink"   style="background:#FFB3D9" title="Rose"></button>
+    <button type="button" data-tool="blue"   style="background:#A0D8FF" title="Bleu"></button>
     <button type="button" data-tool="underline" class="tool-underline" title="Souligner">U</button>
     <button type="button" data-tool="erase" class="tool-erase" title="Gommer">⌫</button>
   </div>
+
+  <div class="lecture-corps" id="lecture-corps"></div>
 
   <div class="commentaires">
     <h3>💬 Commentaires <span id="nb-com"></span></h3>
     <div id="liste-com"></div>
     <form id="form-com">
-      <label>Ton pseudo<input id="c-pseudo" maxlength="40" autocomplete="nickname"></label>
+      <label>Ton pseudo<input id="c-pseudo" maxlength="40"></label>
       <label>Ton commentaire<textarea id="c-texte" rows="3" maxlength="1000"></textarea></label>
-      <div class="rang"><button class="btn" type="submit">Publier le commentaire</button><span class="msg" id="c-msg"></span></div>
+      <div class="rang"><button class="btn" type="submit">Publier</button><span class="msg" id="c-msg"></span></div>
     </form>
   </div>
 </dialog>
@@ -386,843 +377,593 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
-  const FIREBASE = { apiKey: "AIzaSyBFVjvsQ7I3mYkWAvcQRIGHUyo9XhhJ55s", authDomain: "mon-site-109fc.firebaseapp.com", projectId: "mon-site-109fc", appId: "1:1058043539123:web:f4078096e85aa382c80ac6" };
-  const ADMIN_EMAIL = "marilou.isnarr@icloud.com";
+const FIREBASE = { apiKey: "AIzaSyBFVjvsQ7I3mYkWAvcQRIGHUyo9XhhJ55s", authDomain: "mon-site-109fc.firebaseapp.com", projectId: "mon-site-109fc", appId: "1:1058043539123:web:f4078096e85aa382c80ac6" };
+const ADMIN_EMAIL = "marilou.isnarr@icloud.com";
 
-  const DEF = {
-    nomSite: "Mon site",
-    titreDebut: "Légendes, plumes, pinceaux et",
-    titreMot: "crimes.",
-    intro: "Bienvenue ! Ici je raconte ceux qu’on n’oublie pas : les héros de légende, les écrivains, les artistes… et les meurtriers. Installe-toi, lis, et dis-moi ce que tu en penses en commentaire.",
-    email: "marilou.isnarr@icloud.com",
-    apropos: "Salut, moi c’est [ton prénom ou pseudo]. J’écris sur les histoires qui fascinent : celles qu’on se raconte depuis des siècles, celles des gens qui créent, et les plus sombres aussi.\n\nModifie ce texte depuis ton espace créateur (le cadenas dans le menu).",
-    titreUnivers: "Choisis ton univers",
-    sousUnivers: "Quatre thèmes, quatre ambiances. Clique sur une case pour voir seulement ces articles.",
-    titreUne: "À la une",
-    titreArticles: "Tous les articles",
-    sousArticles: "Filtre par thème ou cherche un mot. Clique sur un article pour le lire et laisser un commentaire.",
-    cJaune: "#FFD93D", cRose: "#FF5FA8", cPrune: "#2B1033", cCreme: "#FFF8E1", cJaunePale: "#FFF0A0", cRosePale: "#FFD6E8",
-    policeTitre: "Bricolage Grotesque", policeTexte: "Newsreader",
-    taille: 1.15, rayon: 20, ombre: 8,
-    bandeau: true, pastille: true, afficherUne: true,
-    motsBloques: "", maintenance: false,
-    msgMaintenance: "Le site est en maintenance. Reviens très bientôt !",
-    univers: {
-      legendes:   { nom: "Légendes",   emoji: "🐉", desc: "Héros, monstres et récits qui traversent les siècles." },
-      ecrivains:  { nom: "Écrivains",  emoji: "🪶", desc: "Les vies et les plumes derrière les grands livres." },
-      artistes:   { nom: "Artistes",   emoji: "🎨", desc: "Peintres, musiciens, créateurs et leurs œuvres." },
-      meurtriers: { nom: "Meurtriers", emoji: "🔪", desc: "Des affaires criminelles célèbres, racontées avec soin." }
-    }
-  };
-
-  const THEMES = {
-    "Pop (origine)": { cJaune:"#FFD93D", cRose:"#FF5FA8", cPrune:"#2B1033", cCreme:"#FFF8E1", cJaunePale:"#FFF0A0", cRosePale:"#FFD6E8" },
-    "Nuit violette": { cJaune:"#B8A9FF", cRose:"#FF7EB6", cPrune:"#12102A", cCreme:"#EEEAFF", cJaunePale:"#D9D2FF", cRosePale:"#FFD0E6" },
-    "Océan":         { cJaune:"#5CE1E6", cRose:"#FF914D", cPrune:"#0B2545", cCreme:"#EAF7FF", cJaunePale:"#BDEFF2", cRosePale:"#FFD8BF" },
-    "Forêt":         { cJaune:"#A8E063", cRose:"#FF8F5A", cPrune:"#1B2E1F", cCreme:"#F4F8E8", cJaunePale:"#D9F0B5", cRosePale:"#FFD9C2" },
-    "Sunset":        { cJaune:"#FF9F43", cRose:"#EE5A24", cPrune:"#2C1654", cCreme:"#FFF5EB", cJaunePale:"#FFE0B8", cRosePale:"#FFC9B0" },
-    "Rose poudré":   { cJaune:"#F8C8DC", cRose:"#E91E63", cPrune:"#4A1942", cCreme:"#FFF0F5", cJaunePale:"#FFE4EC", cRosePale:"#FCE4EC" },
-    "Émeraude":      { cJaune:"#2ECC71", cRose:"#1ABC9C", cPrune:"#0E2F1F", cCreme:"#E8F8F0", cJaunePale:"#C8F0D8", cRosePale:"#B8EBE0" },
-    "Automne":       { cJaune:"#E67E22", cRose:"#C0392B", cPrune:"#2C1810", cCreme:"#FDF2E9", cJaunePale:"#F9E0C7", cRosePale:"#F5C6B8" },
-    "Minimal":       { cJaune:"#F1C40F", cRose:"#E74C3C", cPrune:"#1A1A1A", cCreme:"#FAFAFA", cJaunePale:"#F9E79F", cRosePale:"#F5B7B1" },
-    "Cyber":         { cJaune:"#00F5FF", cRose:"#FF00AA", cPrune:"#0A0A12", cCreme:"#12121F", cJaunePale:"#00D4E0", cRosePale:"#FF66CC" }
-  };
-
-  const DEMO = [{ id:"a1", theme:"legendes", date:"2026-11-01", minutes:5, titre:"Article de démonstration", resume:"Configure Firebase puis publie tes vrais articles depuis l’espace créateur.", texte:["Ceci est un exemple. Il disparaîtra dès que Firebase sera configuré."], vues:0 }];
-  const POL_T = ["Bricolage Grotesque","Poppins","Space Grotesk","Fredoka","Playfair Display"];
-  const POL_X = ["Newsreader","Lora","Merriweather","Nunito","Inter"];
-  const CH_LOOK = [
-    ["cJaune","Couleur principale","color"],["cRose","Couleur d’accent","color"],
-    ["cPrune","Couleur du texte et contours","color"],["cCreme","Fond de page","color"],
-    ["cJaunePale","Teinte claire 1","color"],["cRosePale","Teinte claire 2","color"],
-    ["policeTitre","Police des titres","select",POL_T],["policeTexte","Police du texte","select",POL_X],
-    ["taille","Taille du texte (rem)","range",1,1.5,0.05],["rayon","Arrondi (px)","range",0,40,1],
-    ["ombre","Épaisseur ombres (px)","range",0,16,1],
-    ["bandeau","Bandeau défilant","check"],["pastille","Pastille articles","check"],["afficherUne","Section À la une","check"]
-  ];
-  const CH_TXT = [
-    ["nomSite","Nom du site"],["titreDebut","Grand titre (début)"],["titreMot","Grand titre (mot en rose)"],
-    ["intro","Phrase d’accueil","area",3],["email","E-mail de contact"],
-    ["titreUnivers","Titre section univers"],["sousUnivers","Sous-titre univers","area",2],
-    ["titreUne","Titre À la une"],["titreArticles","Titre liste articles"],
-    ["sousArticles","Sous-titre liste articles","area",2],
-    ["apropos","Texte À propos","area",8]
-  ];
-
-  const $ = id => document.getElementById(id);
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
-  const fmt = d => new Date(d).toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});
-  const today = () => new Date().toISOString().slice(0,10);
-  const dateCom = c => c.date && c.date.toDate ? c.date.toDate() : new Date();
-  const fmtCom = (c,o) => dateCom(c).toLocaleString("fr-FR", o || {dateStyle:"medium",timeStyle:"short"});
-  const enligne = !!FIREBASE.apiKey;
-  const SAFE = /[?&]safe\b/.test(location.search);
-  function fusion(d){ const r={...DEF,...d}; r.univers={}; Object.keys(DEF.univers).forEach(k=>r.univers[k]={...DEF.univers[k],...((d.univers||{})[k]||{})}); return r; }
-
-  let articles = enligne ? [] : DEMO, reg = fusion({}), tri=[], theme="tous", requete="";
-  let user=null, db, auth, artCourant=null, comsArt=[], tousCom=[], unsubCom=null, unsubTous=null, ong="articles";
-  let codePerso={css:"",js:""}, premierCode=true, jetonLecture=0, blobsPdf=[];
-  let stats={}, largeurPan=560;
-  let currentTool = null; // outil d'annotation sélectionné
-
-  const pret = () => document.body.classList.remove("attente");
-  if(enligne){ document.body.classList.add("attente"); setTimeout(pret,4000); }
-
-  /* ========== THÈMES ========== */
-  function appliquerTheme(nom){
-    const t = THEMES[nom] || THEMES["Pop (origine)"];
-    Object.assign(reg, t);
-    localStorage.setItem("theme-choisi", nom);
-    appliquerLook();
+const DEF = {
+  nomSite: "Mon site",
+  titreDebut: "Légendes, plumes, pinceaux et",
+  titreMot: "crimes.",
+  intro: "Bienvenue ! Ici je raconte ceux qu’on n’oublie pas : les héros de légende, les écrivains, les artistes… et les meurtriers.",
+  email: "marilou.isnarr@icloud.com",
+  apropos: "Salut, moi c’est Marilou. J’écris sur les histoires qui fascinent.",
+  titreUnivers: "Choisis ton univers",
+  sousUnivers: "Quatre thèmes, quatre ambiances.",
+  titreUne: "À la une",
+  titreArticles: "Tous les articles",
+  sousArticles: "Filtre par thème ou cherche un mot.",
+  cJaune: "#FFD93D", cRose: "#FF5FA8", cPrune: "#2B1033", cCreme: "#FFF8E1", cJaunePale: "#FFF0A0", cRosePale: "#FFD6E8",
+  policeTitre: "Bricolage Grotesque", policeTexte: "Newsreader",
+  taille: 1.15, rayon: 20, ombre: 8,
+  bandeau: true, pastille: true, afficherUne: true,
+  motsBloques: "", maintenance: false,
+  msgMaintenance: "Le site est en maintenance. Reviens bientôt !",
+  univers: {
+    legendes:   { nom: "Légendes",   emoji: "🐉", desc: "Héros, monstres et récits." },
+    ecrivains:  { nom: "Écrivains",  emoji: "🪶", desc: "Les vies derrière les livres." },
+    artistes:   { nom: "Artistes",   emoji: "🎨", desc: "Peintres, musiciens, créateurs." },
+    meurtriers: { nom: "Meurtriers", emoji: "🔪", desc: "Affaires criminelles célèbres." }
   }
-  function initThemes(){
-    const grid = $("theme-grid");
-    Object.entries(THEMES).forEach(([nom,t])=>{
-      const b = document.createElement("button");
-      b.type="button"; b.className="theme-swatch";
-      b.innerHTML = `<div class="dots"><span class="dot" style="background:${t.cJaune}"></span><span class="dot" style="background:${t.cRose}"></span><span class="dot" style="background:${t.cPrune}"></span></div>${nom}`;
-      b.onclick = ()=>{ appliquerTheme(nom); $("theme-panel").classList.remove("open"); };
-      grid.appendChild(b);
-    });
-    const sauve = localStorage.getItem("theme-choisi");
-    if(sauve && THEMES[sauve]) appliquerTheme(sauve);
-  }
-  $("theme-btn").onclick = e => { e.stopPropagation(); $("theme-panel").classList.toggle("open"); };
-  document.addEventListener("click", e => {
-    if(!$("theme-panel").contains(e.target) && e.target !== $("theme-btn")) $("theme-panel").classList.remove("open");
+};
+
+const THEMES = {
+  "Pop (origine)": { cJaune:"#FFD93D", cRose:"#FF5FA8", cPrune:"#2B1033", cCreme:"#FFF8E1", cJaunePale:"#FFF0A0", cRosePale:"#FFD6E8" },
+  "Nuit violette": { cJaune:"#B8A9FF", cRose:"#FF7EB6", cPrune:"#12102A", cCreme:"#EEEAFF", cJaunePale:"#D9D2FF", cRosePale:"#FFD0E6" },
+  "Océan":         { cJaune:"#5CE1E6", cRose:"#FF914D", cPrune:"#0B2545", cCreme:"#EAF7FF", cJaunePale:"#BDEFF2", cRosePale:"#FFD8BF" },
+  "Forêt":         { cJaune:"#A8E063", cRose:"#FF8F5A", cPrune:"#1B2E1F", cCreme:"#F4F8E8", cJaunePale:"#D9F0B5", cRosePale:"#FFD9C2" },
+  "Sunset":        { cJaune:"#FF9F43", cRose:"#EE5A24", cPrune:"#2C1654", cCreme:"#FFF5EB", cJaunePale:"#FFE0B8", cRosePale:"#FFC9B0" },
+  "Rose poudré":   { cJaune:"#F8C8DC", cRose:"#E91E63", cPrune:"#4A1942", cCreme:"#FFF0F5", cJaunePale:"#FFE4EC", cRosePale:"#FCE4EC" },
+  "Émeraude":      { cJaune:"#2ECC71", cRose:"#1ABC9C", cPrune:"#0E2F1F", cCreme:"#E8F8F0", cJaunePale:"#C8F0D8", cRosePale:"#B8EBE0" },
+  "Automne":       { cJaune:"#E67E22", cRose:"#C0392B", cPrune:"#2C1810", cCreme:"#FDF2E9", cJaunePale:"#F9E0C7", cRosePale:"#F5C6B8" },
+  "Minimal":       { cJaune:"#F1C40F", cRose:"#E74C3C", cPrune:"#1A1A1A", cCreme:"#FAFAFA", cJaunePale:"#F9E79F", cRosePale:"#F5B7B1" },
+  "Cyber":         { cJaune:"#00F5FF", cRose:"#FF00AA", cPrune:"#0A0A12", cCreme:"#12121F", cJaunePale:"#00D4E0", cRosePale:"#FF66CC" }
+};
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+const fmt = d => new Date(d).toLocaleDateString("fr-FR", {day:"numeric", month:"long", year:"numeric"});
+const today = () => new Date().toISOString().slice(0,10);
+const enligne = !!FIREBASE.apiKey;
+
+let articles = [], reg = {...DEF}, tri = [], theme = "tous", requete = "";
+let user = null, db, auth, artCourant = null, comsArt = [], tousCom = [], unsubCom = null, unsubTous = null, ong = "articles";
+let codePerso = {css:"", js:""}, premierCode = true, jetonLecture = 0, blobsPdf = [];
+let stats = {}, largeurPan = 560, currentTool = null;
+
+function fusion(d) {
+  const r = {...DEF, ...d};
+  r.univers = {};
+  Object.keys(DEF.univers).forEach(k => r.univers[k] = {...DEF.univers[k], ...((d.univers||{})[k]||{})});
+  return r;
+}
+
+function appliquerLook() {
+  const s = document.documentElement.style;
+  s.setProperty("--jaune", reg.cJaune);
+  s.setProperty("--rose", reg.cRose);
+  s.setProperty("--prune", reg.cPrune);
+  s.setProperty("--creme", reg.cCreme);
+  s.setProperty("--jaune-pale", reg.cJaunePale);
+  s.setProperty("--rose-pale", reg.cRosePale);
+  s.setProperty("--titre", `"${reg.policeTitre}", "Arial Black", sans-serif`);
+  s.setProperty("--texte", `"${reg.policeTexte}", Georgia, serif`);
+  s.setProperty("--fs", reg.taille + "rem");
+  s.setProperty("--r", reg.rayon + "px");
+  s.setProperty("--o", reg.ombre + "px");
+  $("bandeau").style.display = reg.bandeau ? "" : "none";
+  $("pastille").style.display = reg.pastille ? "" : "none";
+  $("une").style.display = (tri[0] && reg.afficherUne) ? "" : "none";
+}
+
+function appliquerReg() {
+  $("logo").textContent = reg.nomSite + " ✦";
+  $("h1-debut").textContent = reg.titreDebut;
+  $("h1-mot").textContent = reg.titreMot;
+  $("intro").textContent = reg.intro;
+  $("pied-nom").textContent = reg.nomSite;
+  document.title = reg.nomSite;
+  ["contact","pied-contact"].forEach(i => {
+    $(i).href = "mailto:" + reg.email;
+    if (i === "pied-contact") $(i).textContent = reg.email;
+  });
+  $("t-univers").textContent = reg.titreUnivers;
+  $("s-univers").textContent = reg.sousUnivers;
+  $("t-une").textContent = reg.titreUne;
+  $("t-articles").textContent = reg.titreArticles;
+  $("s-articles").textContent = reg.sousArticles;
+  const z = $("apropos-txt");
+  z.innerHTML = "";
+  reg.apropos.split(/\n\s*\n/).forEach(t => {
+    const p = document.createElement("p");
+    p.textContent = t;
+    z.appendChild(p);
+  });
+  appliquerLook();
+}
+
+function appliquerTheme(nom) {
+  const t = THEMES[nom] || THEMES["Pop (origine)"];
+  Object.assign(reg, t);
+  localStorage.setItem("theme-choisi", nom);
+  appliquerLook();
+}
+
+function initThemes() {
+  const grid = $("theme-grid");
+  Object.entries(THEMES).forEach(([nom, t]) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "theme-swatch";
+    b.innerHTML = `<div class="dots"><span class="dot" style="background:${t.cJaune}"></span><span class="dot" style="background:${t.cRose}"></span><span class="dot" style="background:${t.cPrune}"></span></div>${nom}`;
+    b.onclick = () => { appliquerTheme(nom); $("theme-panel").classList.remove("open"); };
+    grid.appendChild(b);
+  });
+  const sauve = localStorage.getItem("theme-choisi");
+  if (sauve && THEMES[sauve]) appliquerTheme(sauve);
+}
+
+$("theme-btn").onclick = e => { e.stopPropagation(); $("theme-panel").classList.toggle("open"); };
+document.addEventListener("click", e => {
+  if (!$("theme-panel").contains(e.target) && e.target !== $("theme-btn")) $("theme-panel").classList.remove("open");
+});
+
+function rendre() {
+  tri = [...articles].sort((a,b) => (b.date||"").localeCompare(a.date||""));
+  const U = reg.univers, ks = Object.keys(U);
+  $("nb-articles").textContent = $("c-articles").textContent = articles.length;
+
+  $("tuiles").innerHTML = "";
+  ks.forEach(cle => {
+    const u = U[cle], n = articles.filter(a => a.theme === cle).length;
+    const t = document.createElement("button");
+    t.type = "button";
+    t.className = "tuile t-" + cle;
+    t.innerHTML = `<span class="emoji">${u.emoji}</span><h3>${u.nom}</h3><p>${u.desc}</p><small>${n} article${n>1?"s":""}</small>`;
+    t.onclick = () => { theme = cle; afficher(); $("articles").scrollIntoView(); };
+    $("tuiles").appendChild(t);
   });
 
-  /* ========== LOOK ========== */
-  const chargees = new Set(["Bricolage Grotesque","Newsreader"]);
-  function police(n){ if(chargees.has(n))return; chargees.add(n); const l=document.createElement("link"); l.rel="stylesheet"; l.href="https://fonts.googleapis.com/css2?family="+n.replace(/ /g,"+")+":wght@400;700&display=swap"; document.head.appendChild(l); }
-  function appliquerLook(){
-    police(reg.policeTitre); police(reg.policeTexte);
-    const s=document.documentElement.style;
-    s.setProperty("--jaune",reg.cJaune); s.setProperty("--rose",reg.cRose); s.setProperty("--prune",reg.cPrune);
-    s.setProperty("--creme",reg.cCreme); s.setProperty("--jaune-pale",reg.cJaunePale); s.setProperty("--rose-pale",reg.cRosePale);
-    s.setProperty("--titre",`"${reg.policeTitre}", "Arial Black", sans-serif`);
-    s.setProperty("--texte",`"${reg.policeTexte}", Georgia, serif`);
-    s.setProperty("--fs",reg.taille+"rem"); s.setProperty("--r",reg.rayon+"px"); s.setProperty("--o",reg.ombre+"px");
-    $("bandeau").style.display = reg.bandeau ? "" : "none";
-    $("pastille").style.display = reg.pastille ? "" : "none";
-    $("une").style.display = (tri[0] && reg.afficherUne) ? "" : "none";
-  }
-  function appliquerMaint(){
-    const on=!!reg.maintenance, bloque=on&&!user;
-    document.body.classList.toggle("maint",bloque);
-    $("maintenance").hidden=!bloque;
-    $("msg-maint").textContent=reg.msgMaintenance;
-    $("pill-maint").hidden=!(on&&user);
-  }
-  function appliquerReg(){
-    $("logo").textContent=reg.nomSite+" ✦";
-    $("h1-debut").textContent=reg.titreDebut; $("h1-mot").textContent=reg.titreMot;
-    $("intro").textContent=reg.intro; $("pied-nom").textContent=reg.nomSite; document.title=reg.nomSite;
-    ["contact","pied-contact"].forEach(i=>{ $(i).href="mailto:"+reg.email; if(i==="pied-contact") $(i).textContent=reg.email||"Écris-moi"; });
-    $("t-univers").textContent=reg.titreUnivers; $("s-univers").textContent=reg.sousUnivers;
-    $("t-une").textContent=reg.titreUne; $("t-articles").textContent=reg.titreArticles; $("s-articles").textContent=reg.sousArticles;
-    const z=$("apropos-txt"); z.innerHTML="";
-    reg.apropos.split(/\n\s*\n/).forEach(t=>{ const p=document.createElement("p"); p.textContent=t; z.appendChild(p); });
-    appliquerLook(); appliquerMaint();
+  const une = tri[0], c = $("une-carte");
+  if (une && U[une.theme]) {
+    c.innerHTML = (une.image ? `<img class="cover" src="${une.image}" alt="">` : "") +
+      `<span class="tag">${U[une.theme].nom}</span><h3>${une.titre}</h3><p>${une.resume}</p><span class="meta">${fmt(une.date)} · ${une.minutes} min</span>`;
+    c.onclick = () => ouvrir(une);
   }
 
-  function majCss(css){ let st=$("css-perso"); if(!st){ st=document.createElement("style"); st.id="css-perso"; document.head.appendChild(st); } st.textContent=SAFE?"":(css||""); }
-  function appliquerCode(c){ codePerso={css:c.css||"",js:c.js||""}; majCss(codePerso.css); if(premierCode){ premierCode=false; if(!SAFE&&codePerso.js){ try{new Function(codePerso.js)();}catch(e){console.error(e);} } } }
-
-  function getWeekKey(d){ const date=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())); const dayNum=date.getUTCDay()||7; date.setUTCDate(date.getUTCDate()+4-dayNum); const yearStart=new Date(Date.UTC(date.getUTCFullYear(),0,1)); const weekNo=Math.ceil((((date-yearStart)/86400000)+1)/7); return date.getUTCFullYear()+"-W"+String(weekNo).padStart(2,"0"); }
-  function compterVisite(){ if(!enligne)return; const cle="visite-"+today(); try{if(localStorage.getItem(cle))return; localStorage.setItem(cle,"1");}catch(_){} const now=new Date(); const an=String(now.getFullYear()); const mois=an+"-"+String(now.getMonth()+1).padStart(2,"0"); const semaine=getWeekKey(now); const jour=today(); db.doc("site/visites").set({total:firebase.firestore.FieldValue.increment(1),["annees."+an]:firebase.firestore.FieldValue.increment(1),["mois."+mois]:firebase.firestore.FieldValue.increment(1),["semaines."+semaine]:firebase.firestore.FieldValue.increment(1),["jours."+jour]:firebase.firestore.FieldValue.increment(1)},{merge:true}).catch(()=>{}); }
-  function compterLecture(a){ if(!enligne||!a.id)return; const cle="lu-"+a.id+"-"+today(); try{if(localStorage.getItem(cle))return; localStorage.setItem(cle,"1");}catch(_){} db.collection("articles").doc(a.id).update({vues:firebase.firestore.FieldValue.increment(1)}).catch(()=>{}); }
-
-  /* ========== AFFICHAGE ========== */
-  function rendre(){
-    tri=[...articles].sort((a,b)=>(b.date||"").localeCompare(a.date||""));
-    const U=reg.univers, ks=Object.keys(U);
-    $("nb-articles").textContent=$("c-articles").textContent=articles.length;
-    $("tuiles").innerHTML="";
-    ks.forEach(cle=>{
-      const u=U[cle], n=articles.filter(a=>a.theme===cle).length;
-      const t=document.createElement("button"); t.type="button"; t.className="tuile t-"+cle;
-      t.innerHTML='<span class="emoji"></span><h3></h3><p></p><small></small>';
-      t.querySelector(".emoji").textContent=u.emoji; t.querySelector("h3").textContent=u.nom;
-      t.querySelector("p").textContent=u.desc; t.querySelector("small").textContent=n+(n>1?" articles":" article");
-      t.onclick=()=>{choisir(cle);$("articles").scrollIntoView();}; $("tuiles").appendChild(t);
-    });
-    const une=tri[0], c=$("une-carte");
-    if(une&&U[une.theme]){
-      c.innerHTML=(une.image?'<img class="cover" alt="">':'')+'<span class="tag"></span><h3></h3><p></p><span class="meta"></span>';
-      if(une.image) c.querySelector(".cover").src=une.image;
-      c.querySelector(".tag").textContent=U[une.theme].nom; c.querySelector("h3").textContent=une.titre;
-      c.querySelector("p").textContent=une.resume; c.querySelector(".meta").textContent=fmt(une.date)+" · "+une.minutes+" min de lecture";
-      c.onclick=()=>ouvrir(une);
-    }
-    const f=$("filtres"); f.innerHTML="";
-    [["tous","Tout"],...ks.map(k=>[k,U[k].nom])].forEach(([cle,nom])=>{
-      const b=document.createElement("button"); b.type="button"; b.textContent=nom; b.dataset.theme=cle;
-      b.setAttribute("aria-pressed",cle===theme); b.onclick=()=>choisir(cle); f.appendChild(b);
-    });
-    const d=$("defile"); d.innerHTML="";
-    for(let i=0;i<32;i++){ const s=document.createElement("span"); if(i%2)s.className="r"; s.textContent=U[ks[i%ks.length]].nom; d.appendChild(s); }
-    afficher(); appliquerLook();
-  }
-  function afficher(){
-    const g=$("grille"); g.innerHTML="";
-    const U=reg.univers;
-    const liste=tri.filter(a=>U[a.theme]&&(theme==="tous"||a.theme===theme)&&(a.titre+" "+a.resume).toLowerCase().includes(requete));
-    liste.forEach(a=>{
-      const el=document.createElement("button"); el.type="button"; el.className="carte "+a.theme;
-      el.innerHTML=(a.image?'<img class="cover" alt="">':'')+'<span class="tag"></span><h3></h3><p></p><span class="meta"></span>';
-      if(a.image) el.querySelector(".cover").src=a.image;
-      el.querySelector(".tag").textContent=U[a.theme].emoji+" "+U[a.theme].nom;
-      el.querySelector("h3").textContent=a.titre; el.querySelector("p").textContent=a.resume;
-      el.querySelector(".meta").textContent=fmt(a.date)+" · "+a.minutes+" min";
-      el.onclick=()=>ouvrir(a); g.appendChild(el);
-    });
-    $("vide").style.display=liste.length?"none":"block";
-  }
-  function choisir(cle){ theme=cle; document.querySelectorAll("#filtres button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.theme===cle)); afficher(); }
-  $("recherche").addEventListener("input",e=>{requete=e.target.value.toLowerCase();afficher();});
-  $("annee").textContent=new Date().getFullYear();
-  addEventListener("scroll",()=>{$("haut-btn").style.display=scrollY>700?"inline-block":"none";});
-  $("hasard").onclick=()=>{if(articles.length)ouvrir(articles[Math.floor(Math.random()*articles.length)]);};
-
-  /* ========== PDF ========== */
-  const pdfEn = t => typeof t==="string"&&(t.startsWith("data:application/pdf")||/\.pdf(\?.*)?$/i.test(t.trim()));
-  function versBytes(uri){ const b=atob(uri.split(",")[1]),u=new Uint8Array(b.length); for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i); return u; }
-  async function rendrePdf(zone,src,jeton){
-    const info=document.createElement("p"); info.className="pdf-info"; info.textContent="Chargement du PDF…"; zone.appendChild(info);
-    try{
-      if(!window.pdfjsLib) throw new Error("PDF.js non chargé");
-      pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-      let doc,lien;
-      if(src.startsWith("data:")){ const bytes=versBytes(src); lien=URL.createObjectURL(new Blob([bytes],{type:"application/pdf"})); blobsPdf.push(lien); doc=await pdfjsLib.getDocument({data:bytes}).promise; }
-      else { lien=src; doc=await pdfjsLib.getDocument(src).promise; }
-      if(jeton!==jetonLecture) return; info.remove();
-      const outils=document.createElement("div"); outils.className="pdf-outils";
-      const bp=document.createElement("button"); bp.type="button"; bp.className="btn mini"; bp.textContent="⛶ Plein écran";
-      bp.onclick=()=>{ const on=dlg.classList.toggle("plein"); bp.textContent=on?"⤢ Quitter le plein écran":"⛶ Plein écran"; };
-      const lo=document.createElement("a"); lo.className="btn jaune mini"; lo.href=lien; lo.target="_blank"; lo.rel="noopener"; lo.textContent="↗ Ouvrir / télécharger";
-      const np=document.createElement("span"); np.className="meta"; np.textContent=doc.numPages+(doc.numPages>1?" pages":" page");
-      outils.append(bp,lo,np); zone.appendChild(outils);
-      const dpr=Math.min(window.devicePixelRatio||1,2);
-      for(let n=1;n<=doc.numPages;n++){
-        if(jeton!==jetonLecture) return;
-        const page=await doc.getPage(n); const base=page.getViewport({scale:1}); const scale=(1300/base.width)*dpr; const vp=page.getViewport({scale});
-        const cv=document.createElement("canvas"); cv.width=Math.floor(vp.width); cv.height=Math.floor(vp.height); zone.appendChild(cv);
-        await page.render({canvasContext:cv.getContext("2d"),viewport:vp,background:"#ffffff"}).promise;
-      }
-    }catch(e){ console.error(e); info.textContent="Impossible d’afficher le PDF."; info.classList.add("erreur"); }
-  }
-
-  /* ========== LECTURE + ANNOTATIONS ========== */
-  const dlg = $("lecture");
-  const cmsg = (t,err) => { const m=$("c-msg"); m.textContent=t; m.className="msg"+(err?" erreur":""); };
-
-  // Gestion des outils
-  $("annot-bar").querySelectorAll("button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const tool = btn.dataset.tool;
-      if (currentTool === tool) {
-        currentTool = null;
-        btn.classList.remove("active");
-      } else {
-        currentTool = tool;
-        $("annot-bar").querySelectorAll("button").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-      }
-    });
+  const f = $("filtres");
+  f.innerHTML = "";
+  [["tous","Tout"], ...ks.map(k => [k, U[k].nom])].forEach(([cle, nom]) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = nom;
+    b.dataset.theme = cle;
+    b.setAttribute("aria-pressed", cle === theme);
+    b.onclick = () => { theme = cle; afficher(); document.querySelectorAll("#filtres button").forEach(x => x.setAttribute("aria-pressed", x.dataset.theme === cle)); };
+    f.appendChild(b);
   });
 
-  function saveAnnotations(id) {
-    const marks = [...$("lecture-corps").querySelectorAll("mark[data-annot], .underline-annot")].map(el => ({
-      text: el.textContent,
-      color: el.dataset.annot || (el.classList.contains("underline-annot") ? "underline" : "")
-    }));
-    try { localStorage.setItem("annot-" + id, JSON.stringify(marks)); } catch(_) {}
+  const d = $("defile");
+  d.innerHTML = "";
+  for (let i = 0; i < 32; i++) {
+    const s = document.createElement("span");
+    if (i % 2) s.className = "r";
+    s.textContent = U[ks[i % ks.length]].nom;
+    d.appendChild(s);
   }
+  afficher();
+  appliquerLook();
+}
 
-  function loadAnnotations(id) {
-    try {
-      const marks = JSON.parse(localStorage.getItem("annot-" + id) || "[]");
-      if (!marks.length) return;
-      const corps = $("lecture-corps");
-      marks.forEach(m => {
-        const walker = document.createTreeWalker(corps, NodeFilter.SHOW_TEXT);
-        let node;
-        while (node = walker.nextNode()) {
-          const idx = node.textContent.indexOf(m.text);
-          if (idx >= 0) {
-            const range = document.createRange();
-            range.setStart(node, idx);
-            range.setEnd(node, idx + m.text.length);
-            const mark = document.createElement(m.color === "underline" ? "span" : "mark");
-            if (m.color === "underline") mark.className = "underline-annot";
-            else { mark.className = "hl-" + m.color; mark.dataset.annot = m.color; }
-            try { range.surroundContents(mark); } catch(_) {}
-            break;
-          }
+function afficher() {
+  const g = $("grille");
+  g.innerHTML = "";
+  const U = reg.univers;
+  const liste = tri.filter(a => U[a.theme] && (theme === "tous" || a.theme === theme) && (a.titre + " " + a.resume).toLowerCase().includes(requete));
+  liste.forEach(a => {
+    const el = document.createElement("button");
+    el.type = "button";
+    el.className = "carte " + a.theme;
+    el.innerHTML = (a.image ? `<img class="cover" src="${a.image}" alt="">` : "") +
+      `<span class="tag">${U[a.theme].emoji} ${U[a.theme].nom}</span><h3>${a.titre}</h3><p>${a.resume}</p><span class="meta">${fmt(a.date)} · ${a.minutes} min</span>`;
+    el.onclick = () => ouvrir(a);
+    g.appendChild(el);
+  });
+  $("vide").style.display = liste.length ? "none" : "block";
+}
+
+$("recherche").oninput = e => { requete = e.target.value.toLowerCase(); afficher(); };
+$("annee").textContent = new Date().getFullYear();
+addEventListener("scroll", () => $("haut-btn").style.display = scrollY > 700 ? "inline-block" : "none");
+$("hasard").onclick = () => { if (articles.length) ouvrir(articles[Math.floor(Math.random() * articles.length)]); };
+
+function compterVisite() {
+  if (!enligne) return;
+  const cle = "visite-" + today();
+  try { if (localStorage.getItem(cle)) return; localStorage.setItem(cle, "1"); } catch(_){}
+  const now = new Date();
+  const an = String(now.getFullYear());
+  const mois = an + "-" + String(now.getMonth()+1).padStart(2,"0");
+  db.doc("site/visites").set({
+    total: firebase.firestore.FieldValue.increment(1),
+    ["annees."+an]: firebase.firestore.FieldValue.increment(1),
+    ["mois."+mois]: firebase.firestore.FieldValue.increment(1)
+  }, {merge:true}).catch(()=>{});
+}
+
+function compterLecture(a) {
+  if (!enligne || !a.id) return;
+  const cle = "lu-" + a.id + "-" + today();
+  try { if (localStorage.getItem(cle)) return; localStorage.setItem(cle, "1"); } catch(_){}
+  db.collection("articles").doc(a.id).update({ vues: firebase.firestore.FieldValue.increment(1) }).catch(()=>{});
+}
+
+/* ========== ANNOTATIONS ========== */
+$("annot-bar").querySelectorAll("button").forEach(btn => {
+  btn.addEventListener("click", e => {
+    e.preventDefault();
+    e.stopPropagation();
+    const tool = btn.dataset.tool;
+    if (currentTool === tool) {
+      currentTool = null;
+      btn.classList.remove("active");
+    } else {
+      currentTool = tool;
+      $("annot-bar").querySelectorAll("button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    }
+  });
+});
+
+function saveAnnotations(id) {
+  const marks = [...$("lecture-corps").querySelectorAll("mark[data-annot], .underline-annot")].map(el => ({
+    text: el.textContent,
+    color: el.dataset.annot || (el.classList.contains("underline-annot") ? "underline" : "")
+  }));
+  try { localStorage.setItem("annot-" + id, JSON.stringify(marks)); } catch(_){}
+}
+
+function loadAnnotations(id) {
+  try {
+    const marks = JSON.parse(localStorage.getItem("annot-" + id) || "[]");
+    if (!marks.length) return;
+    const corps = $("lecture-corps");
+    marks.forEach(m => {
+      if (m.text.length < 3) return;
+      const walker = document.createTreeWalker(corps, NodeFilter.SHOW_TEXT);
+      let node;
+      while (node = walker.nextNode()) {
+        const idx = node.textContent.indexOf(m.text);
+        if (idx >= 0) {
+          const range = document.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, idx + m.text.length);
+          const mark = document.createElement(m.color === "underline" ? "span" : "mark");
+          if (m.color === "underline") mark.className = "underline-annot";
+          else { mark.className = "hl-" + m.color; mark.dataset.annot = m.color; }
+          try { range.surroundContents(mark); } catch(_){}
+          break;
         }
-      });
-    } catch(_) {}
-  }
-
-  // Application de l'outil sur sélection
-  $("lecture-corps").addEventListener("mouseup", () => {
-    if (!currentTool || !artCourant) return;
-    const sel = window.getSelection();
-    if (!sel || sel.isCollapsed) return;
-
-    const range = sel.getRangeAt(0);
-    if (currentTool === "erase") {
-      // On cherche si la sélection est dans un mark
-      let node = range.commonAncestorContainer;
-      if (node.nodeType === 3) node = node.parentElement;
-      if (node && (node.tagName === "MARK" || node.classList.contains("underline-annot"))) {
-        node.replaceWith(...node.childNodes);
-        saveAnnotations(artCourant.id);
       }
-    } else {
-      const mark = document.createElement(currentTool === "underline" ? "span" : "mark");
-      if (currentTool === "underline") mark.className = "underline-annot";
-      else { mark.className = "hl-" + currentTool; mark.dataset.annot = currentTool; }
-      try {
-        range.surroundContents(mark);
+    });
+  } catch(_){}
+}
+
+$("lecture-corps").addEventListener("mouseup", () => {
+  if (!currentTool || !artCourant) return;
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed || !sel.rangeCount) return;
+  const range = sel.getRangeAt(0);
+  if (!$("lecture-corps").contains(range.commonAncestorContainer)) return;
+
+  if (currentTool === "erase") {
+    let node = range.commonAncestorContainer;
+    if (node.nodeType === 3) node = node.parentElement;
+    while (node && node !== $("lecture-corps")) {
+      if (node.tagName === "MARK" || node.classList.contains("underline-annot")) {
+        const parent = node.parentNode;
+        while (node.firstChild) parent.insertBefore(node.firstChild, node);
+        parent.removeChild(node);
         saveAnnotations(artCourant.id);
-      } catch(e) {}
+        break;
+      }
+      node = node.parentElement;
     }
-    sel.removeAllRanges();
+  } else {
+    const mark = document.createElement(currentTool === "underline" ? "span" : "mark");
+    if (currentTool === "underline") mark.className = "underline-annot";
+    else { mark.className = "hl-" + currentTool; mark.dataset.annot = currentTool; }
+    try {
+      range.surroundContents(mark);
+    } catch (e) {
+      const contents = range.extractContents();
+      mark.appendChild(contents);
+      range.insertNode(mark);
+    }
+    saveAnnotations(artCourant.id);
+  }
+  sel.removeAllRanges();
+});
+
+/* ========== LECTURE ========== */
+const dlg = $("lecture");
+function ouvrir(a) {
+  artCourant = a;
+  compterLecture(a);
+  currentTool = null;
+  $("annot-bar").querySelectorAll("button").forEach(b => b.classList.remove("active"));
+
+  const u = reg.univers[a.theme];
+  $("lecture-tag").textContent = u.emoji + " " + u.nom;
+  $("lecture-titre").textContent = a.titre;
+  $("lecture-meta").textContent = fmt(a.date) + " · " + a.minutes + " min de lecture";
+  $("temps-restant").textContent = "";
+
+  const corps = $("lecture-corps");
+  corps.innerHTML = "";
+  if (a.image) {
+    const img = document.createElement("img");
+    img.className = "lecture-cover";
+    img.src = a.image;
+    corps.appendChild(img);
+  }
+  a.texte.forEach(t => {
+    if (typeof t === "string" && !t.startsWith("data:application/pdf")) {
+      const p = document.createElement("p");
+      p.textContent = t;
+      corps.appendChild(p);
+    }
   });
 
-  function ouvrir(a) {
-    artCourant = a;
-    compterLecture(a);
-    currentTool = null;
-    $("annot-bar").querySelectorAll("button").forEach(b => b.classList.remove("active"));
-
-    const jeton = ++jetonLecture;
-    const u = reg.univers[a.theme];
-    $("lecture-tag").textContent = u.emoji + " " + u.nom;
-    $("lecture-titre").textContent = a.titre;
-    $("lecture-meta").textContent = fmt(a.date) + " · " + a.minutes + " min de lecture";
-    $("temps-restant").textContent = "";
-
-    const corps = $("lecture-corps");
-    corps.innerHTML = "";
-    if (a.image) {
-      const img = document.createElement("img");
-      img.className = "lecture-cover";
-      img.src = a.image;
-      img.alt = "";
-      corps.appendChild(img);
-    }
-    const aPdf = a.texte.some(pdfEn);
-    dlg.classList.toggle("large", aPdf);
-    dlg.classList.remove("plein", "lecture-mode");
-    corps.classList.toggle("pdf", aPdf);
-
-    const zones = [];
-    a.texte.forEach(t => {
-      if (pdfEn(t)) {
-        const z = document.createElement("div");
-        z.className = "pdf-zone";
-        corps.appendChild(z);
-        zones.push([z, t.trim()]);
-      } else {
-        const p = document.createElement("p");
-        p.textContent = t;
-        corps.appendChild(p);
-      }
-    });
-
-    $("liste-com").innerHTML = "";
-    $("nb-com").textContent = "";
-    cmsg("");
-    if (unsubCom) { unsubCom(); unsubCom = null; }
-    comsArt = [];
-    if (enligne) {
-      unsubCom = db.collection("commentaires").where("articleId", "==", a.id).onSnapshot(s => {
-        comsArt = s.docs.map(d => ({ id: d.id, ...d.data() }));
-        rendreComs();
-      }, () => {});
-    } else {
-      $("liste-com").innerHTML = '<p class="vide-com">Les commentaires s’activent avec Firebase.</p>';
-    }
-
-    dlg.showModal();
-    dlg.scrollTop = 0;
-    zones.forEach(([z, src]) => rendrePdf(z, src, jeton));
-    setTimeout(() => loadAnnotations(a.id), 80);
-    updateProgress();
-  }
-
-  function updateProgress() {
-    const corps = $("lecture-corps");
-    const progress = $("lecture-progress");
-    const onScroll = () => {
-      const total = Math.max(1, corps.scrollHeight - dlg.clientHeight + 120);
-      const p = Math.min(1, Math.max(0, dlg.scrollTop / total));
-      progress.style.transform = `scaleX(${p})`;
-      if (artCourant) {
-        const restant = Math.max(1, Math.ceil(artCourant.minutes * (1 - p)));
-        $("temps-restant").textContent = dlg.classList.contains("lecture-mode") ? `~${restant} min restantes` : "";
-      }
-    };
-    dlg.onscroll = onScroll;
-    onScroll();
-  }
-
-  $("btn-lecture").onclick = () => {
-    dlg.classList.toggle("lecture-mode");
-    $("btn-lecture").textContent = dlg.classList.contains("lecture-mode") ? "💬 Afficher tout" : "📖 Mode lecture";
-    updateProgress();
-  };
-
-  function rendreComs() {
-    const l = $("liste-com");
-    l.innerHTML = "";
-    const cs = [...comsArt].sort((a, b) => dateCom(a) - dateCom(b));
-    $("nb-com").textContent = cs.length ? "(" + cs.length + ")" : "";
-    if (!cs.length) {
-      l.innerHTML = '<p class="vide-com">Aucun commentaire pour l’instant. Sois le premier !</p>';
-      return;
-    }
-    cs.forEach(c => {
-      const d = document.createElement("div");
-      d.className = "com";
-      d.innerHTML = '<div class="com-haut"><b></b><small></small></div><p></p>';
-      d.querySelector("b").textContent = c.pseudo;
-      d.querySelector("small").textContent = fmtCom(c);
-      d.querySelector("p").textContent = c.texte;
-      if (user) {
-        const b = document.createElement("button");
-        b.type = "button";
-        b.className = "btn jaune mini";
-        b.textContent = "🗑 Supprimer";
-        b.onclick = () => supprCom(c);
-        d.appendChild(b);
-      }
-      l.appendChild(d);
-    });
-  }
-
-  function supprCom(c) {
-    if (confirm("Supprimer le commentaire de « " + c.pseudo + " » ?"))
-      db.collection("commentaires").doc(c.id).delete().catch(() => alert("Suppression refusée."));
-  }
-
-  $("form-com").onsubmit = e => {
-    e.preventDefault();
-    if (!enligne) return cmsg("Les commentaires ne sont pas encore activés.", 1);
-    const pseudo = $("c-pseudo").value.trim().slice(0, 40) || "Anonyme";
-    const texte = $("c-texte").value.trim();
-    if (!texte) return cmsg("Écris un commentaire d’abord.", 1);
-    const bas = (pseudo + " " + texte).toLowerCase();
-    if (reg.motsBloques.split(",").map(m => m.trim().toLowerCase()).filter(Boolean).some(m => bas.includes(m)))
-      return cmsg("Ton message contient un mot interdit sur ce site.", 1);
-    let der = 0;
-    try { der = +localStorage.getItem("derCom") || 0; } catch(_) {}
-    if (Date.now() - der < 20000) return cmsg("Patiente quelques secondes avant de reposter.", 1);
-    db.collection("commentaires").add({
-      articleId: artCourant.id,
-      pseudo,
-      texte,
-      date: firebase.firestore.FieldValue.serverTimestamp()
-    }).then(() => {
-      $("c-texte").value = "";
-      cmsg("Merci, commentaire publié ✔");
-      try { localStorage.setItem("derCom", Date.now()); } catch(_) {}
-    }).catch(() => cmsg("Impossible de publier le commentaire.", 1));
-  };
-
-  $("fermer").onclick = () => dlg.close();
-  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
-  dlg.addEventListener("close", () => {
-    if (unsubCom) { unsubCom(); unsubCom = null; }
-    jetonLecture++;
-    dlg.classList.remove("large", "plein", "lecture-mode");
-    $("lecture-corps").innerHTML = "";
-    blobsPdf.forEach(u => URL.revokeObjectURL(u));
-    blobsPdf = [];
-    currentTool = null;
-  });
-
-  /* ========== ADMIN ========== */
-  const barre = $("barre-code"), panneau = $("panneau"), pan = $("pan");
-  const codeMsg = t => $("code-msg").textContent = t;
-  function ouvrirAdmin() {
-    if (user) return ouvrirPanneau();
-    barre.hidden = false;
-    codeMsg("");
-    $("code").value = "";
-    $("code").focus();
-  }
-  document.querySelectorAll(".js-admin").forEach(b => b.onclick = ouvrirAdmin);
-  $("code-x").onclick = () => barre.hidden = true;
-  addEventListener("keydown", e => { if (e.key === "Escape") barre.hidden = true; });
-  barre.onsubmit = e => {
-    e.preventDefault();
-    if (!enligne) return codeMsg("Firebase n’est pas encore configuré.");
-    codeMsg("…");
-    auth.signInWithEmailAndPassword(ADMIN_EMAIL, $("code").value)
-      .then(() => { barre.hidden = true; $("code").value = ""; ouvrirPanneau(); })
-      .catch(() => codeMsg("Code incorrect."));
-  };
-
-  (function initResizer() {
-    const r = $("resizer");
-    let startX, startW;
-    r.addEventListener("mousedown", e => {
-      e.preventDefault();
-      r.classList.add("actif");
-      startX = e.clientX;
-      startW = panneau.offsetWidth;
-      const move = e2 => {
-        const delta = startX - e2.clientX;
-        largeurPan = Math.max(320, Math.min(window.innerWidth - 40, startW + delta));
-        panneau.style.width = largeurPan + "px";
-      };
-      const up = () => {
-        r.classList.remove("actif");
-        removeEventListener("mousemove", move);
-        removeEventListener("mouseup", up);
-      };
-      addEventListener("mousemove", move);
-      addEventListener("mouseup", up);
-    });
-  })();
-
-  const ONGLETS = [
-    ["articles", "📝 Articles"],
-    ["comm", "💬 Commentaires"],
-    ["stats", "📊 Stats"],
-    ["look", "🎨 Apparence"],
-    ["textes", "✍️ Textes"],
-    ["code", "</> Code"],
-    ["maint", "🛠️ Maintenance"]
-  ];
-
-  function ouvrirPanneau() {
-    panneau.hidden = false;
-    panneau.style.width = largeurPan + "px";
-    ong = "articles";
-    vue();
-  }
-  function fermerPanneau() { panneau.hidden = true; }
-  $("pan-x").onclick = fermerPanneau;
-  $("pan-out").onclick = () => { auth.signOut(); fermerPanneau(); };
-  const msg = (t, err) => { const m = $("msg"); if (m) { m.textContent = t; m.className = "msg" + (err ? " erreur" : ""); } };
-  const sauver = obj => db.doc("site/reglages").set(obj, { merge: true }).then(() => msg("Enregistré ✔")).catch(() => msg("Enregistrement refusé.", 1));
-  const apercu = () => { appliquerReg(); rendre(); };
-
-  function vue(a) {
-    if (ong === "code") panneau.style.width = Math.max(largeurPan, 720) + "px";
-    else panneau.style.width = largeurPan + "px";
-    const o = $("onglets");
-    o.innerHTML = "";
-    ONGLETS.forEach(([k, n]) => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.className = "btn";
-      b.textContent = n;
-      b.setAttribute("aria-pressed", k === ong);
-      b.onclick = () => { ong = k; vue(); };
-      o.appendChild(b);
-    });
-    if (ong === "articles") return a ? vueEdition(a === "new" ? null : a) : vueListe();
-    ({ comm: vueComm, stats: vueStats, look: vueLook, textes: vueTextes, code: vueCode, maint: vueMaint })[ong]();
-  }
-
-  function vueListe() {
-    pan.innerHTML = '<div class="rang"><button class="btn" id="nouveau" type="button">＋ Nouvel article</button></div><div class="liste" id="liste"></div><p id="msg" class="msg"></p>';
-    $("nouveau").onclick = () => vue("new");
-    const l = $("liste");
-    if (!tri.length) l.textContent = "Aucun article pour l’instant.";
-    tri.forEach(a => {
-      const r = document.createElement("div");
-      r.className = "ligne";
-      const vues = a.vues || 0;
-      r.innerHTML = `<span><b></b><br><small></small><br><span class="vues-prive"></span></span><span class="rang"><button class="btn mini" type="button">Modifier</button><button class="btn jaune mini" type="button">Supprimer</button></span>`;
-      r.querySelector("b").textContent = a.titre;
-      r.querySelector("small").textContent = (reg.univers[a.theme] ? reg.univers[a.theme].nom : "") + " · " + fmt(a.date);
-      r.querySelector(".vues-prive").textContent = "👁 " + vues + " lecture" + (vues > 1 ? "s" : "");
-      const [m, s] = r.querySelectorAll("button");
-      m.onclick = () => vue(a);
-      s.onclick = () => {
-        if (confirm("Supprimer « " + a.titre + " » ?"))
-          db.collection("articles").doc(a.id).delete().then(() => msg("Article supprimé.")).catch(() => msg("Suppression refusée.", 1));
-      };
-      l.appendChild(r);
-    });
-  }
-
-  function vueEdition(a) {
-    a = a || { theme: Object.keys(reg.univers)[0], date: today(), minutes: 5, titre: "", resume: "", texte: [], image: "", vues: 0 };
-    const opts = Object.entries(reg.univers).map(([k, u]) => `<option value="${k}">${esc(u.emoji)} ${esc(u.nom)}</option>`).join("");
-    const ancPdf = a.texte.find(pdfEn);
-    pan.innerHTML = `<h3>${a.id ? "Modifier l’article" : "Nouvel article"}</h3>
-      <label>Titre<input id="e-titre"></label>
-      <label>Thème<select id="e-theme">${opts}</select></label>
-      <label>Date<input id="e-date" type="date"></label>
-      <label>Minutes de lecture<input id="e-min" type="number" min="1"></label>
-      <label>Résumé<textarea id="e-resume" rows="3"></textarea></label>
-      <label>Image de couverture (500 Ko max)<input id="e-img" type="file" accept="image/*"></label>
-      ${a.image ? '<label class="chk"><input id="e-noimg" type="checkbox"> Retirer l’image</label>' : ""}
-      <label>${ancPdf ? "Remplacer le PDF" : "Ajouter un PDF (700 Ko max)"}<input id="e-pdf" type="file" accept="application/pdf"></label>
-      ${ancPdf ? '<label class="chk"><input id="e-nopdf" type="checkbox"> Retirer le PDF</label>' : ""}
-      <label>Texte<textarea id="e-texte" rows="14"></textarea></label>
-      <div class="rang"><button class="btn" id="e-ok" type="button">Publier</button><button class="btn jaune" id="e-non" type="button">Annuler</button></div>
-      <p id="msg" class="msg"></p>`;
-    $("e-titre").value = a.titre;
-    $("e-theme").value = a.theme;
-    $("e-date").value = a.date;
-    $("e-min").value = a.minutes;
-    $("e-resume").value = a.resume;
-    $("e-texte").value = a.texte.filter(x => !pdfEn(x)).join("\n\n");
-    $("e-non").onclick = () => vue();
-    $("e-ok").onclick = () => {
-      const fImg = $("e-img").files[0];
-      const fPdf = $("e-pdf").files[0];
-      if (fImg && fImg.size > 500 * 1024) return msg("Image trop lourde (500 Ko max).", 1);
-      if (fPdf && fPdf.size > 700 * 1024) return msg("PDF trop lourd (700 Ko max).", 1);
-      const pub = (imgData, pdfData) => {
-        const tx = $("e-texte").value.split(/\n\s*\n/).map(t => t.trim()).filter(Boolean);
-        const retirerPdf = $("e-nopdf") && $("e-nopdf").checked;
-        const retirerImg = $("e-noimg") && $("e-noimg").checked;
-        if (pdfData) tx.push(pdfData);
-        else if (ancPdf && !retirerPdf) tx.push(ancPdf);
-        const d = {
-          titre: $("e-titre").value.trim(),
-          theme: $("e-theme").value,
-          date: $("e-date").value || today(),
-          minutes: +$("e-min").value || 5,
-          resume: $("e-resume").value.trim(),
-          texte: tx,
-          image: retirerImg ? "" : (imgData || a.image || "")
-        };
-        if (!d.titre || !d.texte.length) return msg("Il faut au moins un titre et un texte ou un PDF.", 1);
-        const ref = a.id ? db.collection("articles").doc(a.id).set(d, { merge: true }) : db.collection("articles").add(d);
-        ref.then(() => vue()).catch(() => msg("Publication refusée.", 1));
-      };
-      if (fImg || fPdf) {
-        const read = (file, cb) => {
-          if (!file) return cb(null);
-          const r = new FileReader();
-          r.onload = () => cb(r.result);
-          r.readAsDataURL(file);
-        };
-        read(fImg, img => read(fPdf, pdf => pub(img, pdf)));
-      } else pub(null, null);
-    };
-  }
-
-  function vueComm() {
-    pan.innerHTML = `<h3>Mots interdits</h3><p class="aide">Sépare-les par des virgules.</p><textarea id="mb" rows="3"></textarea>
-      <div class="rang"><button class="btn" id="mb-ok" type="button">Enregistrer</button></div><p id="msg" class="msg"></p>
-      <h3>Tous les commentaires</h3><div class="liste" id="lc"></div>`;
-    $("mb").value = reg.motsBloques;
-    $("mb-ok").onclick = () => sauver({ motsBloques: $("mb").value });
-    majListeComm();
-  }
-  function majListeComm() {
-    const l = $("lc");
-    if (!l) return;
-    l.innerHTML = "";
-    if (!tousCom.length) { l.textContent = "Aucun commentaire."; return; }
-    tousCom.forEach(c => {
-      const a = articles.find(x => x.id === c.articleId);
-      const r = document.createElement("div");
-      r.className = "ligne col";
-      r.innerHTML = `<div><b></b> <small></small></div><div class="ctexte"></div><div class="rang"><button class="btn jaune mini" type="button">🗑 Supprimer</button></div>`;
-      r.querySelector("b").textContent = c.pseudo;
-      r.querySelector("small").textContent = " · " + (a ? a.titre : "article supprimé") + " · " + fmtCom(c, { dateStyle: "short", timeStyle: "short" });
-      r.querySelector(".ctexte").textContent = c.texte;
-      r.querySelector("button").onclick = () => supprCom(c);
-      l.appendChild(r);
-    });
-  }
-
-  function vueStats() {
-    const now = new Date();
-    const an = String(now.getFullYear());
-    const mois = an + "-" + String(now.getMonth() + 1).padStart(2, "0");
-    const semaine = getWeekKey(now);
-    const jour = today();
-    const total = stats.total || 0;
-    const a = (stats.annees && stats.annees[an]) || 0;
-    const m = (stats.mois && stats.mois[mois]) || 0;
-    const s = (stats.semaines && stats.semaines[semaine]) || 0;
-    const j = (stats.jours && stats.jours[jour]) || 0;
-    pan.innerHTML = `<h3>Visites du site (privé)</h3>
-      <div class="stats-grille">
-        <div class="stat-carte"><b>${total}</b><span>Total</span></div>
-        <div class="stat-carte"><b>${a}</b><span>Année</span></div>
-        <div class="stat-carte"><b>${m}</b><span>Mois</span></div>
-        <div class="stat-carte"><b>${s}</b><span>Semaine</span></div>
-        <div class="stat-carte"><b>${j}</b><span>Aujourd’hui</span></div>
-      </div>`;
-  }
-
-  function champ([k, lib, type, x, y, z]) {
-    const v = reg[k];
-    if (type === "color") return `<label>${lib}<input type="color" data-k="${k}" value="${v}"></label>`;
-    if (type === "select") return `<label>${lib}<select data-k="${k}">${x.map(o => `<option${o === v ? " selected" : ""}>${o}</option>`).join("")}</select></label>`;
-    if (type === "range") return `<label>${lib} : <b data-v="${k}">${v}</b><input type="range" data-k="${k}" min="${x}" max="${y}" step="${z}" value="${v}"></label>`;
-    if (type === "check") return `<label class="chk"><input type="checkbox" data-k="${k}"${v ? " checked" : ""}> ${lib}</label>`;
-    if (type === "area") return `<label>${lib}<textarea data-k="${k}" rows="${x}"></textarea></label>`;
-    return `<label>${lib}<input data-k="${k}"></label>`;
-  }
-  function brancher() {
-    pan.querySelectorAll("textarea[data-k], input:not([type])[data-k]").forEach(e => e.value = reg[e.dataset.k]);
-    pan.querySelectorAll("[data-u]").forEach(e => { const [k, f] = e.dataset.u.split("."); e.value = reg.univers[k][f]; });
-    pan.querySelectorAll("[data-k]").forEach(e => {
-      e.oninput = e.onchange = () => {
-        const k = e.dataset.k;
-        reg[k] = e.type === "checkbox" ? e.checked : e.type === "range" ? +e.value : e.value;
-        const o = pan.querySelector('[data-v="' + k + '"]');
-        if (o) o.textContent = reg[k];
-        apercu();
-      };
-    });
-    pan.querySelectorAll("[data-u]").forEach(e => {
-      e.oninput = () => { const [k, f] = e.dataset.u.split("."); reg.univers[k][f] = e.value; apercu(); };
-    });
-  }
-
-  function vueLook() {
-    pan.innerHTML = `<h3>Palettes prêtes</h3><div class="rang" id="pal"></div>` + CH_LOOK.map(champ).join("") +
-      `<div class="rang"><button class="btn" id="ok" type="button">Enregistrer</button><button class="btn jaune" id="raz" type="button">Réinitialiser</button></div><p id="msg" class="msg"></p>`;
-    Object.entries(THEMES).forEach(([nom, p]) => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.className = "btn jaune mini";
-      b.textContent = nom;
-      b.onclick = () => { Object.assign(reg, p); apercu(); vueLook(); };
-      $("pal").appendChild(b);
-    });
-    brancher();
-    $("ok").onclick = () => sauver(Object.fromEntries(CH_LOOK.map(c => [c[0], reg[c[0]]])));
-    $("raz").onclick = () => { CH_LOOK.forEach(c => reg[c[0]] = DEF[c[0]]); apercu(); vueLook(); };
-  }
-
-  function vueTextes() {
-    pan.innerHTML = CH_TXT.map(champ).join("") + "<h3>Les 4 univers</h3>" +
-      Object.keys(reg.univers).map(k => `<div class="bloc"><b>${esc(DEF.univers[k].emoji)} ${esc(k)}</b>
-        <label>Nom<input data-u="${k}.nom"></label><label>Emoji<input data-u="${k}.emoji" maxlength="4"></label>
-        <label>Description<input data-u="${k}.desc"></label></div>`).join("") +
-      `<div class="rang"><button class="btn" id="ok" type="button">Enregistrer</button></div><p id="msg" class="msg"></p>`;
-    brancher();
-    $("ok").onclick = () => sauver({ ...Object.fromEntries(CH_TXT.map(c => [c[0], reg[c[0]]])), univers: reg.univers });
-  }
-
-  function vueCode() {
-    pan.innerHTML = `<h3>Code du site</h3>
-      <p class="aide">CSS & JS perso. Le CSS est live. Le JS après rechargement. Bug → ajoute <b>?safe</b> à l’URL.</p>
-      <label>CSS<textarea class="code" id="k-css" rows="12" spellcheck="false"></textarea></label>
-      <label>JavaScript<textarea class="code" id="k-js" rows="12" spellcheck="false"></textarea></label>
-      <div class="rang">
-        <button class="btn" id="k-ok" type="button">Enregistrer</button>
-        <button class="btn jaune" id="k-test" type="button">Tester JS</button>
-        <button class="btn jaune" id="k-src" type="button">Code source complet</button>
-      </div>
-      <p id="msg" class="msg"></p><div id="k-zone"></div>`;
-    const css = $("k-css"), js = $("k-js");
-    css.value = codePerso.css;
-    js.value = codePerso.js;
-    [css, js].forEach(t => t.addEventListener("keydown", e => {
-      if (e.key === "Tab") {
-        e.preventDefault();
-        const s = t.selectionStart, f = t.selectionEnd;
-        t.value = t.value.slice(0, s) + "  " + t.value.slice(f);
-        t.selectionStart = t.selectionEnd = s + 2;
-      }
-    }));
-    css.oninput = () => majCss(css.value);
-    const verifJs = () => { try { new Function(js.value); return null; } catch(e) { return e.message; } };
-    $("k-test").onclick = () => {
-      const er = verifJs();
-      if (er) return msg("Erreur : " + er, 1);
-      try { new Function(js.value)(); msg("OK ✔"); } catch(e) { msg("Erreur : " + e.message, 1); }
-    };
-    $("k-ok").onclick = () => {
-      const er = verifJs();
-      if (er) return msg("Erreur JS : " + er, 1);
-      db.doc("site/code").set({ css: css.value, js: js.value })
-        .then(() => { codePerso = { css: css.value, js: js.value }; msg("Enregistré ✔"); })
-        .catch(() => msg("Refusé.", 1));
-    };
-    $("k-src").onclick = async () => {
-      let src;
-      try { src = await (await fetch(location.href.split("#")[0], { cache: "no-store" })).text(); }
-      catch(_) { src = "<!DOCTYPE html>\n" + document.documentElement.outerHTML; }
-      $("k-zone").innerHTML = `<label>Code source (lecture seule)<textarea class="code" id="k-full" rows="18" readonly></textarea></label>
-        <div class="rang"><button class="btn" id="k-copy" type="button">Copier</button></div>`;
-      $("k-full").value = src;
-      $("k-copy").onclick = () => {
-        $("k-full").select();
-        navigator.clipboard ? navigator.clipboard.writeText(src).then(() => msg("Copié ✔")) : (document.execCommand("copy") || msg("Copié ✔"));
-      };
-    };
-  }
-
-  function vueMaint() {
-    pan.innerHTML = `<p class="etat" id="etat"></p><label>Message visiteurs<textarea id="mm" rows="3"></textarea></label>
-      <div class="rang"><button class="btn" id="mbtn" type="button"></button></div>
-      <p class="aide">En maintenance, les visiteurs ne voient que le message. Toi tu vois tout.</p><p id="msg" class="msg"></p>`;
-    const maj = () => {
-      $("etat").textContent = reg.maintenance ? "🔴 Maintenance ACTIVE" : "🟢 Site en ligne";
-      $("mbtn").textContent = reg.maintenance ? "Remettre en ligne" : "Activer maintenance";
-    };
-    $("mm").value = reg.msgMaintenance;
-    maj();
-    $("mbtn").onclick = () => {
-      reg.maintenance = !reg.maintenance;
-      reg.msgMaintenance = $("mm").value;
-      appliquerMaint();
-      maj();
-      sauver({ maintenance: reg.maintenance, msgMaintenance: reg.msgMaintenance });
-    };
-  }
-
-  /* ========== START ========== */
-  appliquerReg();
-  initThemes();
-  rendre();
-
+  $("liste-com").innerHTML = "";
+  $("nb-com").textContent = "";
+  if (unsubCom) { unsubCom(); unsubCom = null; }
   if (enligne) {
-    firebase.initializeApp(FIREBASE);
-    db = firebase.firestore();
-    auth = firebase.auth();
-    auth.onAuthStateChanged(u => {
-      user = u && u.email === ADMIN_EMAIL ? u : null;
-      document.querySelectorAll(".cad").forEach(e => e.textContent = user ? "✏️" : "🔒");
-      appliquerMaint();
-      if (unsubTous) { unsubTous(); unsubTous = null; }
-      tousCom = [];
-      if (user) {
-        unsubTous = db.collection("commentaires").orderBy("date", "desc").limit(300).onSnapshot(s => {
-          tousCom = s.docs.map(d => ({ id: d.id, ...d.data() }));
-          majListeComm();
-        }, () => {});
-      } else fermerPanneau();
-      if (dlg.open) rendreComs();
+    unsubCom = db.collection("commentaires").where("articleId", "==", a.id).onSnapshot(s => {
+      comsArt = s.docs.map(d => ({id: d.id, ...d.data()}));
+      rendreComs();
     });
-    db.collection("articles").onSnapshot(s => {
-      articles = s.docs.map(d => ({ id: d.id, texte: [], date: today(), minutes: 5, resume: "", vues: 0, image: "", ...d.data() }));
-      rendre();
-      if (!panneau.hidden && ong === "articles" && !$("e-ok")) vue();
-    }, () => {});
-    db.doc("site/reglages").onSnapshot(s => {
-      reg = fusion(s.exists ? s.data() : {});
-      appliquerReg();
-      rendre();
-      pret();
-    }, () => pret());
-    db.doc("site/code").onSnapshot(s => appliquerCode(s.exists ? s.data() : {}), () => {});
-    db.doc("site/visites").onSnapshot(s => {
-      stats = s.exists ? s.data() : {};
-      if (!panneau.hidden && ong === "stats") vueStats();
-    }, () => {});
-    setTimeout(compterVisite, 1500);
   }
+
+  dlg.showModal();
+  dlg.scrollTop = 0;
+  setTimeout(() => loadAnnotations(a.id), 100);
+}
+
+function rendreComs() {
+  const l = $("liste-com");
+  l.innerHTML = "";
+  const cs = [...comsArt].sort((a,b) => (a.date?.toDate?.()||0) - (b.date?.toDate?.()||0));
+  $("nb-com").textContent = cs.length ? `(${cs.length})` : "";
+  if (!cs.length) {
+    l.innerHTML = '<p class="vide-com">Aucun commentaire pour l’instant.</p>';
+    return;
+  }
+  cs.forEach(c => {
+    const d = document.createElement("div");
+    d.className = "com";
+    d.innerHTML = `<div class="com-haut"><b>${esc(c.pseudo)}</b></div><p>${esc(c.texte)}</p>`;
+    if (user) {
+      const b = document.createElement("button");
+      b.className = "btn jaune mini";
+      b.textContent = "🗑";
+      b.onclick = () => db.collection("commentaires").doc(c.id).delete();
+      d.appendChild(b);
+    }
+    l.appendChild(d);
+  });
+}
+
+$("btn-lecture").onclick = () => {
+  dlg.classList.toggle("lecture-mode");
+  $("btn-lecture").textContent = dlg.classList.contains("lecture-mode") ? "💬 Afficher tout" : "📖 Mode lecture";
+};
+$("fermer").onclick = () => dlg.close();
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+dlg.addEventListener("close", () => {
+  if (unsubCom) { unsubCom(); unsubCom = null; }
+  $("lecture-corps").innerHTML = "";
+  currentTool = null;
+});
+
+$("form-com").onsubmit = e => {
+  e.preventDefault();
+  if (!enligne) return;
+  const pseudo = $("c-pseudo").value.trim().slice(0,40) || "Anonyme";
+  const texte = $("c-texte").value.trim();
+  if (!texte) return;
+  db.collection("commentaires").add({
+    articleId: artCourant.id,
+    pseudo,
+    texte,
+    date: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(() => { $("c-texte").value = ""; });
+};
+
+/* ========== ADMIN ========== */
+const barre = $("barre-code"), panneau = $("panneau"), pan = $("pan");
+function ouvrirAdmin() {
+  if (user) return ouvrirPanneau();
+  barre.hidden = false;
+  $("code").value = "";
+  $("code").focus();
+}
+document.querySelectorAll(".js-admin").forEach(b => b.onclick = ouvrirAdmin);
+$("code-x").onclick = () => barre.hidden = true;
+barre.onsubmit = e => {
+  e.preventDefault();
+  auth.signInWithEmailAndPassword(ADMIN_EMAIL, $("code").value)
+    .then(() => { barre.hidden = true; ouvrirPanneau(); })
+    .catch(() => $("code-msg").textContent = "Code incorrect");
+};
+
+(function() {
+  const r = $("resizer");
+  let startX, startW;
+  r.onmousedown = e => {
+    e.preventDefault();
+    r.classList.add("actif");
+    startX = e.clientX;
+    startW = panneau.offsetWidth;
+    const move = e2 => {
+      largeurPan = Math.max(320, Math.min(window.innerWidth - 40, startW + (startX - e2.clientX)));
+      panneau.style.width = largeurPan + "px";
+    };
+    const up = () => { r.classList.remove("actif"); removeEventListener("mousemove", move); removeEventListener("mouseup", up); };
+    addEventListener("mousemove", move);
+    addEventListener("mouseup", up);
+  };
+})();
+
+const ONGLETS = [["articles","📝 Articles"],["comm","💬 Commentaires"],["stats","📊 Stats"],["look","🎨 Apparence"],["textes","✍️ Textes"],["code","</> Code"],["maint","🛠️ Maintenance"]];
+function ouvrirPanneau() {
+  panneau.hidden = false;
+  panneau.style.width = largeurPan + "px";
+  ong = "articles";
+  vue();
+}
+function fermerPanneau() { panneau.hidden = true; }
+$("pan-x").onclick = fermerPanneau;
+$("pan-out").onclick = () => { auth.signOut(); fermerPanneau(); };
+
+function vue() {
+  const o = $("onglets");
+  o.innerHTML = "";
+  ONGLETS.forEach(([k,n]) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "btn";
+    b.textContent = n;
+    b.setAttribute("aria-pressed", k === ong);
+    b.onclick = () => { ong = k; vue(); };
+    o.appendChild(b);
+  });
+  if (ong === "articles") return vueListe();
+  if (ong === "stats") return vueStats();
+  if (ong === "look") return vueLook();
+  if (ong === "textes") return vueTextes();
+  if (ong === "code") return vueCode();
+  if (ong === "maint") return vueMaint();
+  if (ong === "comm") return vueComm();
+}
+
+function vueListe() {
+  pan.innerHTML = `<div class="rang"><button class="btn" id="nouveau">＋ Nouvel article</button></div><div class="liste" id="liste"></div>`;
+  $("nouveau").onclick = () => vueEdition(null);
+  const l = $("liste");
+  tri.forEach(a => {
+    const r = document.createElement("div");
+    r.className = "ligne";
+    r.innerHTML = `<span><b>${esc(a.titre)}</b><br><small>${reg.univers[a.theme]?.nom || ""} · ${fmt(a.date)}</small><br><span class="vues-prive">👁 ${a.vues||0}</span></span>
+      <span class="rang"><button class="btn mini">Modifier</button><button class="btn jaune mini">Supprimer</button></span>`;
+    r.querySelectorAll("button")[0].onclick = () => vueEdition(a);
+    r.querySelectorAll("button")[1].onclick = () => {
+      if (confirm("Supprimer ?")) db.collection("articles").doc(a.id).delete();
+    };
+    l.appendChild(r);
+  });
+}
+
+function vueEdition(a) {
+  a = a || { theme: "legendes", date: today(), minutes: 5, titre: "", resume: "", texte: [], image: "" };
+  const opts = Object.entries(reg.univers).map(([k,u]) => `<option value="${k}" ${k===a.theme?"selected":""}>${u.emoji} ${u.nom}</option>`).join("");
+  pan.innerHTML = `<h3>${a.id ? "Modifier" : "Nouvel article"}</h3>
+    <label>Titre<input id="e-titre" value="${esc(a.titre)}"></label>
+    <label>Thème<select id="e-theme">${opts}</select></label>
+    <label>Date<input id="e-date" type="date" value="${a.date}"></label>
+    <label>Minutes<input id="e-min" type="number" value="${a.minutes}"></label>
+    <label>Résumé<textarea id="e-resume" rows="3">${esc(a.resume)}</textarea></label>
+    <label>Image de couverture<input id="e-img" type="file" accept="image/*"></label>
+    <label>Texte<textarea id="e-texte" rows="12">${esc((a.texte||[]).filter(t => typeof t === "string" && !t.startsWith("data:")).join("\n\n"))}</textarea></label>
+    <div class="rang"><button class="btn" id="e-ok">Publier</button><button class="btn jaune" id="e-non">Annuler</button></div>`;
+  $("e-non").onclick = () => vue();
+  $("e-ok").onclick = () => {
+    const d = {
+      titre: $("e-titre").value.trim(),
+      theme: $("e-theme").value,
+      date: $("e-date").value || today(),
+      minutes: +$("e-min").value || 5,
+      resume: $("e-resume").value.trim(),
+      texte: $("e-texte").value.split(/\n\s*\n/).map(t => t.trim()).filter(Boolean)
+    };
+    if (!d.titre) return alert("Titre obligatoire");
+    const f = $("e-img").files[0];
+    const save = (img) => {
+      if (img) d.image = img;
+      else if (a.image) d.image = a.image;
+      const ref = a.id ? db.collection("articles").doc(a.id).set(d, {merge:true}) : db.collection("articles").add(d);
+      ref.then(() => vue());
+    };
+    if (f) {
+      const r = new FileReader();
+      r.onload = () => save(r.result);
+      r.readAsDataURL(f);
+    } else save(null);
+  };
+}
+
+function vueStats() {
+  const total = stats.total || 0;
+  pan.innerHTML = `<h3>Visites (privé)</h3>
+    <div class="stats-grille">
+      <div class="stat-carte"><b>${total}</b><span>Total</span></div>
+    </div>`;
+}
+
+function vueLook() {
+  pan.innerHTML = `<h3>Apparence</h3><p class="aide">Utilise le bouton 🎨 en haut pour changer de thème rapidement.</p>`;
+}
+
+function vueTextes() {
+  pan.innerHTML = `<h3>Textes</h3><p class="aide">Modifie les textes depuis ici prochainement.</p>`;
+}
+
+function vueCode() {
+  pan.innerHTML = `<h3>Code</h3><p class="aide">CSS / JS personnalisé à venir.</p>`;
+}
+
+function vueMaint() {
+  pan.innerHTML = `<h3>Maintenance</h3>
+    <button class="btn" id="mbtn">${reg.maintenance ? "Remettre en ligne" : "Activer maintenance"}</button>`;
+  $("mbtn").onclick = () => {
+    reg.maintenance = !reg.maintenance;
+    db.doc("site/reglages").set({maintenance: reg.maintenance}, {merge:true});
+    vue();
+  };
+}
+
+function vueComm() {
+  pan.innerHTML = `<h3>Commentaires</h3><div class="liste" id="lc"></div>`;
+}
+
+/* ========== START ========== */
+appliquerReg();
+initThemes();
+rendre();
+
+if (enligne) {
+  firebase.initializeApp(FIREBASE);
+  db = firebase.firestore();
+  auth = firebase.auth();
+  auth.onAuthStateChanged(u => {
+    user = u && u.email === ADMIN_EMAIL ? u : null;
+    document.querySelectorAll(".cad").forEach(e => e.textContent = user ? "✏️" : "🔒");
+    if (!user) fermerPanneau();
+  });
+  db.collection("articles").onSnapshot(s => {
+    articles = s.docs.map(d => ({id: d.id, texte: [], date: today(), minutes: 5, resume: "", vues: 0, image: "", ...d.data()}));
+    rendre();
+  });
+  db.doc("site/reglages").onSnapshot(s => {
+    reg = fusion(s.exists ? s.data() : {});
+    appliquerReg();
+    rendre();
+    document.body.classList.remove("attente");
+  });
+  db.doc("site/visites").onSnapshot(s => { stats = s.exists ? s.data() : {}; });
+  setTimeout(compterVisite, 1200);
+} else {
+  document.body.classList.remove("attente");
+}
 </script>
 </body>
 </html>
