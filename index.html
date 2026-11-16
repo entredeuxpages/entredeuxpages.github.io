@@ -46,7 +46,6 @@
   .barre-code .msg { color: var(--rose-pale); }
   .barre-code[hidden], .panneau[hidden], .maintenance[hidden], .pill-maint[hidden] { display: none; }
 
-  /* Sélecteur de thèmes */
   .theme-panel { position: fixed; top: 70px; right: 5vw; z-index: 50; background: var(--creme); border: 4px solid var(--prune); border-radius: 20px; padding: 1.2rem; box-shadow: 8px 8px 0 var(--prune); width: min(340px, 92vw); display: none; }
   .theme-panel.open { display: block; }
   .theme-panel h3 { font-family: var(--titre); font-weight: 800; margin-bottom: .8rem; }
@@ -129,9 +128,8 @@
   dialog.lecture-mode { width: min(820px, 96vw); }
   dialog.lecture-mode .commentaires,
   dialog.lecture-mode .lecture-haut .tag,
-  dialog.lecture-mode .lecture-haut .meta,
-  dialog.lecture-mode .lecture-haut .rang { display: none; }
-  dialog.lecture-mode .lecture-corps { font-size: 1.25rem; line-height: 1.8; max-width: 38rem; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  dialog.lecture-mode .lecture-haut .meta { display: none; }
+  dialog.lecture-mode .lecture-corps { font-size: 1.25rem; line-height: 1.8; max-width: 38rem; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
   dialog.lecture-mode .lecture-haut { padding: 1rem 1.5rem; }
   .lecture-progress { height: 6px; background: var(--prune); position: sticky; top: 0; z-index: 5; transform-origin: left; transform: scaleX(0); transition: transform .1s; }
   .lecture-haut { padding: 1.6rem 2rem 1.2rem; border-bottom: 4px solid var(--prune); position: sticky; top: 0; z-index: 2; background: var(--creme); }
@@ -158,14 +156,49 @@
   .msg { font-family: var(--titre); font-weight: 800; }
   .erreur { color: #B00020; }
 
-  /* Annotations personnelles */
-  .annot-toolbar { position: absolute; z-index: 40; background: var(--prune); color: var(--creme); border-radius: 999px; padding: .35rem .5rem; display: none; gap: .3rem; box-shadow: 4px 4px 0 var(--jaune); }
-  .annot-toolbar button { width: 32px; height: 32px; border: none; border-radius: 50%; cursor: pointer; font-size: 1rem; }
-  mark.hl-yellow { background: #FFE066; color: inherit; padding: 0 .1em; }
-  mark.hl-green { background: #A0E8A0; color: inherit; padding: 0 .1em; }
-  mark.hl-pink { background: #FFB3D9; color: inherit; padding: 0 .1em; }
-  mark.hl-blue { background: #A0D8FF; color: inherit; padding: 0 .1em; }
-  .underline-annot { text-decoration: underline; text-decoration-thickness: 3px; text-decoration-color: var(--rose); }
+  /* ===== BOÎTE À OUTILS D'ANNOTATION (toujours visible) ===== */
+  .annot-bar {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: var(--prune);
+    color: var(--creme);
+    padding: .6rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    flex-wrap: wrap;
+    border-top: 4px solid var(--jaune);
+    font-family: var(--titre);
+    font-weight: 800;
+    font-size: .9rem;
+  }
+  .annot-bar span { margin-right: .6rem; opacity: .9; }
+  .annot-bar button {
+    width: 38px;
+    height: 38px;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: transform .12s, border-color .12s;
+  }
+  .annot-bar button:hover { transform: scale(1.1); }
+  .annot-bar button.active {
+    border-color: var(--jaune);
+    box-shadow: 0 0 0 3px var(--jaune);
+  }
+  .annot-bar .tool-erase { background: #fff; color: #333; font-weight: 800; }
+  .annot-bar .tool-underline { background: #fff; color: #333; font-weight: 800; text-decoration: underline; }
+
+  mark.hl-yellow { background: #FFE066; color: inherit; padding: 0 .15em; border-radius: 2px; }
+  mark.hl-green  { background: #A0E8A0; color: inherit; padding: 0 .15em; border-radius: 2px; }
+  mark.hl-pink   { background: #FFB3D9; color: inherit; padding: 0 .15em; border-radius: 2px; }
+  mark.hl-blue   { background: #A0D8FF; color: inherit; padding: 0 .15em; border-radius: 2px; }
+  .underline-annot { text-decoration: underline; text-decoration-thickness: 3px; text-decoration-color: var(--rose); text-underline-offset: 3px; }
 
   /* Panneau créateur */
   .panneau { position: fixed; top: 0; right: 0; bottom: 0; width: min(560px, 100vw); z-index: 60; background: var(--creme); border-left: 4px solid var(--prune); display: flex; flex-direction: column; font-size: 1rem; line-height: 1.5; }
@@ -219,7 +252,6 @@
   </form>
 </div>
 
-<!-- Panneau de thèmes -->
 <div class="theme-panel" id="theme-panel">
   <h3>Choisir un thème</h3>
   <div class="theme-grid" id="theme-grid"></div>
@@ -326,6 +358,18 @@
     <button class="btn fermer" id="fermer" type="button" aria-label="Fermer">✕</button>
   </div>
   <div class="lecture-corps" id="lecture-corps"></div>
+
+  <!-- BOÎTE À OUTILS TOUJOURS VISIBLE -->
+  <div class="annot-bar" id="annot-bar">
+    <span>Outils :</span>
+    <button type="button" data-tool="yellow" title="Surligner jaune" style="background:#FFE066">🟡</button>
+    <button type="button" data-tool="green"  title="Surligner vert"  style="background:#A0E8A0">🟢</button>
+    <button type="button" data-tool="pink"   title="Surligner rose"  style="background:#FFB3D9">🩷</button>
+    <button type="button" data-tool="blue"   title="Surligner bleu"  style="background:#A0D8FF">🔵</button>
+    <button type="button" data-tool="underline" class="tool-underline" title="Souligner">U</button>
+    <button type="button" data-tool="erase" class="tool-erase" title="Gommer">⌫</button>
+  </div>
+
   <div class="commentaires">
     <h3>💬 Commentaires <span id="nb-com"></span></h3>
     <div id="liste-com"></div>
@@ -336,16 +380,6 @@
     </form>
   </div>
 </dialog>
-
-<!-- Toolbar d'annotation -->
-<div class="annot-toolbar" id="annot-toolbar">
-  <button type="button" data-color="yellow" title="Surligner jaune" style="background:#FFE066">🟡</button>
-  <button type="button" data-color="green" title="Surligner vert" style="background:#A0E8A0">🟢</button>
-  <button type="button" data-color="pink" title="Surligner rose" style="background:#FFB3D9">🩷</button>
-  <button type="button" data-color="blue" title="Surligner bleu" style="background:#A0D8FF">🔵</button>
-  <button type="button" data-action="underline" title="Souligner" style="background:#fff;color:#000">U̲</button>
-  <button type="button" data-action="erase" title="Gommer" style="background:#fff;color:#000">⌫</button>
-</div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -429,6 +463,8 @@
   let user=null, db, auth, artCourant=null, comsArt=[], tousCom=[], unsubCom=null, unsubTous=null, ong="articles";
   let codePerso={css:"",js:""}, premierCode=true, jetonLecture=0, blobsPdf=[];
   let stats={}, largeurPan=560;
+  let currentTool = null; // outil d'annotation sélectionné
+
   const pret = () => document.body.classList.remove("attente");
   if(enligne){ document.body.classList.add("attente"); setTimeout(pret,4000); }
 
@@ -438,7 +474,6 @@
     Object.assign(reg, t);
     localStorage.setItem("theme-choisi", nom);
     appliquerLook();
-    if(user) sauver({cJaune:t.cJaune,cRose:t.cRose,cPrune:t.cPrune,cCreme:t.cCreme,cJaunePale:t.cJaunePale,cRosePale:t.cRosePale});
   }
   function initThemes(){
     const grid = $("theme-grid");
@@ -452,10 +487,7 @@
     const sauve = localStorage.getItem("theme-choisi");
     if(sauve && THEMES[sauve]) appliquerTheme(sauve);
   }
-  $("theme-btn").onclick = e => {
-    e.stopPropagation();
-    $("theme-panel").classList.toggle("open");
-  };
+  $("theme-btn").onclick = e => { e.stopPropagation(); $("theme-panel").classList.toggle("open"); };
   document.addEventListener("click", e => {
     if(!$("theme-panel").contains(e.target) && e.target !== $("theme-btn")) $("theme-panel").classList.remove("open");
   });
@@ -582,79 +614,155 @@
   }
 
   /* ========== LECTURE + ANNOTATIONS ========== */
-  const dlg=$("lecture");
-  const cmsg=(t,err)=>{ const m=$("c-msg"); m.textContent=t; m.className="msg"+(err?" erreur":""); };
-  const annotBar=$("annot-toolbar");
-  let currentRange=null;
+  const dlg = $("lecture");
+  const cmsg = (t,err) => { const m=$("c-msg"); m.textContent=t; m.className="msg"+(err?" erreur":""); };
 
-  function saveAnnotations(id){
-    const marks = [...$("lecture-corps").querySelectorAll("mark[data-annot], .underline-annot")].map(el=>({
+  // Gestion des outils
+  $("annot-bar").querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const tool = btn.dataset.tool;
+      if (currentTool === tool) {
+        currentTool = null;
+        btn.classList.remove("active");
+      } else {
+        currentTool = tool;
+        $("annot-bar").querySelectorAll("button").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      }
+    });
+  });
+
+  function saveAnnotations(id) {
+    const marks = [...$("lecture-corps").querySelectorAll("mark[data-annot], .underline-annot")].map(el => ({
       text: el.textContent,
-      color: el.dataset.annot || (el.classList.contains("underline-annot")?"underline":"")
+      color: el.dataset.annot || (el.classList.contains("underline-annot") ? "underline" : "")
     }));
-    try{ localStorage.setItem("annot-"+id, JSON.stringify(marks)); }catch(_){}
+    try { localStorage.setItem("annot-" + id, JSON.stringify(marks)); } catch(_) {}
   }
-  function loadAnnotations(id){
-    try{
-      const marks = JSON.parse(localStorage.getItem("annot-"+id)||"[]");
-      if(!marks.length) return;
+
+  function loadAnnotations(id) {
+    try {
+      const marks = JSON.parse(localStorage.getItem("annot-" + id) || "[]");
+      if (!marks.length) return;
       const corps = $("lecture-corps");
-      marks.forEach(m=>{
+      marks.forEach(m => {
         const walker = document.createTreeWalker(corps, NodeFilter.SHOW_TEXT);
         let node;
-        while(node=walker.nextNode()){
+        while (node = walker.nextNode()) {
           const idx = node.textContent.indexOf(m.text);
-          if(idx>=0){
+          if (idx >= 0) {
             const range = document.createRange();
-            range.setStart(node, idx); range.setEnd(node, idx+m.text.length);
-            const mark = document.createElement(m.color==="underline"?"span":"mark");
-            if(m.color==="underline") mark.className="underline-annot";
-            else { mark.className="hl-"+m.color; mark.dataset.annot=m.color; }
-            range.surroundContents(mark);
+            range.setStart(node, idx);
+            range.setEnd(node, idx + m.text.length);
+            const mark = document.createElement(m.color === "underline" ? "span" : "mark");
+            if (m.color === "underline") mark.className = "underline-annot";
+            else { mark.className = "hl-" + m.color; mark.dataset.annot = m.color; }
+            try { range.surroundContents(mark); } catch(_) {}
             break;
           }
         }
       });
-    }catch(_){}
+    } catch(_) {}
   }
 
-  function ouvrir(a){
-    artCourant=a; compterLecture(a);
-    const jeton=++jetonLecture;
-    const u=reg.univers[a.theme];
-    $("lecture-tag").textContent=u.emoji+" "+u.nom;
-    $("lecture-titre").textContent=a.titre;
-    $("lecture-meta").textContent=fmt(a.date)+" · "+a.minutes+" min de lecture";
-    $("temps-restant").textContent="";
-    const corps=$("lecture-corps"); corps.innerHTML="";
-    if(a.image){ const img=document.createElement("img"); img.className="lecture-cover"; img.src=a.image; img.alt=""; corps.appendChild(img); }
-    const aPdf=a.texte.some(pdfEn);
-    dlg.classList.toggle("large",aPdf); dlg.classList.remove("plein","lecture-mode");
-    corps.classList.toggle("pdf",aPdf);
-    const zones=[];
-    a.texte.forEach(t=>{
-      if(pdfEn(t)){ const z=document.createElement("div"); z.className="pdf-zone"; corps.appendChild(z); zones.push([z,t.trim()]); }
-      else { const p=document.createElement("p"); p.textContent=t; corps.appendChild(p); }
+  // Application de l'outil sur sélection
+  $("lecture-corps").addEventListener("mouseup", () => {
+    if (!currentTool || !artCourant) return;
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed) return;
+
+    const range = sel.getRangeAt(0);
+    if (currentTool === "erase") {
+      // On cherche si la sélection est dans un mark
+      let node = range.commonAncestorContainer;
+      if (node.nodeType === 3) node = node.parentElement;
+      if (node && (node.tagName === "MARK" || node.classList.contains("underline-annot"))) {
+        node.replaceWith(...node.childNodes);
+        saveAnnotations(artCourant.id);
+      }
+    } else {
+      const mark = document.createElement(currentTool === "underline" ? "span" : "mark");
+      if (currentTool === "underline") mark.className = "underline-annot";
+      else { mark.className = "hl-" + currentTool; mark.dataset.annot = currentTool; }
+      try {
+        range.surroundContents(mark);
+        saveAnnotations(artCourant.id);
+      } catch(e) {}
+    }
+    sel.removeAllRanges();
+  });
+
+  function ouvrir(a) {
+    artCourant = a;
+    compterLecture(a);
+    currentTool = null;
+    $("annot-bar").querySelectorAll("button").forEach(b => b.classList.remove("active"));
+
+    const jeton = ++jetonLecture;
+    const u = reg.univers[a.theme];
+    $("lecture-tag").textContent = u.emoji + " " + u.nom;
+    $("lecture-titre").textContent = a.titre;
+    $("lecture-meta").textContent = fmt(a.date) + " · " + a.minutes + " min de lecture";
+    $("temps-restant").textContent = "";
+
+    const corps = $("lecture-corps");
+    corps.innerHTML = "";
+    if (a.image) {
+      const img = document.createElement("img");
+      img.className = "lecture-cover";
+      img.src = a.image;
+      img.alt = "";
+      corps.appendChild(img);
+    }
+    const aPdf = a.texte.some(pdfEn);
+    dlg.classList.toggle("large", aPdf);
+    dlg.classList.remove("plein", "lecture-mode");
+    corps.classList.toggle("pdf", aPdf);
+
+    const zones = [];
+    a.texte.forEach(t => {
+      if (pdfEn(t)) {
+        const z = document.createElement("div");
+        z.className = "pdf-zone";
+        corps.appendChild(z);
+        zones.push([z, t.trim()]);
+      } else {
+        const p = document.createElement("p");
+        p.textContent = t;
+        corps.appendChild(p);
+      }
     });
-    $("liste-com").innerHTML=""; $("nb-com").textContent=""; cmsg("");
-    if(unsubCom){unsubCom();unsubCom=null;} comsArt=[];
-    if(enligne){ unsubCom=db.collection("commentaires").where("articleId","==",a.id).onSnapshot(s=>{comsArt=s.docs.map(d=>({id:d.id,...d.data()}));rendreComs();},()=>{}); }
-    else $("liste-com").innerHTML='<p class="vide-com">Les commentaires s’activent avec Firebase.</p>';
-    dlg.showModal(); dlg.scrollTop=0;
-    zones.forEach(([z,src])=>rendrePdf(z,src,jeton));
-    setTimeout(()=>loadAnnotations(a.id),100);
+
+    $("liste-com").innerHTML = "";
+    $("nb-com").textContent = "";
+    cmsg("");
+    if (unsubCom) { unsubCom(); unsubCom = null; }
+    comsArt = [];
+    if (enligne) {
+      unsubCom = db.collection("commentaires").where("articleId", "==", a.id).onSnapshot(s => {
+        comsArt = s.docs.map(d => ({ id: d.id, ...d.data() }));
+        rendreComs();
+      }, () => {});
+    } else {
+      $("liste-com").innerHTML = '<p class="vide-com">Les commentaires s’activent avec Firebase.</p>';
+    }
+
+    dlg.showModal();
+    dlg.scrollTop = 0;
+    zones.forEach(([z, src]) => rendrePdf(z, src, jeton));
+    setTimeout(() => loadAnnotations(a.id), 80);
     updateProgress();
   }
 
-  function updateProgress(){
-    const corps=$("lecture-corps");
-    const progress=$("lecture-progress");
-    const onScroll=()=>{
-      const total=corps.scrollHeight - dlg.clientHeight + 100;
+  function updateProgress() {
+    const corps = $("lecture-corps");
+    const progress = $("lecture-progress");
+    const onScroll = () => {
+      const total = Math.max(1, corps.scrollHeight - dlg.clientHeight + 120);
       const p = Math.min(1, Math.max(0, dlg.scrollTop / total));
-      progress.style.transform=`scaleX(${p})`;
-      if(artCourant){
-        const restant = Math.max(1, Math.ceil(artCourant.minutes * (1-p)));
+      progress.style.transform = `scaleX(${p})`;
+      if (artCourant) {
+        const restant = Math.max(1, Math.ceil(artCourant.minutes * (1 - p)));
         $("temps-restant").textContent = dlg.classList.contains("lecture-mode") ? `~${restant} min restantes` : "";
       }
     };
@@ -662,208 +770,288 @@
     onScroll();
   }
 
-  $("btn-lecture").onclick=()=>{
+  $("btn-lecture").onclick = () => {
     dlg.classList.toggle("lecture-mode");
     $("btn-lecture").textContent = dlg.classList.contains("lecture-mode") ? "💬 Afficher tout" : "📖 Mode lecture";
     updateProgress();
   };
 
-  // Annotations
-  $("lecture-corps").addEventListener("mouseup", e=>{
-    const sel=window.getSelection();
-    if(!sel || sel.isCollapsed || !artCourant) { annotBar.style.display="none"; return; }
-    currentRange = sel.getRangeAt(0).cloneRange();
-    const rect = currentRange.getBoundingClientRect();
-    annotBar.style.display="flex";
-    annotBar.style.top = (rect.top + window.scrollY - 50) + "px";
-    annotBar.style.left = (rect.left + window.scrollX + rect.width/2 - 80) + "px";
-  });
-  annotBar.addEventListener("mousedown", e=>e.preventDefault());
-  annotBar.querySelectorAll("button").forEach(btn=>{
-    btn.onclick=()=>{
-      if(!currentRange || !artCourant) return;
-      const action = btn.dataset.action;
-      const color = btn.dataset.color;
-      if(action==="erase"){
-        const parent = currentRange.commonAncestorContainer.parentElement;
-        if(parent && (parent.tagName==="MARK" || parent.classList.contains("underline-annot"))){
-          parent.replaceWith(...parent.childNodes);
-        }
-      } else {
-        const mark = document.createElement(action==="underline"?"span":"mark");
-        if(action==="underline") mark.className="underline-annot";
-        else { mark.className="hl-"+color; mark.dataset.annot=color; }
-        try{ currentRange.surroundContents(mark); }catch(_){}
+  function rendreComs() {
+    const l = $("liste-com");
+    l.innerHTML = "";
+    const cs = [...comsArt].sort((a, b) => dateCom(a) - dateCom(b));
+    $("nb-com").textContent = cs.length ? "(" + cs.length + ")" : "";
+    if (!cs.length) {
+      l.innerHTML = '<p class="vide-com">Aucun commentaire pour l’instant. Sois le premier !</p>';
+      return;
+    }
+    cs.forEach(c => {
+      const d = document.createElement("div");
+      d.className = "com";
+      d.innerHTML = '<div class="com-haut"><b></b><small></small></div><p></p>';
+      d.querySelector("b").textContent = c.pseudo;
+      d.querySelector("small").textContent = fmtCom(c);
+      d.querySelector("p").textContent = c.texte;
+      if (user) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "btn jaune mini";
+        b.textContent = "🗑 Supprimer";
+        b.onclick = () => supprCom(c);
+        d.appendChild(b);
       }
-      saveAnnotations(artCourant.id);
-      annotBar.style.display="none";
-      window.getSelection().removeAllRanges();
-    };
-  });
-  document.addEventListener("mousedown", e=>{ if(!annotBar.contains(e.target)) annotBar.style.display="none"; });
-
-  function rendreComs(){
-    const l=$("liste-com"); l.innerHTML="";
-    const cs=[...comsArt].sort((a,b)=>dateCom(a)-dateCom(b));
-    $("nb-com").textContent=cs.length?"("+cs.length+")":"";
-    if(!cs.length){ l.innerHTML='<p class="vide-com">Aucun commentaire pour l’instant. Sois le premier !</p>'; return; }
-    cs.forEach(c=>{
-      const d=document.createElement("div"); d.className="com";
-      d.innerHTML='<div class="com-haut"><b></b><small></small></div><p></p>';
-      d.querySelector("b").textContent=c.pseudo; d.querySelector("small").textContent=fmtCom(c); d.querySelector("p").textContent=c.texte;
-      if(user){ const b=document.createElement("button"); b.type="button"; b.className="btn jaune mini"; b.textContent="🗑 Supprimer"; b.onclick=()=>supprCom(c); d.appendChild(b); }
       l.appendChild(d);
     });
   }
-  function supprCom(c){ if(confirm("Supprimer le commentaire de « "+c.pseudo+" » ?")) db.collection("commentaires").doc(c.id).delete().catch(()=>alert("Suppression refusée.")); }
-  $("form-com").onsubmit=e=>{
+
+  function supprCom(c) {
+    if (confirm("Supprimer le commentaire de « " + c.pseudo + " » ?"))
+      db.collection("commentaires").doc(c.id).delete().catch(() => alert("Suppression refusée."));
+  }
+
+  $("form-com").onsubmit = e => {
     e.preventDefault();
-    if(!enligne) return cmsg("Les commentaires ne sont pas encore activés.",1);
-    const pseudo=$("c-pseudo").value.trim().slice(0,40)||"Anonyme", texte=$("c-texte").value.trim();
-    if(!texte) return cmsg("Écris un commentaire d’abord.",1);
-    const bas=(pseudo+" "+texte).toLowerCase();
-    if(reg.motsBloques.split(",").map(m=>m.trim().toLowerCase()).filter(Boolean).some(m=>bas.includes(m))) return cmsg("Ton message contient un mot interdit sur ce site.",1);
-    let der=0; try{der=+localStorage.getItem("derCom")||0;}catch(_){}
-    if(Date.now()-der<20000) return cmsg("Patiente quelques secondes avant de reposter.",1);
-    db.collection("commentaires").add({articleId:artCourant.id,pseudo,texte,date:firebase.firestore.FieldValue.serverTimestamp()})
-      .then(()=>{$("c-texte").value="";cmsg("Merci, commentaire publié ✔");try{localStorage.setItem("derCom",Date.now());}catch(_){}})
-      .catch(()=>cmsg("Impossible de publier le commentaire.",1));
+    if (!enligne) return cmsg("Les commentaires ne sont pas encore activés.", 1);
+    const pseudo = $("c-pseudo").value.trim().slice(0, 40) || "Anonyme";
+    const texte = $("c-texte").value.trim();
+    if (!texte) return cmsg("Écris un commentaire d’abord.", 1);
+    const bas = (pseudo + " " + texte).toLowerCase();
+    if (reg.motsBloques.split(",").map(m => m.trim().toLowerCase()).filter(Boolean).some(m => bas.includes(m)))
+      return cmsg("Ton message contient un mot interdit sur ce site.", 1);
+    let der = 0;
+    try { der = +localStorage.getItem("derCom") || 0; } catch(_) {}
+    if (Date.now() - der < 20000) return cmsg("Patiente quelques secondes avant de reposter.", 1);
+    db.collection("commentaires").add({
+      articleId: artCourant.id,
+      pseudo,
+      texte,
+      date: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      $("c-texte").value = "";
+      cmsg("Merci, commentaire publié ✔");
+      try { localStorage.setItem("derCom", Date.now()); } catch(_) {}
+    }).catch(() => cmsg("Impossible de publier le commentaire.", 1));
   };
-  $("fermer").onclick=()=>dlg.close();
-  dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close();});
-  dlg.addEventListener("close",()=>{
-    if(unsubCom){unsubCom();unsubCom=null;} jetonLecture++;
-    dlg.classList.remove("large","plein","lecture-mode");
-    $("lecture-corps").innerHTML=""; blobsPdf.forEach(u=>URL.revokeObjectURL(u)); blobsPdf=[];
-    annotBar.style.display="none";
+
+  $("fermer").onclick = () => dlg.close();
+  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener("close", () => {
+    if (unsubCom) { unsubCom(); unsubCom = null; }
+    jetonLecture++;
+    dlg.classList.remove("large", "plein", "lecture-mode");
+    $("lecture-corps").innerHTML = "";
+    blobsPdf.forEach(u => URL.revokeObjectURL(u));
+    blobsPdf = [];
+    currentTool = null;
   });
 
   /* ========== ADMIN ========== */
-  const barre=$("barre-code"), panneau=$("panneau"), pan=$("pan");
-  const codeMsg=t=>$("code-msg").textContent=t;
-  function ouvrirAdmin(){ if(user) return ouvrirPanneau(); barre.hidden=false; codeMsg(""); $("code").value=""; $("code").focus(); }
-  document.querySelectorAll(".js-admin").forEach(b=>b.onclick=ouvrirAdmin);
-  $("code-x").onclick=()=>barre.hidden=true;
-  addEventListener("keydown",e=>{if(e.key==="Escape")barre.hidden=true;});
-  barre.onsubmit=e=>{
+  const barre = $("barre-code"), panneau = $("panneau"), pan = $("pan");
+  const codeMsg = t => $("code-msg").textContent = t;
+  function ouvrirAdmin() {
+    if (user) return ouvrirPanneau();
+    barre.hidden = false;
+    codeMsg("");
+    $("code").value = "";
+    $("code").focus();
+  }
+  document.querySelectorAll(".js-admin").forEach(b => b.onclick = ouvrirAdmin);
+  $("code-x").onclick = () => barre.hidden = true;
+  addEventListener("keydown", e => { if (e.key === "Escape") barre.hidden = true; });
+  barre.onsubmit = e => {
     e.preventDefault();
-    if(!enligne) return codeMsg("Firebase n’est pas encore configuré.");
+    if (!enligne) return codeMsg("Firebase n’est pas encore configuré.");
     codeMsg("…");
-    auth.signInWithEmailAndPassword(ADMIN_EMAIL,$("code").value)
-      .then(()=>{barre.hidden=true;$("code").value="";ouvrirPanneau();})
-      .catch(()=>codeMsg("Code incorrect."));
+    auth.signInWithEmailAndPassword(ADMIN_EMAIL, $("code").value)
+      .then(() => { barre.hidden = true; $("code").value = ""; ouvrirPanneau(); })
+      .catch(() => codeMsg("Code incorrect."));
   };
 
-  (function initResizer(){
-    const r=$("resizer"); let startX,startW;
-    r.addEventListener("mousedown",e=>{
-      e.preventDefault(); r.classList.add("actif"); startX=e.clientX; startW=panneau.offsetWidth;
-      const move=e2=>{ const delta=startX-e2.clientX; largeurPan=Math.max(320,Math.min(window.innerWidth-40,startW+delta)); panneau.style.width=largeurPan+"px"; };
-      const up=()=>{r.classList.remove("actif"); removeEventListener("mousemove",move); removeEventListener("mouseup",up);};
-      addEventListener("mousemove",move); addEventListener("mouseup",up);
+  (function initResizer() {
+    const r = $("resizer");
+    let startX, startW;
+    r.addEventListener("mousedown", e => {
+      e.preventDefault();
+      r.classList.add("actif");
+      startX = e.clientX;
+      startW = panneau.offsetWidth;
+      const move = e2 => {
+        const delta = startX - e2.clientX;
+        largeurPan = Math.max(320, Math.min(window.innerWidth - 40, startW + delta));
+        panneau.style.width = largeurPan + "px";
+      };
+      const up = () => {
+        r.classList.remove("actif");
+        removeEventListener("mousemove", move);
+        removeEventListener("mouseup", up);
+      };
+      addEventListener("mousemove", move);
+      addEventListener("mouseup", up);
     });
   })();
 
-  const ONGLETS=[["articles","📝 Articles"],["comm","💬 Commentaires"],["stats","📊 Stats"],["look","🎨 Apparence"],["textes","✍️ Textes"],["code","</> Code"],["maint","🛠️ Maintenance"]];
-  function ouvrirPanneau(){ panneau.hidden=false; panneau.style.width=largeurPan+"px"; ong="articles"; vue(); }
-  function fermerPanneau(){ panneau.hidden=true; }
-  $("pan-x").onclick=fermerPanneau;
-  $("pan-out").onclick=()=>{auth.signOut();fermerPanneau();};
-  const msg=(t,err)=>{const m=$("msg");if(m){m.textContent=t;m.className="msg"+(err?" erreur":"");}};
-  const sauver=obj=>db.doc("site/reglages").set(obj,{merge:true}).then(()=>msg("Enregistré ✔")).catch(()=>msg("Enregistrement refusé.",1));
-  const apercu=()=>{appliquerReg();rendre();};
+  const ONGLETS = [
+    ["articles", "📝 Articles"],
+    ["comm", "💬 Commentaires"],
+    ["stats", "📊 Stats"],
+    ["look", "🎨 Apparence"],
+    ["textes", "✍️ Textes"],
+    ["code", "</> Code"],
+    ["maint", "🛠️ Maintenance"]
+  ];
 
-  function vue(a){
-    if(ong==="code") panneau.style.width=Math.max(largeurPan,720)+"px"; else panneau.style.width=largeurPan+"px";
-    const o=$("onglets"); o.innerHTML="";
-    ONGLETS.forEach(([k,n])=>{ const b=document.createElement("button"); b.type="button"; b.className="btn"; b.textContent=n; b.setAttribute("aria-pressed",k===ong); b.onclick=()=>{ong=k;vue();}; o.appendChild(b); });
-    if(ong==="articles") return a?vueEdition(a==="new"?null:a):vueListe();
-    ({comm:vueComm,stats:vueStats,look:vueLook,textes:vueTextes,code:vueCode,maint:vueMaint})[ong]();
+  function ouvrirPanneau() {
+    panneau.hidden = false;
+    panneau.style.width = largeurPan + "px";
+    ong = "articles";
+    vue();
+  }
+  function fermerPanneau() { panneau.hidden = true; }
+  $("pan-x").onclick = fermerPanneau;
+  $("pan-out").onclick = () => { auth.signOut(); fermerPanneau(); };
+  const msg = (t, err) => { const m = $("msg"); if (m) { m.textContent = t; m.className = "msg" + (err ? " erreur" : ""); } };
+  const sauver = obj => db.doc("site/reglages").set(obj, { merge: true }).then(() => msg("Enregistré ✔")).catch(() => msg("Enregistrement refusé.", 1));
+  const apercu = () => { appliquerReg(); rendre(); };
+
+  function vue(a) {
+    if (ong === "code") panneau.style.width = Math.max(largeurPan, 720) + "px";
+    else panneau.style.width = largeurPan + "px";
+    const o = $("onglets");
+    o.innerHTML = "";
+    ONGLETS.forEach(([k, n]) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "btn";
+      b.textContent = n;
+      b.setAttribute("aria-pressed", k === ong);
+      b.onclick = () => { ong = k; vue(); };
+      o.appendChild(b);
+    });
+    if (ong === "articles") return a ? vueEdition(a === "new" ? null : a) : vueListe();
+    ({ comm: vueComm, stats: vueStats, look: vueLook, textes: vueTextes, code: vueCode, maint: vueMaint })[ong]();
   }
 
-  function vueListe(){
-    pan.innerHTML='<div class="rang"><button class="btn" id="nouveau" type="button">＋ Nouvel article</button></div><div class="liste" id="liste"></div><p id="msg" class="msg"></p>';
-    $("nouveau").onclick=()=>vue("new");
-    const l=$("liste");
-    if(!tri.length) l.textContent="Aucun article pour l’instant.";
-    tri.forEach(a=>{
-      const r=document.createElement("div"); r.className="ligne";
-      const vues=a.vues||0;
-      r.innerHTML=`<span><b></b><br><small></small><br><span class="vues-prive"></span></span><span class="rang"><button class="btn mini" type="button">Modifier</button><button class="btn jaune mini" type="button">Supprimer</button></span>`;
-      r.querySelector("b").textContent=a.titre;
-      r.querySelector("small").textContent=(reg.univers[a.theme]?reg.univers[a.theme].nom:"")+" · "+fmt(a.date);
-      r.querySelector(".vues-prive").textContent="👁 "+vues+" lecture"+(vues>1?"s":"");
-      const [m,s]=r.querySelectorAll("button");
-      m.onclick=()=>vue(a);
-      s.onclick=()=>{if(confirm("Supprimer « "+a.titre+" » ?")) db.collection("articles").doc(a.id).delete().then(()=>msg("Article supprimé.")).catch(()=>msg("Suppression refusée.",1));};
+  function vueListe() {
+    pan.innerHTML = '<div class="rang"><button class="btn" id="nouveau" type="button">＋ Nouvel article</button></div><div class="liste" id="liste"></div><p id="msg" class="msg"></p>';
+    $("nouveau").onclick = () => vue("new");
+    const l = $("liste");
+    if (!tri.length) l.textContent = "Aucun article pour l’instant.";
+    tri.forEach(a => {
+      const r = document.createElement("div");
+      r.className = "ligne";
+      const vues = a.vues || 0;
+      r.innerHTML = `<span><b></b><br><small></small><br><span class="vues-prive"></span></span><span class="rang"><button class="btn mini" type="button">Modifier</button><button class="btn jaune mini" type="button">Supprimer</button></span>`;
+      r.querySelector("b").textContent = a.titre;
+      r.querySelector("small").textContent = (reg.univers[a.theme] ? reg.univers[a.theme].nom : "") + " · " + fmt(a.date);
+      r.querySelector(".vues-prive").textContent = "👁 " + vues + " lecture" + (vues > 1 ? "s" : "");
+      const [m, s] = r.querySelectorAll("button");
+      m.onclick = () => vue(a);
+      s.onclick = () => {
+        if (confirm("Supprimer « " + a.titre + " » ?"))
+          db.collection("articles").doc(a.id).delete().then(() => msg("Article supprimé.")).catch(() => msg("Suppression refusée.", 1));
+      };
       l.appendChild(r);
     });
   }
-  function vueEdition(a){
-    a=a||{theme:Object.keys(reg.univers)[0],date:today(),minutes:5,titre:"",resume:"",texte:[],image:"",vues:0};
-    const opts=Object.entries(reg.univers).map(([k,u])=>`<option value="${k}">${esc(u.emoji)} ${esc(u.nom)}</option>`).join("");
-    const ancPdf=a.texte.find(pdfEn);
-    pan.innerHTML=`<h3>${a.id?"Modifier l’article":"Nouvel article"}</h3>
+
+  function vueEdition(a) {
+    a = a || { theme: Object.keys(reg.univers)[0], date: today(), minutes: 5, titre: "", resume: "", texte: [], image: "", vues: 0 };
+    const opts = Object.entries(reg.univers).map(([k, u]) => `<option value="${k}">${esc(u.emoji)} ${esc(u.nom)}</option>`).join("");
+    const ancPdf = a.texte.find(pdfEn);
+    pan.innerHTML = `<h3>${a.id ? "Modifier l’article" : "Nouvel article"}</h3>
       <label>Titre<input id="e-titre"></label>
       <label>Thème<select id="e-theme">${opts}</select></label>
       <label>Date<input id="e-date" type="date"></label>
       <label>Minutes de lecture<input id="e-min" type="number" min="1"></label>
       <label>Résumé<textarea id="e-resume" rows="3"></textarea></label>
       <label>Image de couverture (500 Ko max)<input id="e-img" type="file" accept="image/*"></label>
-      ${a.image?'<label class="chk"><input id="e-noimg" type="checkbox"> Retirer l’image</label>':""}
-      <label>${ancPdf?"Remplacer le PDF":"Ajouter un PDF (700 Ko max)"}<input id="e-pdf" type="file" accept="application/pdf"></label>
-      ${ancPdf?'<label class="chk"><input id="e-nopdf" type="checkbox"> Retirer le PDF</label>':""}
+      ${a.image ? '<label class="chk"><input id="e-noimg" type="checkbox"> Retirer l’image</label>' : ""}
+      <label>${ancPdf ? "Remplacer le PDF" : "Ajouter un PDF (700 Ko max)"}<input id="e-pdf" type="file" accept="application/pdf"></label>
+      ${ancPdf ? '<label class="chk"><input id="e-nopdf" type="checkbox"> Retirer le PDF</label>' : ""}
       <label>Texte<textarea id="e-texte" rows="14"></textarea></label>
       <div class="rang"><button class="btn" id="e-ok" type="button">Publier</button><button class="btn jaune" id="e-non" type="button">Annuler</button></div>
       <p id="msg" class="msg"></p>`;
-    $("e-titre").value=a.titre; $("e-theme").value=a.theme; $("e-date").value=a.date;
-    $("e-min").value=a.minutes; $("e-resume").value=a.resume;
-    $("e-texte").value=a.texte.filter(x=>!pdfEn(x)).join("\n\n");
-    $("e-non").onclick=()=>vue();
-    $("e-ok").onclick=()=>{
-      const fImg=$("e-img").files[0], fPdf=$("e-pdf").files[0];
-      if(fImg&&fImg.size>500*1024) return msg("Image trop lourde (500 Ko max).",1);
-      if(fPdf&&fPdf.size>700*1024) return msg("PDF trop lourd (700 Ko max).",1);
-      const pub=(imgData,pdfData)=>{
-        const tx=$("e-texte").value.split(/\n\s*\n/).map(t=>t.trim()).filter(Boolean);
-        const retirerPdf=$("e-nopdf")&&$("e-nopdf").checked;
-        const retirerImg=$("e-noimg")&&$("e-noimg").checked;
-        if(pdfData) tx.push(pdfData); else if(ancPdf&&!retirerPdf) tx.push(ancPdf);
-        const d={titre:$("e-titre").value.trim(),theme:$("e-theme").value,date:$("e-date").value||today(),minutes:+$("e-min").value||5,resume:$("e-resume").value.trim(),texte:tx,image:retirerImg?"":(imgData||a.image||"")};
-        if(!d.titre||!d.texte.length) return msg("Il faut au moins un titre et un texte ou un PDF.",1);
-        const ref=a.id?db.collection("articles").doc(a.id).set(d,{merge:true}):db.collection("articles").add(d);
-        ref.then(()=>vue()).catch(()=>msg("Publication refusée.",1));
+    $("e-titre").value = a.titre;
+    $("e-theme").value = a.theme;
+    $("e-date").value = a.date;
+    $("e-min").value = a.minutes;
+    $("e-resume").value = a.resume;
+    $("e-texte").value = a.texte.filter(x => !pdfEn(x)).join("\n\n");
+    $("e-non").onclick = () => vue();
+    $("e-ok").onclick = () => {
+      const fImg = $("e-img").files[0];
+      const fPdf = $("e-pdf").files[0];
+      if (fImg && fImg.size > 500 * 1024) return msg("Image trop lourde (500 Ko max).", 1);
+      if (fPdf && fPdf.size > 700 * 1024) return msg("PDF trop lourd (700 Ko max).", 1);
+      const pub = (imgData, pdfData) => {
+        const tx = $("e-texte").value.split(/\n\s*\n/).map(t => t.trim()).filter(Boolean);
+        const retirerPdf = $("e-nopdf") && $("e-nopdf").checked;
+        const retirerImg = $("e-noimg") && $("e-noimg").checked;
+        if (pdfData) tx.push(pdfData);
+        else if (ancPdf && !retirerPdf) tx.push(ancPdf);
+        const d = {
+          titre: $("e-titre").value.trim(),
+          theme: $("e-theme").value,
+          date: $("e-date").value || today(),
+          minutes: +$("e-min").value || 5,
+          resume: $("e-resume").value.trim(),
+          texte: tx,
+          image: retirerImg ? "" : (imgData || a.image || "")
+        };
+        if (!d.titre || !d.texte.length) return msg("Il faut au moins un titre et un texte ou un PDF.", 1);
+        const ref = a.id ? db.collection("articles").doc(a.id).set(d, { merge: true }) : db.collection("articles").add(d);
+        ref.then(() => vue()).catch(() => msg("Publication refusée.", 1));
       };
-      if(fImg||fPdf){ const read=(file,cb)=>{if(!file)return cb(null); const r=new FileReader(); r.onload=()=>cb(r.result); r.readAsDataURL(file);}; read(fImg,img=>read(fPdf,pdf=>pub(img,pdf))); }
-      else pub(null,null);
+      if (fImg || fPdf) {
+        const read = (file, cb) => {
+          if (!file) return cb(null);
+          const r = new FileReader();
+          r.onload = () => cb(r.result);
+          r.readAsDataURL(file);
+        };
+        read(fImg, img => read(fPdf, pdf => pub(img, pdf)));
+      } else pub(null, null);
     };
   }
 
-  function vueComm(){
-    pan.innerHTML=`<h3>Mots interdits</h3><p class="aide">Sépare-les par des virgules.</p><textarea id="mb" rows="3"></textarea>
+  function vueComm() {
+    pan.innerHTML = `<h3>Mots interdits</h3><p class="aide">Sépare-les par des virgules.</p><textarea id="mb" rows="3"></textarea>
       <div class="rang"><button class="btn" id="mb-ok" type="button">Enregistrer</button></div><p id="msg" class="msg"></p>
       <h3>Tous les commentaires</h3><div class="liste" id="lc"></div>`;
-    $("mb").value=reg.motsBloques; $("mb-ok").onclick=()=>sauver({motsBloques:$("mb").value}); majListeComm();
+    $("mb").value = reg.motsBloques;
+    $("mb-ok").onclick = () => sauver({ motsBloques: $("mb").value });
+    majListeComm();
   }
-  function majListeComm(){
-    const l=$("lc"); if(!l)return; l.innerHTML="";
-    if(!tousCom.length){l.textContent="Aucun commentaire.";return;}
-    tousCom.forEach(c=>{
-      const a=articles.find(x=>x.id===c.articleId);
-      const r=document.createElement("div"); r.className="ligne col";
-      r.innerHTML=`<div><b></b> <small></small></div><div class="ctexte"></div><div class="rang"><button class="btn jaune mini" type="button">🗑 Supprimer</button></div>`;
-      r.querySelector("b").textContent=c.pseudo;
-      r.querySelector("small").textContent=" · "+(a?a.titre:"article supprimé")+" · "+fmtCom(c,{dateStyle:"short",timeStyle:"short"});
-      r.querySelector(".ctexte").textContent=c.texte;
-      r.querySelector("button").onclick=()=>supprCom(c); l.appendChild(r);
+  function majListeComm() {
+    const l = $("lc");
+    if (!l) return;
+    l.innerHTML = "";
+    if (!tousCom.length) { l.textContent = "Aucun commentaire."; return; }
+    tousCom.forEach(c => {
+      const a = articles.find(x => x.id === c.articleId);
+      const r = document.createElement("div");
+      r.className = "ligne col";
+      r.innerHTML = `<div><b></b> <small></small></div><div class="ctexte"></div><div class="rang"><button class="btn jaune mini" type="button">🗑 Supprimer</button></div>`;
+      r.querySelector("b").textContent = c.pseudo;
+      r.querySelector("small").textContent = " · " + (a ? a.titre : "article supprimé") + " · " + fmtCom(c, { dateStyle: "short", timeStyle: "short" });
+      r.querySelector(".ctexte").textContent = c.texte;
+      r.querySelector("button").onclick = () => supprCom(c);
+      l.appendChild(r);
     });
   }
 
-  function vueStats(){
-    const now=new Date(); const an=String(now.getFullYear()); const mois=an+"-"+String(now.getMonth()+1).padStart(2,"0");
-    const semaine=getWeekKey(now); const jour=today();
-    const total=stats.total||0, a=(stats.annees&&stats.annees[an])||0, m=(stats.mois&&stats.mois[mois])||0, s=(stats.semaines&&stats.semaines[semaine])||0, j=(stats.jours&&stats.jours[jour])||0;
-    pan.innerHTML=`<h3>Visites du site (privé)</h3>
+  function vueStats() {
+    const now = new Date();
+    const an = String(now.getFullYear());
+    const mois = an + "-" + String(now.getMonth() + 1).padStart(2, "0");
+    const semaine = getWeekKey(now);
+    const jour = today();
+    const total = stats.total || 0;
+    const a = (stats.annees && stats.annees[an]) || 0;
+    const m = (stats.mois && stats.mois[mois]) || 0;
+    const s = (stats.semaines && stats.semaines[semaine]) || 0;
+    const j = (stats.jours && stats.jours[jour]) || 0;
+    pan.innerHTML = `<h3>Visites du site (privé)</h3>
       <div class="stats-grille">
         <div class="stat-carte"><b>${total}</b><span>Total</span></div>
         <div class="stat-carte"><b>${a}</b><span>Année</span></div>
@@ -873,48 +1061,60 @@
       </div>`;
   }
 
-  function champ([k,lib,type,x,y,z]){
-    const v=reg[k];
-    if(type==="color") return `<label>${lib}<input type="color" data-k="${k}" value="${v}"></label>`;
-    if(type==="select") return `<label>${lib}<select data-k="${k}">${x.map(o=>`<option${o===v?" selected":""}>${o}</option>`).join("")}</select></label>`;
-    if(type==="range") return `<label>${lib} : <b data-v="${k}">${v}</b><input type="range" data-k="${k}" min="${x}" max="${y}" step="${z}" value="${v}"></label>`;
-    if(type==="check") return `<label class="chk"><input type="checkbox" data-k="${k}"${v?" checked":""}> ${lib}</label>`;
-    if(type==="area") return `<label>${lib}<textarea data-k="${k}" rows="${x}"></textarea></label>`;
+  function champ([k, lib, type, x, y, z]) {
+    const v = reg[k];
+    if (type === "color") return `<label>${lib}<input type="color" data-k="${k}" value="${v}"></label>`;
+    if (type === "select") return `<label>${lib}<select data-k="${k}">${x.map(o => `<option${o === v ? " selected" : ""}>${o}</option>`).join("")}</select></label>`;
+    if (type === "range") return `<label>${lib} : <b data-v="${k}">${v}</b><input type="range" data-k="${k}" min="${x}" max="${y}" step="${z}" value="${v}"></label>`;
+    if (type === "check") return `<label class="chk"><input type="checkbox" data-k="${k}"${v ? " checked" : ""}> ${lib}</label>`;
+    if (type === "area") return `<label>${lib}<textarea data-k="${k}" rows="${x}"></textarea></label>`;
     return `<label>${lib}<input data-k="${k}"></label>`;
   }
-  function brancher(){
-    pan.querySelectorAll("textarea[data-k], input:not([type])[data-k]").forEach(e=>e.value=reg[e.dataset.k]);
-    pan.querySelectorAll("[data-u]").forEach(e=>{const [k,f]=e.dataset.u.split("."); e.value=reg.univers[k][f];});
-    pan.querySelectorAll("[data-k]").forEach(e=>{
-      e.oninput=e.onchange=()=>{ const k=e.dataset.k; reg[k]=e.type==="checkbox"?e.checked:e.type==="range"?+e.value:e.value; const o=pan.querySelector('[data-v="'+k+'"]'); if(o)o.textContent=reg[k]; apercu(); };
+  function brancher() {
+    pan.querySelectorAll("textarea[data-k], input:not([type])[data-k]").forEach(e => e.value = reg[e.dataset.k]);
+    pan.querySelectorAll("[data-u]").forEach(e => { const [k, f] = e.dataset.u.split("."); e.value = reg.univers[k][f]; });
+    pan.querySelectorAll("[data-k]").forEach(e => {
+      e.oninput = e.onchange = () => {
+        const k = e.dataset.k;
+        reg[k] = e.type === "checkbox" ? e.checked : e.type === "range" ? +e.value : e.value;
+        const o = pan.querySelector('[data-v="' + k + '"]');
+        if (o) o.textContent = reg[k];
+        apercu();
+      };
     });
-    pan.querySelectorAll("[data-u]").forEach(e=>{ e.oninput=()=>{const [k,f]=e.dataset.u.split("."); reg.univers[k][f]=e.value; apercu();}; });
+    pan.querySelectorAll("[data-u]").forEach(e => {
+      e.oninput = () => { const [k, f] = e.dataset.u.split("."); reg.univers[k][f] = e.value; apercu(); };
+    });
   }
 
-  function vueLook(){
-    pan.innerHTML=`<h3>Palettes prêtes</h3><div class="rang" id="pal"></div>`+CH_LOOK.map(champ).join("")+
+  function vueLook() {
+    pan.innerHTML = `<h3>Palettes prêtes</h3><div class="rang" id="pal"></div>` + CH_LOOK.map(champ).join("") +
       `<div class="rang"><button class="btn" id="ok" type="button">Enregistrer</button><button class="btn jaune" id="raz" type="button">Réinitialiser</button></div><p id="msg" class="msg"></p>`;
-    Object.entries(THEMES).forEach(([nom,p])=>{
-      const b=document.createElement("button"); b.type="button"; b.className="btn jaune mini"; b.textContent=nom;
-      b.onclick=()=>{Object.assign(reg,p);apercu();vueLook();}; $("pal").appendChild(b);
+    Object.entries(THEMES).forEach(([nom, p]) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "btn jaune mini";
+      b.textContent = nom;
+      b.onclick = () => { Object.assign(reg, p); apercu(); vueLook(); };
+      $("pal").appendChild(b);
     });
     brancher();
-    $("ok").onclick=()=>sauver(Object.fromEntries(CH_LOOK.map(c=>[c[0],reg[c[0]]])));
-    $("raz").onclick=()=>{CH_LOOK.forEach(c=>reg[c[0]]=DEF[c[0]]);apercu();vueLook();};
+    $("ok").onclick = () => sauver(Object.fromEntries(CH_LOOK.map(c => [c[0], reg[c[0]]])));
+    $("raz").onclick = () => { CH_LOOK.forEach(c => reg[c[0]] = DEF[c[0]]); apercu(); vueLook(); };
   }
 
-  function vueTextes(){
-    pan.innerHTML=CH_TXT.map(champ).join("")+"<h3>Les 4 univers</h3>"+
-      Object.keys(reg.univers).map(k=>`<div class="bloc"><b>${esc(DEF.univers[k].emoji)} ${esc(k)}</b>
+  function vueTextes() {
+    pan.innerHTML = CH_TXT.map(champ).join("") + "<h3>Les 4 univers</h3>" +
+      Object.keys(reg.univers).map(k => `<div class="bloc"><b>${esc(DEF.univers[k].emoji)} ${esc(k)}</b>
         <label>Nom<input data-u="${k}.nom"></label><label>Emoji<input data-u="${k}.emoji" maxlength="4"></label>
-        <label>Description<input data-u="${k}.desc"></label></div>`).join("")+
+        <label>Description<input data-u="${k}.desc"></label></div>`).join("") +
       `<div class="rang"><button class="btn" id="ok" type="button">Enregistrer</button></div><p id="msg" class="msg"></p>`;
     brancher();
-    $("ok").onclick=()=>sauver({...Object.fromEntries(CH_TXT.map(c=>[c[0],reg[c[0]]])),univers:reg.univers});
+    $("ok").onclick = () => sauver({ ...Object.fromEntries(CH_TXT.map(c => [c[0], reg[c[0]]])), univers: reg.univers });
   }
 
-  function vueCode(){
-    pan.innerHTML=`<h3>Code du site</h3>
+  function vueCode() {
+    pan.innerHTML = `<h3>Code du site</h3>
       <p class="aide">CSS & JS perso. Le CSS est live. Le JS après rechargement. Bug → ajoute <b>?safe</b> à l’URL.</p>
       <label>CSS<textarea class="code" id="k-css" rows="12" spellcheck="false"></textarea></label>
       <label>JavaScript<textarea class="code" id="k-js" rows="12" spellcheck="false"></textarea></label>
@@ -924,53 +1124,104 @@
         <button class="btn jaune" id="k-src" type="button">Code source complet</button>
       </div>
       <p id="msg" class="msg"></p><div id="k-zone"></div>`;
-    const css=$("k-css"), js=$("k-js");
-    css.value=codePerso.css; js.value=codePerso.js;
-    [css,js].forEach(t=>t.addEventListener("keydown",e=>{if(e.key==="Tab"){e.preventDefault(); const s=t.selectionStart,f=t.selectionEnd; t.value=t.value.slice(0,s)+"  "+t.value.slice(f); t.selectionStart=t.selectionEnd=s+2;}}));
-    css.oninput=()=>majCss(css.value);
-    const verifJs=()=>{try{new Function(js.value);return null;}catch(e){return e.message;}};
-    $("k-test").onclick=()=>{ const er=verifJs(); if(er)return msg("Erreur : "+er,1); try{new Function(js.value)();msg("OK ✔");}catch(e){msg("Erreur : "+e.message,1);} };
-    $("k-ok").onclick=()=>{ const er=verifJs(); if(er)return msg("Erreur JS : "+er,1); db.doc("site/code").set({css:css.value,js:js.value}).then(()=>{codePerso={css:css.value,js:js.value};msg("Enregistré ✔");}).catch(()=>msg("Refusé.",1)); };
-    $("k-src").onclick=async()=>{
-      let src; try{src=await(await fetch(location.href.split("#")[0],{cache:"no-store"})).text();}catch(_){src="<!DOCTYPE html>\n"+document.documentElement.outerHTML;}
-      $("k-zone").innerHTML=`<label>Code source (lecture seule)<textarea class="code" id="k-full" rows="18" readonly></textarea></label><div class="rang"><button class="btn" id="k-copy" type="button">Copier</button></div>`;
-      $("k-full").value=src;
-      $("k-copy").onclick=()=>{$("k-full").select(); navigator.clipboard?navigator.clipboard.writeText(src).then(()=>msg("Copié ✔")):document.execCommand("copy")||msg("Copié ✔");};
+    const css = $("k-css"), js = $("k-js");
+    css.value = codePerso.css;
+    js.value = codePerso.js;
+    [css, js].forEach(t => t.addEventListener("keydown", e => {
+      if (e.key === "Tab") {
+        e.preventDefault();
+        const s = t.selectionStart, f = t.selectionEnd;
+        t.value = t.value.slice(0, s) + "  " + t.value.slice(f);
+        t.selectionStart = t.selectionEnd = s + 2;
+      }
+    }));
+    css.oninput = () => majCss(css.value);
+    const verifJs = () => { try { new Function(js.value); return null; } catch(e) { return e.message; } };
+    $("k-test").onclick = () => {
+      const er = verifJs();
+      if (er) return msg("Erreur : " + er, 1);
+      try { new Function(js.value)(); msg("OK ✔"); } catch(e) { msg("Erreur : " + e.message, 1); }
+    };
+    $("k-ok").onclick = () => {
+      const er = verifJs();
+      if (er) return msg("Erreur JS : " + er, 1);
+      db.doc("site/code").set({ css: css.value, js: js.value })
+        .then(() => { codePerso = { css: css.value, js: js.value }; msg("Enregistré ✔"); })
+        .catch(() => msg("Refusé.", 1));
+    };
+    $("k-src").onclick = async () => {
+      let src;
+      try { src = await (await fetch(location.href.split("#")[0], { cache: "no-store" })).text(); }
+      catch(_) { src = "<!DOCTYPE html>\n" + document.documentElement.outerHTML; }
+      $("k-zone").innerHTML = `<label>Code source (lecture seule)<textarea class="code" id="k-full" rows="18" readonly></textarea></label>
+        <div class="rang"><button class="btn" id="k-copy" type="button">Copier</button></div>`;
+      $("k-full").value = src;
+      $("k-copy").onclick = () => {
+        $("k-full").select();
+        navigator.clipboard ? navigator.clipboard.writeText(src).then(() => msg("Copié ✔")) : (document.execCommand("copy") || msg("Copié ✔"));
+      };
     };
   }
 
-  function vueMaint(){
-    pan.innerHTML=`<p class="etat" id="etat"></p><label>Message visiteurs<textarea id="mm" rows="3"></textarea></label>
+  function vueMaint() {
+    pan.innerHTML = `<p class="etat" id="etat"></p><label>Message visiteurs<textarea id="mm" rows="3"></textarea></label>
       <div class="rang"><button class="btn" id="mbtn" type="button"></button></div>
       <p class="aide">En maintenance, les visiteurs ne voient que le message. Toi tu vois tout.</p><p id="msg" class="msg"></p>`;
-    const maj=()=>{ $("etat").textContent=reg.maintenance?"🔴 Maintenance ACTIVE":"🟢 Site en ligne"; $("mbtn").textContent=reg.maintenance?"Remettre en ligne":"Activer maintenance"; };
-    $("mm").value=reg.msgMaintenance; maj();
-    $("mbtn").onclick=()=>{ reg.maintenance=!reg.maintenance; reg.msgMaintenance=$("mm").value; appliquerMaint(); maj(); sauver({maintenance:reg.maintenance,msgMaintenance:reg.msgMaintenance}); };
+    const maj = () => {
+      $("etat").textContent = reg.maintenance ? "🔴 Maintenance ACTIVE" : "🟢 Site en ligne";
+      $("mbtn").textContent = reg.maintenance ? "Remettre en ligne" : "Activer maintenance";
+    };
+    $("mm").value = reg.msgMaintenance;
+    maj();
+    $("mbtn").onclick = () => {
+      reg.maintenance = !reg.maintenance;
+      reg.msgMaintenance = $("mm").value;
+      appliquerMaint();
+      maj();
+      sauver({ maintenance: reg.maintenance, msgMaintenance: reg.msgMaintenance });
+    };
   }
 
   /* ========== START ========== */
-  appliquerReg(); initThemes(); rendre();
-  if(enligne){
+  appliquerReg();
+  initThemes();
+  rendre();
+
+  if (enligne) {
     firebase.initializeApp(FIREBASE);
-    db=firebase.firestore(); auth=firebase.auth();
-    auth.onAuthStateChanged(u=>{
-      user=u&&u.email===ADMIN_EMAIL?u:null;
-      document.querySelectorAll(".cad").forEach(e=>e.textContent=user?"✏️":"🔒");
+    db = firebase.firestore();
+    auth = firebase.auth();
+    auth.onAuthStateChanged(u => {
+      user = u && u.email === ADMIN_EMAIL ? u : null;
+      document.querySelectorAll(".cad").forEach(e => e.textContent = user ? "✏️" : "🔒");
       appliquerMaint();
-      if(unsubTous){unsubTous();unsubTous=null;} tousCom=[];
-      if(user){ unsubTous=db.collection("commentaires").orderBy("date","desc").limit(300).onSnapshot(s=>{tousCom=s.docs.map(d=>({id:d.id,...d.data()}));majListeComm();},()=>{}); }
-      else fermerPanneau();
-      if(dlg.open) rendreComs();
+      if (unsubTous) { unsubTous(); unsubTous = null; }
+      tousCom = [];
+      if (user) {
+        unsubTous = db.collection("commentaires").orderBy("date", "desc").limit(300).onSnapshot(s => {
+          tousCom = s.docs.map(d => ({ id: d.id, ...d.data() }));
+          majListeComm();
+        }, () => {});
+      } else fermerPanneau();
+      if (dlg.open) rendreComs();
     });
-    db.collection("articles").onSnapshot(s=>{
-      articles=s.docs.map(d=>({id:d.id,texte:[],date:today(),minutes:5,resume:"",vues:0,image:"",...d.data()}));
+    db.collection("articles").onSnapshot(s => {
+      articles = s.docs.map(d => ({ id: d.id, texte: [], date: today(), minutes: 5, resume: "", vues: 0, image: "", ...d.data() }));
       rendre();
-      if(!panneau.hidden&&ong==="articles"&&!$("e-ok")) vue();
-    },()=>{});
-    db.doc("site/reglages").onSnapshot(s=>{ reg=fusion(s.exists?s.data():{}); appliquerReg(); rendre(); pret(); },()=>pret());
-    db.doc("site/code").onSnapshot(s=>appliquerCode(s.exists?s.data():{}),()=>{});
-    db.doc("site/visites").onSnapshot(s=>{ stats=s.exists?s.data():{}; if(!panneau.hidden&&ong==="stats") vueStats(); },()=>{});
-    setTimeout(compterVisite,1500);
+      if (!panneau.hidden && ong === "articles" && !$("e-ok")) vue();
+    }, () => {});
+    db.doc("site/reglages").onSnapshot(s => {
+      reg = fusion(s.exists ? s.data() : {});
+      appliquerReg();
+      rendre();
+      pret();
+    }, () => pret());
+    db.doc("site/code").onSnapshot(s => appliquerCode(s.exists ? s.data() : {}), () => {});
+    db.doc("site/visites").onSnapshot(s => {
+      stats = s.exists ? s.data() : {};
+      if (!panneau.hidden && ong === "stats") vueStats();
+    }, () => {});
+    setTimeout(compterVisite, 1500);
   }
 </script>
 </body>
