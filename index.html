@@ -16,10 +16,17 @@
     --titre: "Bricolage Grotesque", "Arial Black", sans-serif;
     --texte: "Newsreader", Georgia, serif;
     --fs: 1.15rem; --r: 20px; --o: 8px;
+    --fond: var(--creme); --texte-couleur: var(--prune);
+  }
+  html.dark {
+    --jaune: #B8A9FF; --jaune-pale: #2A2540;
+    --rose: #FF7EB6; --rose-pale: #3A2030;
+    --prune: #EEEAFF; --creme: #12102A;
+    --fond: #12102A; --texte-couleur: #EEEAFF;
   }
   * { box-sizing: border-box; margin: 0; }
   html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
-  body { background: var(--creme); color: var(--prune); font-family: var(--texte); font-size: var(--fs); line-height: 1.65; }
+  body { background: var(--fond); color: var(--texte-couleur); font-family: var(--texte); font-size: var(--fs); line-height: 1.65; transition: background .25s, color .25s; }
   body.attente > :not(script) { visibility: hidden; }
   body.maint { overflow: hidden; }
   body.maint .menu nav > a, body.maint .haut { display: none !important; }
@@ -34,20 +41,18 @@
   .btn.jaune { background: var(--jaune); }
   .btn.mini { font-size: .85rem; padding: .2rem .8rem; box-shadow: 2px 2px 0 var(--prune); }
 
-  /* Menu + barre du code créateur */
   .menu { position: sticky; top: 0; z-index: 20; background: var(--jaune); border-bottom: 4px solid var(--prune); padding: .8rem 5vw; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
   .logo { font-family: var(--titre); font-weight: 800; font-size: 1.5rem; text-decoration: none; }
   .menu nav { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; font-family: var(--titre); font-weight: 800; }
   .menu nav a:not(.btn) { text-decoration: none; }
   .menu nav a:not(.btn):hover { text-decoration: underline; text-decoration-thickness: 3px; text-decoration-color: var(--rose); }
-  .adminbtn { background: var(--creme); width: 2.8rem; height: 2.8rem; padding: 0; font-size: 1.15rem; line-height: 1; text-align: center; }
+  .adminbtn, .theme-btn { background: var(--creme); width: 2.8rem; height: 2.8rem; padding: 0; font-size: 1.15rem; line-height: 1; text-align: center; }
   .barre-code { flex-basis: 100%; display: flex; gap: .8rem; align-items: center; flex-wrap: wrap; background: var(--prune); color: var(--creme); border-radius: 16px; padding: .7rem 1rem; font-family: var(--titre); font-weight: 800; }
   .barre-code input { flex: 1; min-width: 160px; font: inherit; font-weight: 500; padding: .45rem 1rem; border: 3px solid var(--jaune); border-radius: 999px; background: var(--creme); color: var(--prune); }
   .barre-code .btn { font-size: .95rem; padding: .35rem 1.1rem; }
   .barre-code .msg { color: var(--rose-pale); }
   .barre-code[hidden], .panneau[hidden], .maintenance[hidden], .pill-maint[hidden] { display: none; }
 
-  /* Hero */
   .hero { background: var(--jaune); padding-bottom: 4rem; }
   .hero h1 { font-family: var(--titre); font-weight: 800; font-size: clamp(2.8rem, 9vw, 7rem); line-height: .95; letter-spacing: -.03em; max-width: 1000px; }
   .hero h1 .mot { background: var(--rose); padding: 0 .15em; border: 4px solid var(--prune); display: inline-block; transform: rotate(-2deg); box-shadow: var(--o) var(--o) 0 var(--prune); margin-top: .15em; }
@@ -62,8 +67,7 @@
   @keyframes defile { to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .bandeau div { animation: none; } html { scroll-behavior: auto; } }
 
-  /* Univers */
-  .univers { background: var(--creme); }
+  .univers { background: var(--fond); }
   .tuiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.8rem; }
   .tuile { text-align: left; font: inherit; color: inherit; cursor: pointer; border: 4px solid var(--prune); border-radius: var(--r); padding: 1.6rem; box-shadow: var(--o) var(--o) 0 var(--prune); transition: transform .15s, box-shadow .15s; display: flex; flex-direction: column; gap: .5rem; }
   .tuile:hover, .carte:hover { transform: translate(calc(var(--o) / 2), calc(var(--o) / 2)); box-shadow: calc(var(--o) / 2) calc(var(--o) / 2) 0 var(--prune); }
@@ -75,27 +79,27 @@
   .t-artistes, .carte.artistes { background: var(--jaune-pale); }
   .t-meurtriers, .carte.meurtriers { background: var(--rose); }
 
-  /* À la une */
   .une { background: var(--rose); }
   .une-carte { background: var(--creme); border: 4px solid var(--prune); border-radius: var(--r); box-shadow: var(--o) var(--o) 0 var(--prune); padding: clamp(1.6rem, 4vw, 3rem); display: grid; gap: 1rem; max-width: 900px; cursor: pointer; text-align: left; font: inherit; color: inherit; width: 100%; }
   .une-carte:hover { transform: translate(calc(var(--o) / 2), calc(var(--o) / 2)); box-shadow: calc(var(--o) / 2) calc(var(--o) / 2) 0 var(--prune); }
   .une-carte h3 { font-family: var(--titre); font-weight: 800; font-size: clamp(1.9rem, 5vw, 3.2rem); line-height: 1; letter-spacing: -.02em; }
+  .une-carte .cover { width: 100%; max-height: 280px; object-fit: cover; border-radius: calc(var(--r) - 4px); border: 3px solid var(--prune); }
 
-  /* Articles */
   .outils { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-bottom: 2.2rem; }
   .filtres { display: flex; flex-wrap: wrap; gap: .7rem; }
   .filtres button { font-family: var(--titre); font-weight: 800; font-size: 1rem; background: var(--creme); color: var(--prune); border: 3px solid var(--prune); border-radius: 999px; padding: .4rem 1.1rem; cursor: pointer; box-shadow: 3px 3px 0 var(--prune); }
   .filtres button[aria-pressed="true"] { background: var(--rose); }
   .recherche { flex: 1; min-width: 200px; font: inherit; font-size: 1.05rem; padding: .55rem 1.1rem; border: 3px solid var(--prune); border-radius: 999px; background: #fff; color: var(--prune); }
+  html.dark .recherche { background: #1b1230; color: var(--prune); }
   .grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 2rem; }
-  .carte { border: 4px solid var(--prune); border-radius: var(--r); padding: 1.5rem; display: flex; flex-direction: column; gap: .7rem; box-shadow: var(--o) var(--o) 0 var(--prune); text-align: left; font: inherit; color: inherit; cursor: pointer; transition: transform .15s, box-shadow .15s; }
+  .carte { border: 4px solid var(--prune); border-radius: var(--r); padding: 1.5rem; display: flex; flex-direction: column; gap: .7rem; box-shadow: var(--o) var(--o) 0 var(--prune); text-align: left; font: inherit; color: inherit; cursor: pointer; transition: transform .15s, box-shadow .15s; overflow: hidden; }
+  .carte .cover { width: calc(100% + 3rem); margin: -1.5rem -1.5rem .5rem; height: 160px; object-fit: cover; border-bottom: 3px solid var(--prune); }
   .tag { align-self: flex-start; font-family: var(--titre); font-weight: 800; font-size: .9rem; background: var(--prune); color: var(--creme); border-radius: 999px; padding: .1rem .9rem; }
   .carte h3 { font-family: var(--titre); font-weight: 800; font-size: 1.65rem; line-height: 1.05; }
   .carte p { flex: 1; }
   .meta { font-family: var(--titre); font-weight: 500; font-size: .92rem; }
   .vide { display: none; font-style: italic; margin-top: 1rem; }
 
-  /* À propos */
   .apropos { background: var(--jaune-pale); }
   .apropos-grille { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
   @media (max-width: 800px) { .apropos-grille { grid-template-columns: 1fr; } }
@@ -111,28 +115,30 @@
   .lien-admin { background: none; border: 0; color: var(--jaune); font: inherit; text-decoration: underline; cursor: pointer; }
   .haut { position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 30; display: none; }
 
-  /* Maintenance */
   .maintenance { position: fixed; inset: 0; z-index: 15; background: var(--jaune); display: grid; place-items: center; text-align: center; padding: 6rem 2rem 2rem; }
   .maintenance h2 { font-family: var(--titre); font-weight: 800; font-size: clamp(2.2rem, 7vw, 4.5rem); line-height: 1; }
   .maintenance p { max-width: 30rem; margin: 1rem auto 0; font-size: 1.3rem; font-style: italic; }
   .pill-maint { position: fixed; left: 1rem; bottom: 1rem; z-index: 45; background: var(--prune); color: var(--jaune); font-family: var(--titre); font-weight: 800; font-size: .9rem; border-radius: 999px; padding: .4rem 1rem; }
 
-  /* Lecture + commentaires */
   dialog { border: 4px solid var(--prune); border-radius: var(--r); padding: 0; width: min(780px, 94vw); max-height: 92vh; overflow: auto; background: var(--creme); color: var(--prune); box-shadow: var(--o) var(--o) 0 var(--prune); margin: auto; }
   dialog::backdrop { background: rgba(43, 16, 51, .65); }
   dialog.large { width: min(1500px, 98vw); height: 96vh; max-height: 96vh; }
   dialog.plein { width: 100vw; height: 100vh; max-height: 100vh; max-width: 100vw; border-radius: 0; border: 0; box-shadow: none; }
+  dialog.lecture-mode .commentaires { display: none; }
+  dialog.lecture-mode .lecture-corps { max-width: 42rem; margin: 0 auto; }
   .lecture-haut { padding: 1.6rem 2rem 1.2rem; border-bottom: 4px solid var(--prune); position: sticky; top: 0; z-index: 2; background: var(--creme); }
   .lecture-haut h2 { font-family: var(--titre); font-weight: 800; font-size: clamp(1.7rem, 4.5vw, 2.6rem); line-height: 1.02; margin: .6rem 3.5rem .4rem 0; }
   .fermer { position: absolute; right: 1.2rem; top: 1.2rem; width: 2.8rem; height: 2.8rem; padding: 0; font-size: 1.3rem; text-align: center; }
   .lecture-corps { padding: 1.8rem 2rem; max-width: 40rem; }
   .lecture-corps.pdf { max-width: none; padding: 1rem clamp(.5rem, 2vw, 2rem) 1.5rem; background: #d9d4dc; }
   .lecture-corps p + p { margin-top: 1.1rem; }
+  .lecture-cover { width: 100%; max-height: 320px; object-fit: cover; border-radius: 12px; border: 3px solid var(--prune); margin-bottom: 1.5rem; }
   .pdf-zone { display: grid; gap: 1rem; justify-items: center; margin-bottom: 1rem; }
   .pdf-outils { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; width: 100%; max-width: 1300px; }
   .pdf-zone canvas { width: 100%; max-width: 1300px; height: auto; background: #fff; border: 3px solid var(--prune); border-radius: 6px; box-shadow: 4px 4px 0 var(--prune); display: block; }
   .pdf-info { font-family: var(--titre); font-weight: 800; }
   .commentaires { padding: 1.8rem 2rem 2.2rem; background: #fff; border-top: 4px solid var(--prune); font-size: 1rem; }
+  html.dark .commentaires { background: #1b1230; }
   .commentaires h3 { font-family: var(--titre); font-weight: 800; font-size: 1.7rem; margin-bottom: 1rem; }
   .com { border: 3px solid var(--prune); border-radius: 14px; background: var(--creme); padding: .8rem 1rem; margin-bottom: .8rem; display: grid; gap: .4rem; justify-items: start; }
   .com-haut { display: flex; justify-content: space-between; gap: 1rem; width: 100%; font-family: var(--titre); flex-wrap: wrap; }
@@ -141,11 +147,11 @@
   .commentaires form { display: grid; gap: .8rem; margin-top: 1.2rem; }
   .commentaires label, .adm label { display: grid; gap: .3rem; font-family: var(--titre); font-weight: 800; }
   .commentaires input, .commentaires textarea, .adm input, .adm select, .adm textarea { font: inherit; font-weight: 400; font-size: 1rem; padding: .5rem .8rem; border: 3px solid var(--prune); border-radius: 12px; background: #fff; color: var(--prune); width: 100%; }
+  html.dark .commentaires input, html.dark .commentaires textarea, html.dark .adm input, html.dark .adm select, html.dark .adm textarea { background: #1b1230; color: var(--prune); }
   .rang { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; }
   .msg { font-family: var(--titre); font-weight: 800; }
   .erreur { color: #B00020; }
 
-  /* Panneau créateur + resizer */
   .panneau { position: fixed; top: 0; right: 0; bottom: 0; width: min(560px, 100vw); z-index: 60; background: var(--creme); border-left: 4px solid var(--prune); display: flex; flex-direction: column; font-size: 1rem; line-height: 1.5; }
   .resizer { position: absolute; left: 0; top: 0; bottom: 0; width: 10px; cursor: ew-resize; z-index: 2; background: transparent; }
   .resizer:hover, .resizer.actif { background: var(--rose); opacity: .7; }
@@ -163,16 +169,20 @@
   .adm input[type=range] { padding: 0; border: 0; }
   .adm textarea.code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .85rem; background: #1b1230; color: #f5eaff; white-space: pre; overflow: auto; tab-size: 2; line-height: 1.5; border-color: var(--prune); }
   .bloc { border: 3px solid var(--prune); border-radius: 14px; padding: .8rem 1rem; background: #fff; display: grid; gap: .6rem; }
+  html.dark .bloc { background: #1b1230; }
   .liste { display: grid; gap: .7rem; }
   .ligne { display: flex; gap: .8rem; justify-content: space-between; align-items: center; border: 3px solid var(--prune); border-radius: 14px; padding: .6rem 1rem; background: #fff; flex-wrap: wrap; }
+  html.dark .ligne { background: #1b1230; }
   .ligne.col { flex-direction: column; align-items: stretch; }
   .ligne b { font-family: var(--titre); }
   .ctexte { white-space: pre-wrap; word-break: break-word; }
   .etat { font-family: var(--titre); font-weight: 800; font-size: 1.2rem; }
   .stats-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
   .stat-carte { background: #fff; border: 3px solid var(--prune); border-radius: 16px; padding: 1rem; text-align: center; }
+  html.dark .stat-carte { background: #1b1230; }
   .stat-carte b { display: block; font-family: var(--titre); font-size: 2rem; line-height: 1.1; }
   .stat-carte span { font-family: var(--titre); font-weight: 800; font-size: .95rem; }
+  .vues-prive { font-family: var(--titre); font-weight: 800; font-size: .9rem; color: var(--rose); }
 </style>
 </head>
 <body>
@@ -184,6 +194,7 @@
     <a href="#articles">Articles</a>
     <a href="#apropos">À propos</a>
     <a class="btn" id="contact" href="#">Me contacter</a>
+    <button class="btn theme-btn" id="theme-btn" type="button" title="Changer de thème">🌙</button>
     <button class="btn adminbtn js-admin" type="button" aria-label="Espace créateur" title="Espace créateur"><span class="cad">🔒</span></button>
   </nav>
   <form class="barre-code" id="barre-code" hidden>
@@ -288,6 +299,9 @@
     <span class="tag" id="lecture-tag"></span>
     <h2 id="lecture-titre"></h2>
     <div class="meta" id="lecture-meta"></div>
+    <div class="rang" style="margin-top:.6rem">
+      <button class="btn mini jaune" id="btn-lecture" type="button">📖 Mode lecture</button>
+    </div>
     <button class="btn fermer" id="fermer" type="button" aria-label="Fermer">✕</button>
   </div>
   <div class="lecture-corps" id="lecture-corps"></div>
@@ -307,11 +321,9 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
-  /* ============ À REMPLIR ============ */
   const FIREBASE = { apiKey: "AIzaSyBFVjvsQ7I3mYkWAvcQRIGHUyo9XhhJ55s", authDomain: "mon-site-109fc.firebaseapp.com", projectId: "mon-site-109fc", appId: "1:1058043539123:web:f4078096e85aa382c80ac6" };
   const ADMIN_EMAIL = "marilou.isnarr@icloud.com";
 
-  /* ============ RÉGLAGES PAR DÉFAUT ============ */
   const DEF = {
     nomSite: "Mon site",
     titreDebut: "Légendes, plumes, pinceaux et",
@@ -338,7 +350,7 @@
     }
   };
   const DEMO = [
-    { id: "a1", theme: "legendes", date: "2026-11-01", minutes: 5, titre: "Article de démonstration", resume: "Configure Firebase puis publie tes vrais articles depuis l’espace créateur.", texte: ["Ceci est un exemple. Il disparaîtra dès que Firebase sera configuré."] }
+    { id: "a1", theme: "legendes", date: "2026-11-01", minutes: 5, titre: "Article de démonstration", resume: "Configure Firebase puis publie tes vrais articles depuis l’espace créateur.", texte: ["Ceci est un exemple. Il disparaîtra dès que Firebase sera configuré."], vues: 0 }
   ];
   const POL_T = ["Bricolage Grotesque", "Poppins", "Space Grotesk", "Fredoka", "Playfair Display"];
   const POL_X = ["Newsreader", "Lora", "Merriweather", "Nunito", "Inter"];
@@ -367,7 +379,6 @@
     ["apropos", "Texte « À propos » (ligne vide = nouveau paragraphe)", "area", 8]
   ];
 
-  /* ============ OUTILS ============ */
   const $ = id => document.getElementById(id);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const fmt = d => new Date(d).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
@@ -388,7 +399,19 @@
   const pret = () => document.body.classList.remove("attente");
   if (enligne) { document.body.classList.add("attente"); setTimeout(pret, 4000); }
 
-  /* ---------- Polices, couleurs, présentation ---------- */
+  /* Mode sombre */
+  function appliquerTheme() {
+    const dark = localStorage.getItem("theme") === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    $("theme-btn").textContent = dark ? "☀️" : "🌙";
+  }
+  $("theme-btn").onclick = () => {
+    const dark = !document.documentElement.classList.contains("dark");
+    localStorage.setItem("theme", dark ? "dark" : "light");
+    appliquerTheme();
+  };
+  appliquerTheme();
+
   const chargees = new Set(["Bricolage Grotesque", "Newsreader"]);
   function police(n) {
     if (chargees.has(n)) return; chargees.add(n);
@@ -430,7 +453,6 @@
     appliquerLook(); appliquerMaint();
   }
 
-  /* ---------- Code personnalisé ---------- */
   function majCss(css) {
     let st = $("css-perso");
     if (!st) { st = document.createElement("style"); st.id = "css-perso"; document.head.appendChild(st); }
@@ -445,7 +467,6 @@
     }
   }
 
-  /* ---------- Compteur de visites ---------- */
   function getWeekKey(d) {
     const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
     const dayNum = date.getUTCDay() || 7;
@@ -473,7 +494,15 @@
     db.doc("site/visites").set(updates, { merge: true }).catch(() => {});
   }
 
-  /* ---------- Affichage public ---------- */
+  function compterLecture(a) {
+    if (!enligne || !a.id) return;
+    const cle = "lu-" + a.id + "-" + today();
+    try { if (localStorage.getItem(cle)) return; localStorage.setItem(cle, "1"); } catch (_) {}
+    db.collection("articles").doc(a.id).update({
+      vues: firebase.firestore.FieldValue.increment(1)
+    }).catch(() => {});
+  }
+
   function rendre() {
     tri = [...articles].sort((a, b) => (b.date || "").localeCompare(a.date || ""));
     const U = reg.univers, ks = Object.keys(U);
@@ -495,7 +524,8 @@
 
     const une = tri[0], c = $("une-carte");
     if (une && U[une.theme]) {
-      c.innerHTML = '<span class="tag"></span><h3></h3><p></p><span class="meta"></span>';
+      c.innerHTML = (une.image ? '<img class="cover" alt="">' : '') + '<span class="tag"></span><h3></h3><p></p><span class="meta"></span>';
+      if (une.image) c.querySelector(".cover").src = une.image;
       c.querySelector(".tag").textContent = U[une.theme].nom;
       c.querySelector("h3").textContent = une.titre;
       c.querySelector("p").textContent = une.resume;
@@ -526,7 +556,8 @@
     liste.forEach(a => {
       const el = document.createElement("button");
       el.type = "button"; el.className = "carte " + a.theme;
-      el.innerHTML = '<span class="tag"></span><h3></h3><p></p><span class="meta"></span>';
+      el.innerHTML = (a.image ? '<img class="cover" alt="">' : '') + '<span class="tag"></span><h3></h3><p></p><span class="meta"></span>';
+      if (a.image) el.querySelector(".cover").src = a.image;
       el.querySelector(".tag").textContent = U[a.theme].emoji + " " + U[a.theme].nom;
       el.querySelector("h3").textContent = a.titre;
       el.querySelector("p").textContent = a.resume;
@@ -546,7 +577,6 @@
   addEventListener("scroll", () => { $("haut-btn").style.display = scrollY > 700 ? "inline-block" : "none"; });
   $("hasard").onclick = () => { if (articles.length) ouvrir(articles[Math.floor(Math.random() * articles.length)]); };
 
-  /* ---------- Lecteur PDF ---------- */
   const pdfEn = t => typeof t === "string" && (t.startsWith("data:application/pdf") || /\.pdf(\?.*)?$/i.test(t.trim()));
   function versBytes(uri) {
     const b = atob(uri.split(",")[1]), u = new Uint8Array(b.length);
@@ -595,19 +625,26 @@
     }
   }
 
-  /* ---------- Lecture + commentaires ---------- */
   const dlg = $("lecture");
   const cmsg = (t, err) => { const m = $("c-msg"); m.textContent = t; m.className = "msg" + (err ? " erreur" : ""); };
   function ouvrir(a) {
     artCourant = a;
+    compterLecture(a);
     const jeton = ++jetonLecture;
     const u = reg.univers[a.theme];
     $("lecture-tag").textContent = u.emoji + " " + u.nom;
     $("lecture-titre").textContent = a.titre;
     $("lecture-meta").textContent = fmt(a.date) + " · " + a.minutes + " min de lecture";
     const corps = $("lecture-corps"); corps.innerHTML = "";
+    if (a.image) {
+      const img = document.createElement("img");
+      img.className = "lecture-cover";
+      img.src = a.image;
+      img.alt = "";
+      corps.appendChild(img);
+    }
     const aPdf = a.texte.some(pdfEn);
-    dlg.classList.toggle("large", aPdf); dlg.classList.remove("plein");
+    dlg.classList.toggle("large", aPdf); dlg.classList.remove("plein", "lecture-mode");
     corps.classList.toggle("pdf", aPdf);
     const zones = [];
     a.texte.forEach(t => {
@@ -626,6 +663,10 @@
     dlg.showModal(); dlg.scrollTop = 0;
     zones.forEach(([z, src]) => rendrePdf(z, src, jeton));
   }
+  $("btn-lecture").onclick = () => {
+    dlg.classList.toggle("lecture-mode");
+    $("btn-lecture").textContent = dlg.classList.contains("lecture-mode") ? "💬 Afficher commentaires" : "📖 Mode lecture";
+  };
   function rendreComs() {
     const l = $("liste-com"); l.innerHTML = "";
     const cs = [...comsArt].sort((a, b) => dateCom(a) - dateCom(b));
@@ -667,12 +708,11 @@
   dlg.addEventListener("close", () => {
     if (unsubCom) { unsubCom(); unsubCom = null; }
     jetonLecture++;
-    dlg.classList.remove("large", "plein");
+    dlg.classList.remove("large", "plein", "lecture-mode");
     $("lecture-corps").innerHTML = "";
     blobsPdf.forEach(u => URL.revokeObjectURL(u)); blobsPdf = [];
   });
 
-  /* ---------- Barre « code créateur » ---------- */
   const barre = $("barre-code"), panneau = $("panneau"), pan = $("pan");
   const codeMsg = t => $("code-msg").textContent = t;
   function ouvrirAdmin() {
@@ -691,7 +731,6 @@
       .catch(() => codeMsg("Code incorrect."));
   };
 
-  /* ---------- Resizer du panneau ---------- */
   (function initResizer() {
     const r = $("resizer");
     let startX, startW;
@@ -715,7 +754,6 @@
     });
   })();
 
-  /* ---------- Panneau créateur ---------- */
   const ONGLETS = [
     ["articles", "📝 Articles"],
     ["comm", "💬 Commentaires"],
@@ -751,7 +789,6 @@
     ({ comm: vueComm, stats: vueStats, look: vueLook, textes: vueTextes, code: vueCode, maint: vueMaint })[ong]();
   }
 
-  /* --- Articles --- */
   function vueListe() {
     pan.innerHTML = '<div class="rang"><button class="btn" id="nouveau" type="button">＋ Nouvel article</button></div><div class="liste" id="liste"></div><p id="msg" class="msg"></p>';
     $("nouveau").onclick = () => vue("new");
@@ -759,9 +796,11 @@
     if (!tri.length) l.textContent = "Aucun article pour l’instant.";
     tri.forEach(a => {
       const r = document.createElement("div"); r.className = "ligne";
-      r.innerHTML = '<span><b></b><br><small></small></span><span class="rang"><button class="btn mini" type="button">Modifier</button><button class="btn jaune mini" type="button">Supprimer</button></span>';
+      const vues = a.vues || 0;
+      r.innerHTML = '<span><b></b><br><small></small><br><span class="vues-prive"></span></span><span class="rang"><button class="btn mini" type="button">Modifier</button><button class="btn jaune mini" type="button">Supprimer</button></span>';
       r.querySelector("b").textContent = a.titre;
       r.querySelector("small").textContent = (reg.univers[a.theme] ? reg.univers[a.theme].nom : "") + " · " + fmt(a.date);
+      r.querySelector(".vues-prive").textContent = "👁 " + vues + " lecture" + (vues > 1 ? "s" : "");
       const [m, s] = r.querySelectorAll("button");
       m.onclick = () => vue(a);
       s.onclick = () => { if (confirm("Supprimer « " + a.titre + " » ?")) db.collection("articles").doc(a.id).delete().then(() => msg("Article supprimé.")).catch(() => msg("Suppression refusée.", 1)); };
@@ -769,7 +808,7 @@
     });
   }
   function vueEdition(a) {
-    a = a || { theme: Object.keys(reg.univers)[0], date: today(), minutes: 5, titre: "", resume: "", texte: [] };
+    a = a || { theme: Object.keys(reg.univers)[0], date: today(), minutes: 5, titre: "", resume: "", texte: [], image: "", vues: 0 };
     const opts = Object.entries(reg.univers).map(([k, u]) => `<option value="${k}">${esc(u.emoji)} ${esc(u.nom)}</option>`).join("");
     const ancPdf = a.texte.find(pdfEn);
     pan.innerHTML = `<h3>${a.id ? "Modifier l’article" : "Nouvel article"}</h3>
@@ -778,6 +817,8 @@
       <label>Date<input id="e-date" type="date"></label>
       <label>Minutes de lecture<input id="e-min" type="number" min="1"></label>
       <label>Résumé (2-3 phrases)<textarea id="e-resume" rows="3"></textarea></label>
+      <label>Image de couverture (optionnel, 500 Ko max)<input id="e-img" type="file" accept="image/*"></label>
+      ${a.image ? '<label class="chk"><input id="e-noimg" type="checkbox"> Retirer l’image actuelle</label>' : ""}
       <label>${ancPdf ? "Remplacer le PDF (optionnel)" : "Ajouter un PDF (optionnel, 700 Ko max)"}<input id="e-pdf" type="file" accept="application/pdf"></label>
       ${ancPdf ? '<label class="chk"><input id="e-nopdf" type="checkbox"> Retirer le PDF actuel</label>' : ""}
       <label>Texte (une ligne vide = nouveau paragraphe)<textarea id="e-texte" rows="14"></textarea></label>
@@ -788,22 +829,35 @@
     $("e-texte").value = a.texte.filter(x => !pdfEn(x)).join("\n\n");
     $("e-non").onclick = () => vue();
     $("e-ok").onclick = () => {
-      const f = $("e-pdf").files[0];
-      if (f && f.size > 700 * 1024) return msg("PDF trop lourd (700 Ko max).", 1);
-      const pub = pdfData => {
+      const fImg = $("e-img").files[0];
+      const fPdf = $("e-pdf").files[0];
+      if (fImg && fImg.size > 500 * 1024) return msg("Image trop lourde (500 Ko max).", 1);
+      if (fPdf && fPdf.size > 700 * 1024) return msg("PDF trop lourd (700 Ko max).", 1);
+      const pub = (imgData, pdfData) => {
         const tx = $("e-texte").value.split(/\n\s*\n/).map(t => t.trim()).filter(Boolean);
-        const retirer = $("e-nopdf") && $("e-nopdf").checked;
-        if (pdfData) tx.push(pdfData); else if (ancPdf && !retirer) tx.push(ancPdf);
-        const d = { titre: $("e-titre").value.trim(), theme: $("e-theme").value, date: $("e-date").value || today(), minutes: +$("e-min").value || 5, resume: $("e-resume").value.trim(), texte: tx };
+        const retirerPdf = $("e-nopdf") && $("e-nopdf").checked;
+        const retirerImg = $("e-noimg") && $("e-noimg").checked;
+        if (pdfData) tx.push(pdfData); else if (ancPdf && !retirerPdf) tx.push(ancPdf);
+        const d = {
+          titre: $("e-titre").value.trim(),
+          theme: $("e-theme").value,
+          date: $("e-date").value || today(),
+          minutes: +$("e-min").value || 5,
+          resume: $("e-resume").value.trim(),
+          texte: tx,
+          image: retirerImg ? "" : (imgData || a.image || "")
+        };
         if (!d.titre || !d.texte.length) return msg("Il faut au moins un titre et un texte ou un PDF.", 1);
-        const ref = a.id ? db.collection("articles").doc(a.id).set(d) : db.collection("articles").add(d);
-        ref.then(() => vue()).catch(() => msg("Publication refusée (PDF trop lourd ?).", 1));
+        const ref = a.id ? db.collection("articles").doc(a.id).set(d, { merge: true }) : db.collection("articles").add(d);
+        ref.then(() => vue()).catch(() => msg("Publication refusée (fichier trop lourd ?).", 1));
       };
-      if (f) { const r = new FileReader(); r.onload = () => pub(r.result); r.readAsDataURL(f); } else pub(null);
+      if (fImg || fPdf) {
+        const read = (file, cb) => { if (!file) return cb(null); const r = new FileReader(); r.onload = () => cb(r.result); r.readAsDataURL(file); };
+        read(fImg, img => read(fPdf, pdf => pub(img, pdf)));
+      } else pub(null, null);
     };
   }
 
-  /* --- Commentaires --- */
   function vueComm() {
     pan.innerHTML = `<h3>Mots interdits</h3>
       <p class="aide">Un commentaire qui contient un de ces mots est refusé. Sépare-les par des virgules.</p>
@@ -829,7 +883,6 @@
     });
   }
 
-  /* --- Stats (visites) --- */
   function vueStats() {
     const now = new Date();
     const an = String(now.getFullYear());
@@ -842,7 +895,7 @@
     const s = (stats.semaines && stats.semaines[semaine]) || 0;
     const j = (stats.jours && stats.jours[jour]) || 0;
     pan.innerHTML = `<h3>Visites du site</h3>
-      <p class="aide">Comptage unique par navigateur et par jour (évite les rafraîchissements). Les chiffres se mettent à jour en direct.</p>
+      <p class="aide">Comptage unique par navigateur et par jour. Les chiffres se mettent à jour en direct. (Privé – jamais visible aux visiteurs)</p>
       <div class="stats-grille">
         <div class="stat-carte"><b>${total}</b><span>Total</span></div>
         <div class="stat-carte"><b>${a}</b><span>Cette année</span></div>
@@ -850,10 +903,9 @@
         <div class="stat-carte"><b>${s}</b><span>Cette semaine</span></div>
         <div class="stat-carte"><b>${j}</b><span>Aujourd’hui</span></div>
       </div>
-      <p class="aide" style="margin-top:1.2rem">Document Firestore : <code>site/visites</code>. Pense à autoriser l’écriture pour les visiteurs anonymes dans les règles de sécurité (uniquement sur ce document).</p>`;
+      <p class="aide" style="margin-top:1.2rem">Document Firestore : <code>site/visites</code>.</p>`;
   }
 
-  /* --- Champs génériques --- */
   function champ([k, lib, type, x, y, z]) {
     const v = reg[k];
     if (type === "color") return `<label>${lib}<input type="color" data-k="${k}" value="${v}"></label>`;
@@ -879,11 +931,10 @@
     });
   }
 
-  /* --- Apparence --- */
   function vueLook() {
     pan.innerHTML = `<h3>Palettes toutes prêtes</h3><div class="rang" id="pal"></div>` + CH_LOOK.map(champ).join("") +
       `<div class="rang"><button class="btn" id="ok" type="button">Enregistrer</button><button class="btn jaune" id="raz" type="button">Réinitialiser</button></div><p id="msg" class="msg"></p>
-      <p class="aide">Tu vois le résultat tout de suite sur le site. Pense à cliquer sur « Enregistrer » pour le garder.</p>`;
+      <p class="aide">Tu vois le résultat tout de suite. Pense à cliquer sur « Enregistrer ».</p>`;
     Object.entries(PALETTES).forEach(([nom, p]) => {
       const b = document.createElement("button"); b.type = "button"; b.className = "btn jaune mini"; b.textContent = nom;
       b.onclick = () => { Object.assign(reg, p); apercu(); vueLook(); };
@@ -894,7 +945,6 @@
     $("raz").onclick = () => { CH_LOOK.forEach(c => reg[c[0]] = DEF[c[0]]); apercu(); vueLook(); };
   }
 
-  /* --- Textes --- */
   function vueTextes() {
     pan.innerHTML = CH_TXT.map(champ).join("") + "<h3>Les 4 univers</h3>" +
       Object.keys(reg.univers).map(k => `<div class="bloc"><b>${esc(DEF.univers[k].emoji)} ${esc(k)}</b>
@@ -905,20 +955,18 @@
     $("ok").onclick = () => sauver({ ...Object.fromEntries(CH_TXT.map(c => [c[0], reg[c[0]]])), univers: reg.univers });
   }
 
-  /* --- Code (CSS / JS perso + code source) --- */
   function vueCode() {
     pan.innerHTML = `<h3>&lt;/&gt; Code du site</h3>
-      <p class="aide">Ajoute ici ton propre CSS et JavaScript : ils s’appliquent à tout le site pour tous les visiteurs. Le CSS se voit en direct. Le JavaScript s’applique après rechargement de la page. En cas de bug, ouvre le site avec <b>?safe</b> à la fin de l’adresse pour désactiver ce code.</p>
-      <label>CSS personnalisé<textarea class="code" id="k-css" rows="12" spellcheck="false" placeholder="/* exemple */&#10;.hero h1 { letter-spacing: 0; }"></textarea></label>
-      <label>JavaScript personnalisé<textarea class="code" id="k-js" rows="12" spellcheck="false" placeholder="// exemple&#10;console.log('Bonjour');"></textarea></label>
+      <p class="aide">CSS et JavaScript perso. Le CSS se voit en direct. Le JS s’applique après rechargement. En cas de bug → ajoute <b>?safe</b> à l’adresse.</p>
+      <label>CSS personnalisé<textarea class="code" id="k-css" rows="12" spellcheck="false"></textarea></label>
+      <label>JavaScript personnalisé<textarea class="code" id="k-js" rows="12" spellcheck="false"></textarea></label>
       <div class="rang">
         <button class="btn" id="k-ok" type="button">Enregistrer</button>
         <button class="btn jaune" id="k-test" type="button">Tester le JS</button>
         <button class="btn jaune" id="k-src" type="button">Voir / copier le code source complet</button>
       </div>
       <p id="msg" class="msg"></p>
-      <div id="k-zone"></div>
-      <p class="aide" style="margin-top:1rem">Le code source complet est en lecture seule (la structure HTML est fixée dans le fichier). Pour modifier la structure, édite le fichier HTML et ré-uploade-le. Le CSS et le JS perso ci-dessus restent modifiables en direct.</p>`;
+      <div id="k-zone"></div>`;
     const css = $("k-css"), js = $("k-js");
     css.value = codePerso.css; js.value = codePerso.js;
     [css, js].forEach(t => t.addEventListener("keydown", e => {
@@ -940,28 +988,27 @@
       const er = verifJs();
       if (er) return msg("Erreur de syntaxe dans le JS : " + er, 1);
       db.doc("site/code").set({ css: css.value, js: js.value })
-        .then(() => { codePerso = { css: css.value, js: js.value }; msg("Code enregistré ✔ (recharge la page pour appliquer le JS)"); })
-        .catch(() => msg("Enregistrement refusé (vérifie les règles Firebase pour « site/code »).", 1));
+        .then(() => { codePerso = { css: css.value, js: js.value }; msg("Code enregistré ✔ (recharge pour le JS)"); })
+        .catch(() => msg("Enregistrement refusé.", 1));
     };
     $("k-src").onclick = async () => {
       let src;
       try { src = await (await fetch(location.href.split("#")[0], { cache: "no-store" })).text(); }
       catch (_) { src = "<!DOCTYPE html>\n" + document.documentElement.outerHTML; }
-      $("k-zone").innerHTML = `<label>Code source complet de la page (lecture seule)<textarea class="code" id="k-full" rows="20" readonly spellcheck="false"></textarea></label>
+      $("k-zone").innerHTML = `<label>Code source complet (lecture seule)<textarea class="code" id="k-full" rows="20" readonly spellcheck="false"></textarea></label>
         <div class="rang"><button class="btn" id="k-copy" type="button">Copier le code</button></div>`;
       $("k-full").value = src;
       $("k-copy").onclick = () => { $("k-full").select(); (navigator.clipboard ? navigator.clipboard.writeText(src) : Promise.reject()).then(() => msg("Code copié ✔"), () => { document.execCommand("copy"); msg("Code copié ✔"); }); };
     };
   }
 
-  /* --- Maintenance --- */
   function vueMaint() {
     pan.innerHTML = `<p class="etat" id="etat"></p>
       <label>Message affiché aux visiteurs<textarea id="mm" rows="3"></textarea></label>
       <div class="rang"><button class="btn" id="mbtn" type="button"></button></div>
-      <p class="aide">Quand la maintenance est active, les visiteurs ne voient que ce message. Toi, connectée, tu vois le site normalement avec un petit rappel en bas.</p><p id="msg" class="msg"></p>`;
+      <p class="aide">Quand la maintenance est active, les visiteurs ne voient que ce message. Toi tu vois le site normalement.</p><p id="msg" class="msg"></p>`;
     const maj = () => {
-      $("etat").textContent = reg.maintenance ? "🔴 Maintenance ACTIVE : le site est fermé aux visiteurs." : "🟢 Le site est en ligne.";
+      $("etat").textContent = reg.maintenance ? "🔴 Maintenance ACTIVE" : "🟢 Le site est en ligne.";
       $("mbtn").textContent = reg.maintenance ? "Remettre le site en ligne" : "Activer la maintenance";
     };
     $("mm").value = reg.msgMaintenance; maj();
@@ -972,7 +1019,6 @@
     };
   }
 
-  /* ---------- Démarrage ---------- */
   appliquerReg(); rendre();
   if (enligne) {
     firebase.initializeApp(FIREBASE);
@@ -991,7 +1037,7 @@
       if (dlg.open) rendreComs();
     });
     db.collection("articles").onSnapshot(s => {
-      articles = s.docs.map(d => ({ id: d.id, texte: [], date: today(), minutes: 5, resume: "", ...d.data() }));
+      articles = s.docs.map(d => ({ id: d.id, texte: [], date: today(), minutes: 5, resume: "", vues: 0, image: "", ...d.data() }));
       rendre();
       if (!panneau.hidden && ong === "articles" && !$("e-ok")) vue();
     }, () => {});
@@ -1005,7 +1051,6 @@
       stats = s.exists ? s.data() : {};
       if (!panneau.hidden && ong === "stats") vueStats();
     }, () => {});
-    // Compte une visite (unique par jour / navigateur)
     setTimeout(compterVisite, 1500);
   }
 </script>
