@@ -494,7 +494,7 @@
     $("lecture-titre").textContent = a.titre;
     $("lecture-meta").textContent = fmt(a.date) + " · " + a.minutes + " min de lecture";
     const corps = $("lecture-corps"); corps.innerHTML = "";
-    a.texte.forEach(t => { const p = document.createElement("p"); p.textContent = t; corps.appendChild(p); });
+  a.texte.forEach(t => { if (t.trim().endsWith(".pdf")) { corps.innerHTML += `<embed src="${t.trim()}#toolbar=0" type="application/pdf" width="100%" height="800px" />`; } else { const p = document.createElement("p"); p.textContent = t; corps.appendChild(p); } });
     $("liste-com").innerHTML = ""; $("nb-com").textContent = ""; cmsg("");
     if (unsubCom) { unsubCom(); unsubCom = null; }
     comsArt = [];
