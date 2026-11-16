@@ -28,23 +28,22 @@
   .btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--prune); }
   .btn.jaune { background: var(--jaune); }
 
+  /* Menu */
   .menu { position: sticky; top: 0; z-index: 20; background: var(--jaune); border-bottom: 4px solid var(--prune); padding: .8rem 5vw; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
   .logo { font-family: var(--titre); font-weight: 800; font-size: 1.5rem; text-decoration: none; }
-  .menu nav { display: flex; gap: 1.4rem; align-items: center; font-family: var(--titre); font-weight: 800; }
+  .menu nav { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; font-family: var(--titre); font-weight: 800; }
   .menu nav a:not(.btn) { text-decoration: none; }
   .menu nav a:not(.btn):hover { text-decoration: underline; text-decoration-thickness: 3px; text-decoration-color: var(--rose); }
+  .adminbtn { background: var(--creme); width: 2.8rem; height: 2.8rem; padding: 0; font-size: 1.15rem; line-height: 1; text-align: center; }
 
-  .hero { background: var(--jaune); position: relative; overflow: hidden; padding-bottom: 4rem; }
-  .hero h1 { font-family: var(--titre); font-weight: 800; font-size: clamp(3rem, 10.5vw, 7.5rem); line-height: .93; letter-spacing: -.03em; max-width: 1000px; }
+  /* Hero */
+  .hero { background: var(--jaune); padding-bottom: 4rem; }
+  .hero h1 { font-family: var(--titre); font-weight: 800; font-size: clamp(2.8rem, 9vw, 7rem); line-height: .95; letter-spacing: -.03em; max-width: 1000px; }
   .hero h1 .mot { background: var(--rose); padding: 0 .15em; border: 4px solid var(--prune); display: inline-block; transform: rotate(-2deg); box-shadow: 8px 8px 0 var(--prune); margin-top: .15em; }
   .hero p { max-width: 34rem; margin: 2rem 0; font-size: 1.3rem; font-style: italic; }
-  .hero .boutons { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .pastille { position: absolute; right: 6vw; top: 3rem; width: 150px; height: 150px; border-radius: 50%; background: var(--rose); border: 4px solid var(--prune); box-shadow: 6px 6px 0 var(--prune); display: grid; place-items: center; text-align: center; font-family: var(--titre); font-weight: 800; line-height: 1.1; transform: rotate(12deg); }
-  .pastille b { font-size: 2.6rem; display: block; }
-  .rond { position: absolute; border-radius: 50%; border: 4px solid var(--prune); }
-  .rond.a { width: 90px; height: 90px; background: var(--rose-pale); right: 22vw; bottom: 2rem; }
-  .rond.b { width: 50px; height: 50px; background: var(--creme); right: 10vw; bottom: 5rem; }
-  @media (max-width: 800px) { .pastille, .rond { display: none; } }
+  .hero .boutons { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+  .pastille { width: 105px; height: 105px; border-radius: 50%; background: var(--rose); border: 4px solid var(--prune); box-shadow: 5px 5px 0 var(--prune); display: grid; place-items: center; text-align: center; font-family: var(--titre); font-weight: 800; font-size: .8rem; line-height: 1.1; transform: rotate(10deg); margin-left: .6rem; }
+  .pastille b { font-size: 2rem; display: block; }
 
   .bandeau { background: var(--prune); color: var(--jaune); overflow: hidden; white-space: nowrap; font-family: var(--titre); font-weight: 800; font-size: 1.4rem; padding: .8rem 0; border-bottom: 4px solid var(--prune); }
   .bandeau div { display: inline-block; animation: defile 30s linear infinite; }
@@ -52,6 +51,7 @@
   @keyframes defile { to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .bandeau div { animation: none; } html { scroll-behavior: auto; } }
 
+  /* Univers */
   .univers { background: var(--creme); }
   .tuiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.8rem; }
   .tuile { text-align: left; font: inherit; color: inherit; cursor: pointer; border: 4px solid var(--prune); border-radius: 22px; padding: 1.6rem; box-shadow: 8px 8px 0 var(--prune); transition: transform .15s, box-shadow .15s; display: flex; flex-direction: column; gap: .5rem; }
@@ -64,11 +64,13 @@
   .t-artistes, .carte.artistes { background: var(--jaune-pale); }
   .t-meurtriers, .carte.meurtriers { background: var(--rose); }
 
+  /* À la une */
   .une { background: var(--rose); }
   .une-carte { background: var(--creme); border: 4px solid var(--prune); border-radius: 26px; box-shadow: 10px 10px 0 var(--prune); padding: clamp(1.6rem, 4vw, 3rem); display: grid; gap: 1rem; max-width: 900px; cursor: pointer; text-align: left; font: inherit; color: inherit; width: 100%; }
   .une-carte:hover { transform: translate(4px, 4px); box-shadow: 6px 6px 0 var(--prune); }
   .une-carte h3 { font-family: var(--titre); font-weight: 800; font-size: clamp(1.9rem, 5vw, 3.2rem); line-height: 1; letter-spacing: -.02em; }
 
+  /* Articles */
   .outils { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-bottom: 2.2rem; }
   .filtres { display: flex; flex-wrap: wrap; gap: .7rem; }
   .filtres button { font-family: var(--titre); font-weight: 800; font-size: 1rem; background: var(--creme); color: var(--prune); border: 3px solid var(--prune); border-radius: 999px; padding: .4rem 1.1rem; cursor: pointer; box-shadow: 3px 3px 0 var(--prune); }
@@ -83,6 +85,7 @@
   .meta { font-family: var(--titre); font-weight: 500; font-size: .92rem; }
   .vide { display: none; font-style: italic; margin-top: 1rem; }
 
+  /* À propos */
   .apropos { background: var(--jaune-pale); }
   .apropos-grille { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
   @media (max-width: 800px) { .apropos-grille { grid-template-columns: 1fr; } }
@@ -95,9 +98,10 @@
   footer { background: var(--prune); color: var(--creme); padding: 3rem 5vw; font-family: var(--titre); }
   footer .contenu { display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
   footer a { color: var(--jaune); }
+  .lien-admin { background: none; border: 0; color: var(--jaune); font: inherit; text-decoration: underline; cursor: pointer; }
   .haut { position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 30; display: none; }
-  .adminbtn { position: fixed; left: 1.2rem; bottom: 1.2rem; z-index: 30; width: 3rem; height: 3rem; padding: 0; font-size: 1.2rem; }
 
+  /* Fenêtres */
   dialog { border: 4px solid var(--prune); border-radius: 24px; padding: 0; width: min(780px, 94vw); max-height: 92vh; background: var(--creme); color: var(--prune); box-shadow: 10px 10px 0 var(--prune); margin: auto; }
   dialog::backdrop { background: rgba(43, 16, 51, .65); }
   .lecture-haut { padding: 1.6rem 2rem 1.2rem; border-bottom: 4px solid var(--prune); position: sticky; top: 0; z-index: 2; background: var(--creme); }
@@ -132,18 +136,18 @@
     <a href="#articles">Articles</a>
     <a href="#apropos">À propos</a>
     <a class="btn" id="contact" href="#">Me contacter</a>
+    <button class="btn adminbtn js-admin" type="button" aria-label="Espace auteure" title="Espace auteure"><span class="cad">🔒</span></button>
   </nav>
 </div>
 
 <section class="hero" id="haut">
-  <div class="pastille"><div><b id="nb-articles">0</b>articles<br>à lire</div></div>
-  <div class="rond a"></div><div class="rond b"></div>
   <div class="contenu">
     <h1><span id="h1-debut"></span> <span class="mot" id="h1-mot"></span></h1>
     <p id="intro"></p>
     <div class="boutons">
       <a class="btn" href="#articles">Lire les articles</a>
       <button class="btn jaune" id="hasard" type="button">Surprends-moi 🎲</button>
+      <div class="pastille"><div><b id="nb-articles">0</b>articles<br>à lire</div></div>
     </div>
   </div>
 </section>
@@ -198,11 +202,11 @@
   <div class="contenu">
     <span>© <span id="annee"></span> <span id="pied-nom"></span> · Tous droits réservés</span>
     <span>Une idée d’article ? <a id="pied-contact" href="#">Écris-moi</a></span>
+    <button class="lien-admin js-admin" type="button"><span class="cad">🔒</span> Espace auteure</button>
   </div>
 </footer>
 
 <a class="btn jaune haut" id="haut-btn" href="#haut" aria-label="Retour en haut">↑</a>
-<button class="btn adminbtn" id="admin-btn" type="button" aria-label="Espace auteure" title="Espace auteure">🔒</button>
 
 <dialog id="lecture" aria-labelledby="lecture-titre">
   <div class="lecture-haut">
@@ -231,7 +235,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
   /* ============ 1. FIREBASE (espace auteure + stockage des articles) ============
-     Colle ici les 4 valeurs de ta console Firebase (voir les étapes). */
+     Colle ici les 4 valeurs de ta console Firebase. */
   const FIREBASE = { apiKey: "", authDomain: "", projectId: "", appId: "" };
 
   /* ============ 2. COMMENTAIRES (Giscus) ============ */
@@ -244,7 +248,7 @@
     titreMot: "crimes.",
     intro: "Bienvenue ! Ici je raconte ceux qu’on n’oublie pas : les héros de légende, les écrivains, les artistes… et les meurtriers. Installe-toi, lis, et dis-moi ce que tu en penses en commentaire.",
     email: "ton.adresse@mail.com",
-    apropos: "Salut, moi c’est [ton prénom ou pseudo]. J’écris sur les histoires qui fascinent : celles qu’on se raconte depuis des siècles, celles des gens qui créent, et les plus sombres aussi.\n\nModifie ce texte depuis ton espace auteure (le cadenas en bas à gauche)."
+    apropos: "Salut, moi c’est [ton prénom ou pseudo]. J’écris sur les histoires qui fascinent : celles qu’on se raconte depuis des siècles, celles des gens qui créent, et les plus sombres aussi.\n\nModifie ce texte depuis ton espace auteure (le cadenas dans le menu)."
   };
   const DEMO = [
     { id: "a1", theme: "legendes", date: "2026-11-01", minutes: 5, titre: "Article de démonstration", resume: "Configure Firebase puis publie tes vrais articles depuis l’espace auteure.", texte: ["Ceci est un exemple. Il disparaîtra dès que Firebase sera configuré."] }
@@ -380,7 +384,7 @@
   const optTheme = Object.entries(univers).map(([k, u]) => `<option value="${k}">${u.emoji} ${u.nom}</option>`).join("");
   const msg = (t, err) => { const m = $("msg"); if (m) { m.textContent = t; m.className = "msg" + (err ? " erreur" : ""); } };
 
-  $("admin-btn").onclick = () => { vue(); ad.showModal(); };
+  document.querySelectorAll(".js-admin").forEach(b => b.onclick = () => { vue(); ad.showModal(); });
   $("admin-fermer").onclick = () => ad.close();
   ad.addEventListener("click", e => { if (e.target === ad) ad.close(); });
 
@@ -483,7 +487,7 @@
     db = firebase.firestore(); auth = firebase.auth();
     auth.onAuthStateChanged(u => {
       user = u;
-      $("admin-btn").textContent = u ? "✏️" : "🔒";
+      document.querySelectorAll(".cad").forEach(e => e.textContent = u ? "✏️" : "🔒");
       if (ad.open) vue();
     });
     db.collection("articles").onSnapshot(s => {
