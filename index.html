@@ -5,6 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Entre deux pages</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FF5FA8'/%3E%3Cpath d='M10 18 C10 16 12 14 16 14 L28 14 C30 14 31 15 32 18 C33 15 34 14 36 14 L48 14 C52 14 54 16 54 18 L54 46 C54 48 52 50 48 50 L36 50 C34 50 33 49 32 46 C31 49 30 50 28 50 L16 50 C12 50 10 48 10 46 Z' fill='%23FFF8E1' stroke='%232B1033' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M32 18 L32 46' stroke='%232B1033' stroke-width='2.5'/%3E%3Cpath d='M38 10 C36 18 30 26 24 32 L22 29 C29 22 35 14 36 8 Z' fill='%23FFD93D' stroke='%232B1033' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M24 32 L18 44' stroke='%232B1033' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='20' cy='46' r='3.5' fill='%23FF5FA8' stroke='%232B1033' stroke-width='1.6'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -41,18 +42,19 @@
     line-height: 1;
   }
   .logo-mark {
-    width: 42px; height: 42px; flex-shrink: 0;
+    width: 44px; height: 44px; flex-shrink: 0;
     border: 3px solid var(--prune); border-radius: 12px;
     background: var(--rose);
     box-shadow: 3px 3px 0 var(--prune);
     display: grid; place-items: center;
     transition: transform .15s, box-shadow .15s;
+    overflow: hidden;
   }
   .logo:hover .logo-mark {
     transform: translate(2px, 2px) rotate(-4deg);
     box-shadow: 1px 1px 0 var(--prune);
   }
-  .logo-mark svg { width: 26px; height: 26px; display: block; }
+  .logo-mark svg { width: 30px; height: 30px; display: block; }
   .logo-txt { display: flex; flex-direction: column; gap: 0; }
   .logo-txt b { font-size: 1.05em; letter-spacing: -.02em; }
   .logo-txt small {
@@ -135,7 +137,8 @@
 
   footer { background: var(--prune); color: var(--creme); padding: 3rem 5vw; font-family: var(--titre); }
   footer .contenu { display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
-  footer a { color: var(--jaune); }
+  footer a { color: var(--jaune); text-decoration: underline; text-underline-offset: 3px; }
+  footer a:hover { color: var(--rose); }
   .lien-admin { background: none; border: 0; color: var(--jaune); font: inherit; text-decoration: underline; cursor: pointer; }
   .haut { position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 30; display: none; }
 
@@ -228,13 +231,15 @@
     <span class="logo-mark" aria-hidden="true">
       <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
         <!-- Open book -->
-        <path d="M8 14h20c3 0 6 2 8 5 2-3 5-5 8-5h20v36H36c-3 0-6 1.5-8 4-2-2.5-5-4-8-4H8V14z" fill="#FFF8E1" stroke="#2B1033" stroke-width="3.5" stroke-linejoin="round"/>
-        <path d="M32 19v31" stroke="#2B1033" stroke-width="2.5"/>
-        <!-- Feather / quill -->
-        <path d="M42 8c-1 8-6 14-12 18l-2-3c7-5 11-11 12-17l2 2z" fill="#FFD93D" stroke="#2B1033" stroke-width="2.2" stroke-linejoin="round"/>
-        <path d="M30 26l-8 14" stroke="#2B1033" stroke-width="2.2" stroke-linecap="round"/>
-        <!-- Small blood drop / accent -->
-        <path d="M18 40c0 3 2.5 5 4 5s4-2 4-5c0-2.5-2-5-4-5s-4 2.5-4 5z" fill="#FF5FA8" stroke="#2B1033" stroke-width="1.8"/>
+        <path d="M6 16 C6 14 8 12 12 12 L28 12 C30 12 31 13 32 16 C33 13 34 12 36 12 L52 12 C56 12 58 14 58 16 L58 48 C58 50 56 52 52 52 L36 52 C34 52 33 51 32 48 C31 51 30 52 28 52 L12 52 C8 52 6 50 6 48 Z" fill="#FFF8E1" stroke="#2B1033" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M32 16 L32 48" stroke="#2B1033" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Elegant feather / quill centered -->
+        <path d="M38 10 C36 18 30 26 24 32 L22 29 C29 22 35 14 36 8 Z" fill="#FFD93D" stroke="#2B1033" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M24 32 L18 44" stroke="#2B1033" stroke-width="2.2" stroke-linecap="round"/>
+        <!-- Feather barbs suggestion -->
+        <path d="M28 22 L32 20 M26 26 L31 23 M24 30 L29 27" stroke="#2B1033" stroke-width="1.4" stroke-linecap="round"/>
+        <!-- Small accent drop -->
+        <circle cx="20" cy="46" r="3.5" fill="#FF5FA8" stroke="#2B1033" stroke-width="1.6"/>
       </svg>
     </span>
     <span class="logo-txt">
@@ -330,7 +335,10 @@
 <footer>
   <div class="contenu">
     <span>© <span id="annee"></span> <span id="pied-nom"></span> · Tous droits réservés</span>
-    <span>Une idée d’article ? <a id="pied-contact" href="#">Écris-moi</a></span>
+    <span>
+      <a href="#" id="lien-mentions">Mentions légales</a>
+      · Une idée d’article ? <a id="pied-contact" href="#">Écris-moi</a>
+    </span>
     <button class="lien-admin js-admin" type="button"><span class="cad">🔒</span> Espace créateur</button>
   </div>
 </footer>
@@ -377,6 +385,14 @@
   </div>
 </dialog>
 
+<dialog id="dlg-mentions" aria-labelledby="mentions-titre">
+  <div class="lecture-haut">
+    <h2 id="mentions-titre">Mentions légales</h2>
+    <button class="btn fermer" id="fermer-mentions" type="button" aria-label="Fermer">✕</button>
+  </div>
+  <div class="lecture-corps" id="mentions-corps" style="white-space:pre-wrap; max-width:42rem;"></div>
+</dialog>
+
 <!-- Toolbar d'annotation -->
 <div class="annot-toolbar" id="annot-toolbar">
   <button type="button" data-color="yellow" title="Surligner jaune" style="background:#FFE066">🟡</button>
@@ -413,6 +429,26 @@
     bandeau: true, pastille: true, afficherUne: true,
     motsBloques: "", maintenance: false,
     msgMaintenance: "Le site est en maintenance. Reviens très bientôt !",
+    mentionsLegales: `Éditeur du site
+Ce site « Entre deux pages » est édité à titre personnel et non commercial.
+
+Responsable de la publication
+Marilou Isnarr
+Contact : marilou.isnarr@icloud.com
+
+Hébergement
+Le site est hébergé par GitHub Pages (GitHub, Inc.) et utilise les services Firebase (Google LLC).
+
+Nature du contenu
+Les articles publiés sur ce site portent sur des sujets historiques, culturels et factuels (légendes, biographies d’écrivains et d’artistes, affaires criminelles connues). Ils ont un caractère purement informatif et pédagogique. Aucun contenu illégal, diffamatoire, ni apologie d’actes criminels n’y est diffusé.
+
+Propriété intellectuelle
+L’ensemble des textes originaux, de la structure et du design du site sont protégés. Toute reproduction non autorisée est interdite. Les images et documents éventuels sont utilisés dans le respect des droits d’auteur ou du domaine public.
+
+Données personnelles
+Les commentaires laissés par les visiteurs sont stockés uniquement pour permettre l’échange. Aucune donnée n’est revendue ni utilisée à des fins commerciales. Vous pouvez demander la suppression d’un commentaire en contactant l’éditrice.
+
+Ce site respecte la législation française en vigueur (notamment la loi pour la confiance dans l’économie numérique – LCEN).`,
     univers: {
       legendes:   { nom: "Légendes",   emoji: "🐉", desc: "Héros, monstres et récits qui traversent les siècles." },
       ecrivains:  { nom: "Écrivains",  emoji: "🪶", desc: "Les vies et les plumes derrière les grands livres." },
@@ -452,7 +488,8 @@
     ["titreUnivers","Titre section univers"],["sousUnivers","Sous-titre univers","area",2],
     ["titreUne","Titre À la une"],["titreArticles","Titre liste articles"],
     ["sousArticles","Sous-titre liste articles","area",2],
-    ["apropos","Texte À propos","area",8]
+    ["apropos","Texte À propos","area",8],
+    ["mentionsLegales","Mentions légales","area",14]
   ];
 
   const $ = id => document.getElementById(id);
@@ -531,6 +568,7 @@
     $("t-une").textContent=reg.titreUne; $("t-articles").textContent=reg.titreArticles; $("s-articles").textContent=reg.sousArticles;
     const z=$("apropos-txt"); z.innerHTML="";
     reg.apropos.split(/\n\s*\n/).forEach(t=>{ const p=document.createElement("p"); p.textContent=t; z.appendChild(p); });
+    $("mentions-corps").textContent = reg.mentionsLegales || "";
     appliquerLook(); appliquerMaint();
   }
 
@@ -777,6 +815,16 @@
     $("lecture-corps").innerHTML=""; blobsPdf.forEach(u=>URL.revokeObjectURL(u)); blobsPdf=[];
     annotBar.style.display="none";
   });
+
+  /* ========== MENTIONS LÉGALES ========== */
+  const dlgMentions = $("dlg-mentions");
+  $("lien-mentions").onclick = e => {
+    e.preventDefault();
+    $("mentions-corps").textContent = reg.mentionsLegales || "";
+    dlgMentions.showModal();
+  };
+  $("fermer-mentions").onclick = () => dlgMentions.close();
+  dlgMentions.addEventListener("click", e => { if(e.target === dlgMentions) dlgMentions.close(); });
 
   /* ========== ADMIN ========== */
   const barre=$("barre-code"), panneau=$("panneau"), pan=$("pan");
