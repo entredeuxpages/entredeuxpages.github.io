@@ -35,7 +35,30 @@
   .btn.mini { font-size: .85rem; padding: .2rem .8rem; box-shadow: 2px 2px 0 var(--prune); }
 
   .menu { position: sticky; top: 0; z-index: 20; background: var(--jaune); border-bottom: 4px solid var(--prune); padding: .8rem 5vw; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
-  .logo { font-family: var(--titre); font-weight: 800; font-size: 1.5rem; text-decoration: none; }
+  .logo {
+    font-family: var(--titre); font-weight: 800; font-size: 1.45rem;
+    text-decoration: none; display: flex; align-items: center; gap: .65rem;
+    line-height: 1;
+  }
+  .logo-mark {
+    width: 42px; height: 42px; flex-shrink: 0;
+    border: 3px solid var(--prune); border-radius: 12px;
+    background: var(--rose);
+    box-shadow: 3px 3px 0 var(--prune);
+    display: grid; place-items: center;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .logo:hover .logo-mark {
+    transform: translate(2px, 2px) rotate(-4deg);
+    box-shadow: 1px 1px 0 var(--prune);
+  }
+  .logo-mark svg { width: 26px; height: 26px; display: block; }
+  .logo-txt { display: flex; flex-direction: column; gap: 0; }
+  .logo-txt b { font-size: 1.05em; letter-spacing: -.02em; }
+  .logo-txt small {
+    font-size: .62rem; font-weight: 800; opacity: .75;
+    letter-spacing: .04em; text-transform: uppercase;
+  }
   .menu nav { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; font-family: var(--titre); font-weight: 800; }
   .menu nav a:not(.btn) { text-decoration: none; }
   .menu nav a:not(.btn):hover { text-decoration: underline; text-decoration-thickness: 3px; text-decoration-color: var(--rose); }
@@ -201,7 +224,24 @@
 <body>
 
 <div class="menu">
-  <a class="logo" href="#haut" id="logo"></a>
+  <a class="logo" href="#haut" id="logo">
+    <span class="logo-mark" aria-hidden="true">
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Open book -->
+        <path d="M8 14h20c3 0 6 2 8 5 2-3 5-5 8-5h20v36H36c-3 0-6 1.5-8 4-2-2.5-5-4-8-4H8V14z" fill="#FFF8E1" stroke="#2B1033" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M32 19v31" stroke="#2B1033" stroke-width="2.5"/>
+        <!-- Feather / quill -->
+        <path d="M42 8c-1 8-6 14-12 18l-2-3c7-5 11-11 12-17l2 2z" fill="#FFD93D" stroke="#2B1033" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M30 26l-8 14" stroke="#2B1033" stroke-width="2.2" stroke-linecap="round"/>
+        <!-- Small blood drop / accent -->
+        <path d="M18 40c0 3 2.5 5 4 5s4-2 4-5c0-2.5-2-5-4-5s-4 2.5-4 5z" fill="#FF5FA8" stroke="#2B1033" stroke-width="1.8"/>
+      </svg>
+    </span>
+    <span class="logo-txt">
+      <b id="logo-nom"></b>
+      <small>entre deux pages</small>
+    </span>
+  </a>
   <nav>
     <a href="#univers">Univers</a>
     <a href="#articles">Articles</a>
@@ -356,7 +396,7 @@
   const ADMIN_EMAIL = "marilou.isnarr@icloud.com";
 
   const DEF = {
-    nomSite: "Mon site",
+    nomSite: "Entre deux pages",
     titreDebut: "Légendes, plumes, pinceaux et",
     titreMot: "crimes.",
     intro: "Bienvenue ! Ici je raconte ceux qu’on n’oublie pas : les héros de légende, les écrivains, les artistes… et les meurtriers. Installe-toi, lis, et dis-moi ce que tu en penses en commentaire.",
@@ -483,7 +523,7 @@
     $("pill-maint").hidden=!(on&&user);
   }
   function appliquerReg(){
-    $("logo").textContent=reg.nomSite+" ✦";
+    $("logo-nom").textContent=reg.nomSite;
     $("h1-debut").textContent=reg.titreDebut; $("h1-mot").textContent=reg.titreMot;
     $("intro").textContent=reg.intro; $("pied-nom").textContent=reg.nomSite; document.title=reg.nomSite;
     ["contact","pied-contact"].forEach(i=>{ $(i).href="mailto:"+reg.email; if(i==="pied-contact") $(i).textContent=reg.email||"Écris-moi"; });
